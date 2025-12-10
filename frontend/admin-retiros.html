@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Retiros - Painel Administrativo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5530;
+            --primary-light: #4a7c59;
+            --primary-dark: #1a3c23;
+            --secondary: #d4af37;
+            --secondary-light: #e8c766;
+            --accent: #8b4513;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .admin-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .admin-logo-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .admin-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--light-gray);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-link.active {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            color: var(--secondary);
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 15px 20px;
+        }
+
+        /* Content */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #bb2d3b;
+        }
+
+        /* Filter */
+        .filter-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            padding-right: 40px;
+        }
+
+        /* Retreats Grid */
+        .retreats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .retreat-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .retreat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .retreat-image {
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 14px;
+            position: relative;
+        }
+
+        .retreat-image i {
+            font-size: 50px;
+            opacity: 0.5;
+        }
+
+        .retreat-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .retreat-content {
+            padding: 25px;
+        }
+
+        .retreat-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .retreat-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .retreat-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .retreat-meta i {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        .retreat-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .retreat-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .retreat-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-active { background: #d4edda; color: #155724; }
+        .status-completed { background: #e2e3e5; color: #383d41; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            
+            .sidebar-link {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .sidebar-link:hover,
+            .sidebar-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .retreats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .retreat-details {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .retreat-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- VERIFICAÇÃO DE AUTENTICAÇÃO -->
+    <script>
+        // Verificar se está logado
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn');
+            
+            if (isLoggedIn !== 'true') {
+                // Se não estiver logado, redirecionar para login
+                window.location.href = 'admin-login.html';
+            }
+            // Se estiver logado, continuar carregando a página
+        });
+    </script>
+
+    <header class="admin-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="admin-logo">
+                    <div class="admin-logo-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <div>
+                        <div class="admin-logo-text">Painel Administrativo</div>
+                        <div class="admin-logo-subtitle">Paróquia São José Operário</div>
+                    </div>
+                </div>
+                <div class="admin-nav">
+                    <a href="index.html" class="admin-nav-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Ver Site
+                    </a>
+                    <button class="admin-nav-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="admin-dashboard.html" class="sidebar-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-missas.html" class="sidebar-link">
+                            <i class="fas fa-church"></i>
+                            Missas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-eventos.html" class="sidebar-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Eventos
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-escalas.html" class="sidebar-link">
+                            <i class="fas fa-users"></i>
+                            Escalas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-retiros.html" class="sidebar-link active">
+                            <i class="fas fa-praying-hands"></i>
+                            Retiros
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-enciclopedias.html" class="sidebar-link">
+                            <i class="fas fa-book"></i>
+                            Biblioteca
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-usuarios.html" class="sidebar-link">
+                            <i class="fas fa-user-cog"></i>
+                            Usuários
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-config.html" class="sidebar-link">
+                            <i class="fas fa-cog"></i>
+                            Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-praying-hands"></i> Gerenciar Retiros
+                </h1>
+                <button class="btn" onclick="openRetreatModal()">
+                    <i class="fas fa-plus"></i> Novo Retiro
+                </button>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label>Filtrar por Status</label>
+                    <select class="form-control" id="filterStatus" onchange="filterRetreats()">
+                        <option value="all">Todos os Status</option>
+                        <option value="active">Ativos</option>
+                        <option value="completed">Concluídos</option>
+                        <option value="cancelled">Cancelados</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Filtrar por Tipo</label>
+                    <select class="form-control" id="filterType" onchange="filterRetreats()">
+                        <option value="all">Todos os Tipos</option>
+                        <option value="silence">Silêncio e Oração</option>
+                        <option value="couples">Casais</option>
+                        <option value="youth">Juventude</option>
+                        <option value="healing">Cura Interior</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Ordenar por</label>
+                    <select class="form-control" id="filterSort" onchange="filterRetreats()">
+                        <option value="date_asc">Data (Mais Próximo)</option>
+                        <option value="date_desc">Data (Mais Distante)</option>
+                        <option value="name_asc">Nome (A-Z)</option>
+                        <option value="name_desc">Nome (Z-A)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Buscar</label>
+                    <input type="text" class="form-control" placeholder="Buscar por nome..." oninput="filterRetreats()">
+                </div>
+            </div>
+
+            <div class="retreats-grid" id="retreatsList">
+                <!-- Retiros serão carregados aqui -->
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-pray"></i>
+                <h3>Nenhum retiro encontrado</h3>
+                <p>Não há retiros que correspondam aos filtros selecionados. Tente ajustar os critérios de busca ou crie um novo retiro.</p>
+                <button class="btn" onclick="clearFilters()">
+                    <i class="fas fa-times"></i> Limpar Filtros
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Retiro -->
+    <div class="modal" id="retreatModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Novo Retiro</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="retreatForm">
+                    <input type="hidden" id="retreatId">
+                    
+                    <div class="form-group">
+                        <label for="retreatTitle">Título do Retiro *</label>
+                        <input type="text" id="retreatTitle" class="form-control" placeholder="Ex: Retiro de Silêncio e Oração" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retreatDescription">Descrição *</label>
+                        <textarea id="retreatDescription" class="form-control" rows="4" placeholder="Descreva o retiro, seus objetivos e benefícios..." required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="retreatStartDate">Data de Início *</label>
+                            <input type="date" id="retreatStartDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="retreatEndDate">Data de Término *</label>
+                            <input type="date" id="retreatEndDate" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="retreatLocation">Local *</label>
+                            <input type="text" id="retreatLocation" class="form-control" placeholder="Ex: Casa de Retiros Monte Carmelo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="retreatType">Tipo de Retiro *</label>
+                            <select id="retreatType" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <option value="silence">Silêncio e Oração</option>
+                                <option value="couples">Casais</option>
+                                <option value="youth">Juventude</option>
+                                <option value="healing">Cura Interior</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="retreatPrice">Valor (R$)</label>
+                            <input type="number" id="retreatPrice" class="form-control" placeholder="0.00" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="retreatCapacity">Vagas</label>
+                            <input type="number" id="retreatCapacity" class="form-control" placeholder="Número de vagas disponíveis">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retreatResponsible">Responsável</label>
+                        <input type="text" id="retreatResponsible" class="form-control" placeholder="Ex: Pe. João Silva">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retreatStatus">Status</label>
+                        <select id="retreatStatus" class="form-control">
+                            <option value="active">Ativo</option>
+                            <option value="completed">Concluído</option>
+                            <option value="cancelled">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retreatRequirements">Requisitos/Observações</label>
+                        <textarea id="retreatRequirements" class="form-control" rows="3" placeholder="O que os participantes devem levar, observações importantes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retreatContact">Contato para Inscrições</label>
+                        <input type="text" id="retreatContact" class="form-control" placeholder="Telefone ou email para contato">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn" onclick="saveRetreat()">Salvar Retiro</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de exemplo
+        let retreatsData = [
+            {
+                id: 1,
+                title: "Retiro de Silêncio e Oração",
+                description: "Um fim de semana dedicado ao silêncio, à oração e à contemplação. Uma oportunidade para se desconectar do mundo e se conectar com Deus.",
+                startDate: "2025-05-20",
+                endDate: "2025-05-22",
+                location: "Casa de Retiros Monte Carmelo",
+                type: "silence",
+                price: 250.00,
+                capacity: 30,
+                responsible: "Pe. João Silva",
+                status: "active",
+                requirements: "Bíblia, caderno para anotações, roupa de cama e banho, roupas confortáveis.",
+                contact: "(11) 9999-9999",
+                createdAt: "2025-04-10"
+            },
+            {
+                id: 2,
+                title: "Encontro de Casais",
+                description: "Um retiro especial para casais que desejam fortalecer sua relação à luz da fé. Momentos de partilha, reflexão e renovação do amor conjugal.",
+                startDate: "2025-06-10",
+                endDate: "2025-06-12",
+                location: "Centro de Espiritualidade São José",
+                type: "couples",
+                price: 400.00,
+                capacity: 20,
+                responsible: "Pe. Carlos Oliveira",
+                status: "active",
+                requirements: "Trazer foto do casamento, Bíblia.",
+                contact: "casais@paroquia.org",
+                createdAt: "2025-04-12"
+            },
+            {
+                id: 3,
+                title: "Retiro Jovem em Ação",
+                description: "Um retiro dinâmico e envolvente para jovens que buscam aprofundar sua fé através de atividades, músicas, partilhas e momentos de oração.",
+                startDate: "2025-07-15",
+                endDate: "2025-07-17",
+                location: "Acampamento São Francisco",
+                type: "youth",
+                price: 180.00,
+                capacity: 50,
+                responsible: "Pe. Maria Santos",
+                status: "active",
+                requirements: "Roupa para atividades, Bíblia, instrumento musical (se tiver).",
+                contact: "juventude@paroquia.org",
+                createdAt: "2025-04-05"
+            },
+            {
+                id: 4,
+                title: "Retiro de Cura Interior",
+                description: "Um retiro profundo para quem busca cura emocional e espiritual. Através da oração, do perdão e da reconciliação, encontre a paz interior.",
+                startDate: "2025-04-05",
+                endDate: "2025-04-07",
+                location: "Casa de Retiros Divina Misericórdia",
+                type: "healing",
+                price: 300.00,
+                capacity: 25,
+                responsible: "Pe. Antônio Mendes",
+                status: "completed",
+                requirements: "Trazer carta para queima (opcional), caderno para anotações.",
+                contact: "(11) 8888-8888",
+                createdAt: "2025-03-01"
+            }
+        ];
+
+        let editingRetreatId = null;
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair do painel administrativo?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        function loadRetreats() {
+            const retreatsList = document.getElementById('retreatsList');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Aplicar filtros
+            const filteredRetreats = filterRetreatsData();
+            
+            if (filteredRetreats.length === 0) {
+                retreatsList.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            retreatsList.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            retreatsList.innerHTML = filteredRetreats.map(retreat => {
+                const startDate = new Date(retreat.startDate);
+                const endDate = new Date(retreat.endDate);
+                const formattedStart = startDate.toLocaleDateString('pt-BR');
+                const formattedEnd = endDate.toLocaleDateString('pt-BR');
+                const duration = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+                
+                const typeNames = {
+                    'silence': 'Silêncio e Oração',
+                    'couples': 'Casais',
+                    'youth': 'Juventude',
+                    'healing': 'Cura Interior',
+                    'other': 'Outro'
+                };
+                
+                const statusNames = {
+                    'active': 'Ativo',
+                    'completed': 'Concluído',
+                    'cancelled': 'Cancelado'
+                };
+                
+                const badgeColors = {
+                    'silence': '#4a7c59',
+                    'couples': '#d4af37',
+                    'youth': '#3b82f6',
+                    'healing': '#8b4513',
+                    'other': '#6c757d'
+                };
+                
+                return `
+                    <div class="retreat-card">
+                        <div class="retreat-image">
+                            <i class="fas fa-${retreat.type === 'youth' ? 'users' : retreat.type === 'couples' ? 'heart' : 'pray'}"></i>
+                            <div class="retreat-badge" style="background: ${badgeColors[retreat.type]};">
+                                ${typeNames[retreat.type]}
+                            </div>
+                        </div>
+                        <div class="retreat-content">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <h3 class="retreat-title">${retreat.title}</h3>
+                                <span class="status-badge status-${retreat.status}">${statusNames[retreat.status]}</span>
+                            </div>
+                            <p class="retreat-description">${retreat.description}</p>
+                            <div class="retreat-meta">
+                                <span><i class="far fa-calendar"></i> ${formattedStart} a ${formattedEnd}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${retreat.location}</span>
+                                <span><i class="fas fa-user-alt"></i> ${retreat.responsible}</span>
+                            </div>
+                            <div class="retreat-details">
+                                <div>
+                                    <div class="retreat-price">R$ ${retreat.price.toFixed(2)}</div>
+                                    <small style="color: var(--gray);">${duration} dias • ${retreat.capacity} vagas</small>
+                                </div>
+                                <div class="retreat-actions">
+                                    <button class="btn btn-outline" onclick="editRetreat(${retreat.id})">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-danger" onclick="deleteRetreat(${retreat.id})">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterRetreatsData() {
+            const statusFilter = document.getElementById('filterStatus').value;
+            const typeFilter = document.getElementById('filterType').value;
+            const sortFilter = document.getElementById('filterSort').value;
+            const searchFilter = document.querySelector('#retreatModal ~ .filter-section input[type="text"]').value.toLowerCase();
+            
+            let filtered = [...retreatsData];
+            
+            // Filtrar por status
+            if (statusFilter !== 'all') {
+                filtered = filtered.filter(retreat => retreat.status === statusFilter);
+            }
+            
+            // Filtrar por tipo
+            if (typeFilter !== 'all') {
+                filtered = filtered.filter(retreat => retreat.type === typeFilter);
+            }
+            
+            // Filtrar por busca
+            if (searchFilter) {
+                filtered = filtered.filter(retreat => 
+                    retreat.title.toLowerCase().includes(searchFilter) ||
+                    retreat.description.toLowerCase().includes(searchFilter) ||
+                    retreat.location.toLowerCase().includes(searchFilter) ||
+                    retreat.responsible.toLowerCase().includes(searchFilter)
+                );
+            }
+            
+            // Ordenar
+            filtered.sort((a, b) => {
+                const dateA = new Date(a.startDate);
+                const dateB = new Date(b.startDate);
+                
+                switch (sortFilter) {
+                    case 'date_asc':
+                        return dateA - dateB;
+                    case 'date_desc':
+                        return dateB - dateA;
+                    case 'name_asc':
+                        return a.title.localeCompare(b.title);
+                    case 'name_desc':
+                        return b.title.localeCompare(a.title);
+                    default:
+                        return dateA - dateB;
+                }
+            });
+            
+            return filtered;
+        }
+
+        function filterRetreats() {
+            loadRetreats();
+        }
+
+        function clearFilters() {
+            document.getElementById('filterStatus').value = 'all';
+            document.getElementById('filterType').value = 'all';
+            document.getElementById('filterSort').value = 'date_asc';
+            document.querySelector('#retreatModal ~ .filter-section input[type="text"]').value = '';
+            loadRetreats();
+        }
+
+        function openRetreatModal(retreatId = null) {
+            const modal = document.getElementById('retreatModal');
+            const form = document.getElementById('retreatForm');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            form.reset();
+            
+            if (retreatId) {
+                // Editar retiro existente
+                const retreat = retreatsData.find(r => r.id === retreatId);
+                if (retreat) {
+                    editingRetreatId = retreatId;
+                    modalTitle.textContent = 'Editar Retiro';
+                    
+                    document.getElementById('retreatId').value = retreat.id;
+                    document.getElementById('retreatTitle').value = retreat.title;
+                    document.getElementById('retreatDescription').value = retreat.description;
+                    document.getElementById('retreatStartDate').value = retreat.startDate;
+                    document.getElementById('retreatEndDate').value = retreat.endDate;
+                    document.getElementById('retreatLocation').value = retreat.location;
+                    document.getElementById('retreatType').value = retreat.type;
+                    document.getElementById('retreatPrice').value = retreat.price;
+                    document.getElementById('retreatCapacity').value = retreat.capacity;
+                    document.getElementById('retreatResponsible').value = retreat.responsible;
+                    document.getElementById('retreatStatus').value = retreat.status;
+                    document.getElementById('retreatRequirements').value = retreat.requirements || '';
+                    document.getElementById('retreatContact').value = retreat.contact || '';
+                }
+            } else {
+                // Novo retiro
+                editingRetreatId = null;
+                modalTitle.textContent = 'Novo Retiro';
+                
+                // Definir data mínima como hoje
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('retreatStartDate').min = today;
+                document.getElementById('retreatStartDate').value = today;
+                
+                // Definir data final como 2 dias depois
+                const endDate = new Date();
+                endDate.setDate(endDate.getDate() + 2);
+                document.getElementById('retreatEndDate').min = today;
+                document.getElementById('retreatEndDate').value = endDate.toISOString().split('T')[0];
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('retreatModal').classList.remove('active');
+        }
+
+        function saveRetreat() {
+            const form = document.getElementById('retreatForm');
+            const retreatId = document.getElementById('retreatId').value;
+            const title = document.getElementById('retreatTitle').value;
+            const description = document.getElementById('retreatDescription').value;
+            const startDate = document.getElementById('retreatStartDate').value;
+            const endDate = document.getElementById('retreatEndDate').value;
+            const location = document.getElementById('retreatLocation').value;
+            const type = document.getElementById('retreatType').value;
+            const price = parseFloat(document.getElementById('retreatPrice').value) || 0;
+            const capacity = parseInt(document.getElementById('retreatCapacity').value) || 0;
+            const responsible = document.getElementById('retreatResponsible').value;
+            const status = document.getElementById('retreatStatus').value;
+            const requirements = document.getElementById('retreatRequirements').value;
+            const contact = document.getElementById('retreatContact').value;
+            
+            // Validação básica
+            if (!title || !description || !startDate || !endDate || !location || !type) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            if (new Date(endDate) < new Date(startDate)) {
+                alert('A data de término não pode ser anterior à data de início.');
+                return;
+            }
+            
+            if (editingRetreatId) {
+                // Atualizar retiro existente
+                const index = retreatsData.findIndex(r => r.id == editingRetreatId);
+                if (index !== -1) {
+                    retreatsData[index] = {
+                        ...retreatsData[index],
+                        title,
+                        description,
+                        startDate,
+                        endDate,
+                        location,
+                        type,
+                        price,
+                        capacity,
+                        responsible,
+                        status,
+                        requirements,
+                        contact
+                    };
+                }
+            } else {
+                // Criar novo retiro
+                const newId = Math.max(...retreatsData.map(r => r.id), 0) + 1;
+                retreatsData.push({
+                    id: newId,
+                    title,
+                    description,
+                    startDate,
+                    endDate,
+                    location,
+                    type,
+                    price,
+                    capacity,
+                    responsible,
+                    status,
+                    requirements,
+                    contact,
+                    createdAt: new Date().toISOString().split('T')[0]
+                });
+            }
+            
+            loadRetreats();
+            closeModal();
+            showSuccessMessage('Retiro salvo com sucesso!');
+        }
+
+        function editRetreat(id) {
+            openRetreatModal(id);
+        }
+
+        function deleteRetreat(id) {
+            if (confirm('Tem certeza que deseja excluir este retiro? Esta ação não pode ser desfeita.')) {
+                retreatsData = retreatsData.filter(r => r.id !== id);
+                loadRetreats();
+                showSuccessMessage('Retiro excluído com sucesso!');
+            }
+        }
+
+        function showSuccessMessage(message) {
+            alert(message);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRetreats();
+            
+            // Definir data mínima
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('retreatStartDate').min = today;
+            document.getElementById('retreatEndDate').min = today;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Eventos - Painel Administrativo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5530;
+            --primary-light: #4a7c59;
+            --primary-dark: #1a3c23;
+            --secondary: #d4af37;
+            --secondary-light: #e8c766;
+            --accent: #8b4513;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .admin-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .admin-logo-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .admin-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--light-gray);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-link.active {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            color: var(--secondary);
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 15px 20px;
+        }
+
+        /* Content */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #bb2d3b;
+        }
+
+        /* Filter */
+        .filter-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            padding-right: 40px;
+        }
+
+        /* Events List */
+        .events-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 20px;
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-date {
+            background: var(--primary);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .event-day {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .event-details {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .event-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .event-meta i {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        .event-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .event-tag {
+            background: var(--light);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .event-tag.missa { background: #e3f2fd; color: #1565c0; }
+        .event-tag.formacao { background: #f3e5f5; color: #7b1fa2; }
+        .event-tag.festa { background: #fff3e0; color: #ef6c00; }
+        .event-tag.servico { background: #e8f5e9; color: #2e7d32; }
+
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .status-published { background: #d4edda; color: #155724; }
+        .status-draft { background: #fff3cd; color: #856404; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .empty-state i {
+            font-size: 60px;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            
+            .sidebar-link {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .sidebar-link:hover,
+            .sidebar-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-card {
+                flex-direction: column;
+            }
+            
+            .event-date {
+                align-self: flex-start;
+            }
+            
+            .event-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .filter-section {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+            
+            .event-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Verificar autenticação -->
+    <script>
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+
+    <header class="admin-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="admin-logo">
+                    <div class="admin-logo-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div>
+                        <div class="admin-logo-text">Painel Administrativo</div>
+                        <div class="admin-logo-subtitle">Paróquia São José Operário</div>
+                    </div>
+                </div>
+                <div class="admin-nav">
+                    <a href="index.html" class="admin-nav-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Ver Site
+                    </a>
+                    <button class="admin-nav-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="admin-dashboard.html" class="sidebar-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-missas.html" class="sidebar-link">
+                            <i class="fas fa-church"></i>
+                            Missas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-eventos.html" class="sidebar-link active">
+                            <i class="fas fa-calendar-alt"></i>
+                            Eventos
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-escalas.html" class="sidebar-link">
+                            <i class="fas fa-users"></i>
+                            Escalas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-retiros.html" class="sidebar-link">
+                            <i class="fas fa-praying-hands"></i>
+                            Retiros
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-enciclopedias.html" class="sidebar-link">
+                            <i class="fas fa-book"></i>
+                            Biblioteca
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-usuarios.html" class="sidebar-link">
+                            <i class="fas fa-user-cog"></i>
+                            Usuários
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-config.html" class="sidebar-link">
+                            <i class="fas fa-cog"></i>
+                            Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-calendar-alt"></i> Gerenciar Eventos
+                </h1>
+                <button class="btn" onclick="openEventModal()">
+                    <i class="fas fa-plus"></i> Novo Evento
+                </button>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label>Filtrar por Categoria</label>
+                    <select class="form-control" id="filterCategory" onchange="filterEvents()">
+                        <option value="all">Todas as Categorias</option>
+                        <option value="missa">Missas</option>
+                        <option value="formacao">Formações</option>
+                        <option value="festa">Festas</option>
+                        <option value="servico">Serviços</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Filtrar por Status</label>
+                    <select class="form-control" id="filterStatus" onchange="filterEvents()">
+                        <option value="all">Todos os Status</option>
+                        <option value="published">Publicados</option>
+                        <option value="draft">Rascunhos</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Ordenar por</label>
+                    <select class="form-control" id="filterSort" onchange="filterEvents()">
+                        <option value="date_asc">Data (Mais Próximo)</option>
+                        <option value="date_desc">Data (Mais Distante)</option>
+                        <option value="title_asc">Título (A-Z)</option>
+                        <option value="title_desc">Título (Z-A)</option>
+                    </select>
+                </div>
+                <button class="btn btn-outline" onclick="clearFilters()">
+                    <i class="fas fa-times"></i> Limpar Filtros
+                </button>
+            </div>
+
+            <div class="events-list" id="eventsList">
+                <!-- Eventos serão carregados aqui -->
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-calendar-times"></i>
+                <h3>Nenhum evento encontrado</h3>
+                <p>Não há eventos que correspondam aos filtros selecionados. Tente ajustar os critérios de busca.</p>
+                <button class="btn" onclick="clearFilters()">
+                    <i class="fas fa-times"></i> Limpar Filtros
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Evento -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Novo Evento</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <input type="hidden" id="eventId">
+                    
+                    <div class="form-group">
+                        <label for="eventTitle">Título do Evento *</label>
+                        <input type="text" id="eventTitle" class="form-control" placeholder="Ex: Festa de São Francisco" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDescription">Descrição *</label>
+                        <textarea id="eventDescription" class="form-control" rows="4" placeholder="Descreva o evento..." required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate">Data *</label>
+                            <input type="date" id="eventDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime">Hora *</label>
+                            <input type="time" id="eventTime" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventLocation">Local *</label>
+                            <input type="text" id="eventLocation" class="form-control" placeholder="Ex: Igreja Matriz" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventCategory">Categoria *</label>
+                            <select id="eventCategory" class="form-control" required>
+                                <option value="">Selecione...</option>
+                                <option value="missa">Missa</option>
+                                <option value="formacao">Formação</option>
+                                <option value="festa">Festa</option>
+                                <option value="servico">Serviço</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventResponsible">Responsável</label>
+                        <input type="text" id="eventResponsible" class="form-control" placeholder="Ex: Pe. João Silva">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventStatus">Status</label>
+                        <select id="eventStatus" class="form-control">
+                            <option value="published">Publicado</option>
+                            <option value="draft">Rascunho</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventNotes">Notas Internas (opcional)</label>
+                        <textarea id="eventNotes" class="form-control" rows="3" placeholder="Informações internas sobre o evento..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn" onclick="saveEvent()">Salvar Evento</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de exemplo
+        let eventsData = [
+            {
+                id: 1,
+                title: "Festa de São Francisco",
+                description: "Celebração especial em honra ao nosso padroeiro com missa solene, procissão e festa comunitária.",
+                date: "2025-05-15",
+                time: "19:00",
+                location: "Igreja Matriz",
+                category: "festa",
+                responsible: "Pe. João Silva",
+                status: "published",
+                notes: "Trazer decoração especial",
+                createdAt: "2025-04-10"
+            },
+            {
+                id: 2,
+                title: "Curso de Batismo",
+                description: "Encontro formativo para pais e padrinhos que desejam batizar suas crianças na comunidade.",
+                date: "2025-05-18",
+                time: "20:00",
+                location: "Salão Paroquial",
+                category: "formacao",
+                responsible: "Pe. Carlos Oliveira",
+                status: "published",
+                notes: "Material impresso necessário",
+                createdAt: "2025-04-12"
+            },
+            {
+                id: 3,
+                title: "Missa com Unção dos Enfermos",
+                description: "Celebração especial com o sacramento da unção para idosos, enfermos e todos que necessitam de cura.",
+                date: "2025-05-20",
+                time: "15:00",
+                location: "Igreja Matriz",
+                category: "missa",
+                responsible: "Pe. Carlos Oliveira",
+                status: "published",
+                notes: "Preparar sala para recepção",
+                createdAt: "2025-04-05"
+            },
+            {
+                id: 4,
+                title: "Encontro de Mães",
+                description: "Momento de partilha, oração e formação para mães de todas as idades. Creche disponível para crianças.",
+                date: "2025-05-25",
+                time: "14:30",
+                location: "Salão Comunitário",
+                category: "formacao",
+                responsible: "Pe. Maria Santos",
+                status: "draft",
+                notes: "Confirmar disponibilidade da creche",
+                createdAt: "2025-04-15"
+            }
+        ];
+
+        let editingEventId = null;
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair do painel administrativo?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        function loadEvents() {
+            const eventsList = document.getElementById('eventsList');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Aplicar filtros
+            const filteredEvents = filterEventsData();
+            
+            if (filteredEvents.length === 0) {
+                eventsList.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            eventsList.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            eventsList.innerHTML = filteredEvents.map(event => {
+                const date = new Date(event.date);
+                const day = date.getDate();
+                const month = date.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase();
+                const formattedDate = date.toLocaleDateString('pt-BR');
+                
+                const categoryNames = {
+                    'missa': 'Missa',
+                    'formacao': 'Formação',
+                    'festa': 'Festa',
+                    'servico': 'Serviço',
+                    'outro': 'Outro'
+                };
+                
+                const statusNames = {
+                    'published': 'Publicado',
+                    'draft': 'Rascunho'
+                };
+                
+                return `
+                    <div class="event-card">
+                        <div class="event-date">
+                            <div class="event-day">${day}</div>
+                            <div class="event-month">${month}</div>
+                        </div>
+                        <div class="event-details">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <h3 class="event-title">${event.title}</h3>
+                                <span class="status-badge status-${event.status}">${statusNames[event.status]}</span>
+                            </div>
+                            <p class="event-description">${event.description}</p>
+                            <div class="event-meta">
+                                <span><i class="far fa-clock"></i> ${event.time}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                                ${event.responsible ? `<span><i class="fas fa-user-alt"></i> ${event.responsible}</span>` : ''}
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="event-tag ${event.category}">${categoryNames[event.category]}</span>
+                                <small style="color: var(--gray);">Criado em: ${new Date(event.createdAt).toLocaleDateString('pt-BR')}</small>
+                            </div>
+                            <div class="event-actions">
+                                <button class="btn btn-outline" onclick="editEvent(${event.id})">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="btn btn-outline" onclick="duplicateEvent(${event.id})">
+                                    <i class="fas fa-copy"></i> Duplicar
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteEvent(${event.id})">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterEventsData() {
+            const categoryFilter = document.getElementById('filterCategory').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            const sortFilter = document.getElementById('filterSort').value;
+            
+            let filtered = [...eventsData];
+            
+            // Filtrar por categoria
+            if (categoryFilter !== 'all') {
+                filtered = filtered.filter(event => event.category === categoryFilter);
+            }
+            
+            // Filtrar por status
+            if (statusFilter !== 'all') {
+                filtered = filtered.filter(event => event.status === statusFilter);
+            }
+            
+            // Ordenar
+            filtered.sort((a, b) => {
+                const dateA = new Date(a.date + 'T' + a.time);
+                const dateB = new Date(b.date + 'T' + b.time);
+                
+                switch (sortFilter) {
+                    case 'date_asc':
+                        return dateA - dateB;
+                    case 'date_desc':
+                        return dateB - dateA;
+                    case 'title_asc':
+                        return a.title.localeCompare(b.title);
+                    case 'title_desc':
+                        return b.title.localeCompare(a.title);
+                    default:
+                        return dateA - dateB;
+                }
+            });
+            
+            return filtered;
+        }
+
+        function filterEvents() {
+            loadEvents();
+        }
+
+        function clearFilters() {
+            document.getElementById('filterCategory').value = 'all';
+            document.getElementById('filterStatus').value = 'all';
+            document.getElementById('filterSort').value = 'date_asc';
+            loadEvents();
+        }
+
+        function openEventModal(eventId = null) {
+            const modal = document.getElementById('eventModal');
+            const form = document.getElementById('eventForm');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            form.reset();
+            
+            if (eventId) {
+                // Editar evento existente
+                const event = eventsData.find(e => e.id === eventId);
+                if (event) {
+                    editingEventId = eventId;
+                    modalTitle.textContent = 'Editar Evento';
+                    
+                    document.getElementById('eventId').value = event.id;
+                    document.getElementById('eventTitle').value = event.title;
+                    document.getElementById('eventDescription').value = event.description;
+                    document.getElementById('eventDate').value = event.date;
+                    document.getElementById('eventTime').value = event.time;
+                    document.getElementById('eventLocation').value = event.location;
+                    document.getElementById('eventCategory').value = event.category;
+                    document.getElementById('eventResponsible').value = event.responsible || '';
+                    document.getElementById('eventStatus').value = event.status;
+                    document.getElementById('eventNotes').value = event.notes || '';
+                }
+            } else {
+                // Novo evento
+                editingEventId = null;
+                modalTitle.textContent = 'Novo Evento';
+                
+                // Definir data mínima como hoje
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('eventDate').min = today;
+                document.getElementById('eventDate').value = today;
+                
+                // Definir hora padrão como 19:00
+                document.getElementById('eventTime').value = '19:00';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').classList.remove('active');
+        }
+
+        function saveEvent() {
+            const form = document.getElementById('eventForm');
+            const eventId = document.getElementById('eventId').value;
+            const title = document.getElementById('eventTitle').value;
+            const description = document.getElementById('eventDescription').value;
+            const date = document.getElementById('eventDate').value;
+            const time = document.getElementById('eventTime').value;
+            const location = document.getElementById('eventLocation').value;
+            const category = document.getElementById('eventCategory').value;
+            const responsible = document.getElementById('eventResponsible').value;
+            const status = document.getElementById('eventStatus').value;
+            const notes = document.getElementById('eventNotes').value;
+            
+            // Validação básica
+            if (!title || !description || !date || !time || !location || !category) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            if (editingEventId) {
+                // Atualizar evento existente
+                const index = eventsData.findIndex(e => e.id == editingEventId);
+                if (index !== -1) {
+                    eventsData[index] = {
+                        ...eventsData[index],
+                        title,
+                        description,
+                        date,
+                        time,
+                        location,
+                        category,
+                        responsible,
+                        status,
+                        notes
+                    };
+                }
+            } else {
+                // Criar novo evento
+                const newId = Math.max(...eventsData.map(e => e.id), 0) + 1;
+                eventsData.push({
+                    id: newId,
+                    title,
+                    description,
+                    date,
+                    time,
+                    location,
+                    category,
+                    responsible,
+                    status,
+                    notes,
+                    createdAt: new Date().toISOString().split('T')[0]
+                });
+            }
+            
+            loadEvents();
+            closeModal();
+            showSuccessMessage('Evento salvo com sucesso!');
+        }
+
+        function editEvent(id) {
+            openEventModal(id);
+        }
+
+        function duplicateEvent(id) {
+            const originalEvent = eventsData.find(e => e.id === id);
+            if (!originalEvent) return;
+            
+            const newId = Math.max(...eventsData.map(e => e.id), 0) + 1;
+            const duplicatedEvent = {
+                ...originalEvent,
+                id: newId,
+                title: `Cópia - ${originalEvent.title}`,
+                status: 'draft',
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            
+            eventsData.push(duplicatedEvent);
+            loadEvents();
+            showSuccessMessage('Evento duplicado com sucesso!');
+        }
+
+        function deleteEvent(id) {
+            if (confirm('Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.')) {
+                eventsData = eventsData.filter(e => e.id !== id);
+                loadEvents();
+                showSuccessMessage('Evento excluído com sucesso!');
+            }
+        }
+
+        function showSuccessMessage(message) {
+            alert(message);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadEvents();
+            
+            // Definir data mínima nos filtros de data
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('eventDate').min = today;
+        });
+    </script>
+</body>
+</html>

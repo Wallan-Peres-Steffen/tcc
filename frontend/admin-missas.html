@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Missas - Painel Administrativo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c5530;
+            --primary-light: #4a7c59;
+            --primary-dark: #1a3c23;
+            --secondary: #d4af37;
+            --secondary-light: #e8c766;
+            --accent: #8b4513;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .admin-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .admin-logo-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .admin-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Layout */
+        .admin-layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid var(--light-gray);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-link:hover {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-link.active {
+            background: var(--light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            color: var(--secondary);
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--light-gray);
+            margin: 15px 20px;
+        }
+
+        /* Content */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #bb2d3b;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Mass Schedule */
+        .mass-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .mass-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mass-times-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .mass-time-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .mass-time-item:hover {
+            background: #f0f5ff;
+        }
+
+        .mass-time-info {
+            flex: 1;
+        }
+
+        .mass-time-slot {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .mass-time-type {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .mass-time-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Special Masses */
+        .special-masses-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .special-mass-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            background: white;
+            transition: var(--transition);
+        }
+
+        .special-mass-item:hover {
+            border-color: var(--primary);
+        }
+
+        .special-mass-date {
+            background: var(--primary);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .special-mass-day {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .special-mass-month {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .special-mass-details {
+            flex: 1;
+        }
+
+        .special-mass-meta {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .special-mass-meta i {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        .special-mass-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 0 20px;
+            }
+            
+            .sidebar-item {
+                margin-bottom: 0;
+            }
+            
+            .sidebar-link {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .sidebar-link:hover,
+            .sidebar-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--primary);
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .special-mass-item {
+                flex-direction: column;
+            }
+            
+            .special-mass-date {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .admin-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .mass-time-actions,
+            .special-mass-actions {
+                flex-direction: column;
+            }
+            
+            .mass-time-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Verificar autenticação -->
+    <script>
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'admin-login.html';
+        }
+    </script>
+
+    <header class="admin-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="admin-logo">
+                    <div class="admin-logo-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div>
+                        <div class="admin-logo-text">Painel Administrativo</div>
+                        <div class="admin-logo-subtitle">Paróquia São José Operário</div>
+                    </div>
+                </div>
+                <div class="admin-nav">
+                    <a href="index.html" class="admin-nav-btn" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Ver Site
+                    </a>
+                    <button class="admin-nav-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-item">
+                        <a href="admin-dashboard.html" class="sidebar-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-missas.html" class="sidebar-link active">
+                            <i class="fas fa-church"></i>
+                            Missas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-eventos.html" class="sidebar-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            Eventos
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-escalas.html" class="sidebar-link">
+                            <i class="fas fa-users"></i>
+                            Escalas
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-retiros.html" class="sidebar-link">
+                            <i class="fas fa-praying-hands"></i>
+                            Retiros
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-enciclopedias.html" class="sidebar-link">
+                            <i class="fas fa-book"></i>
+                            Biblioteca
+                        </a>
+                    </li>
+                    <div class="sidebar-divider"></div>
+                    <li class="sidebar-item">
+                        <a href="admin-usuarios.html" class="sidebar-link">
+                            <i class="fas fa-user-cog"></i>
+                            Usuários
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="admin-config.html" class="sidebar-link">
+                            <i class="fas fa-cog"></i>
+                            Configurações
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-content">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-church"></i> Gerenciar Missas
+                </h1>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="openMassModal('regular')">
+                        <i class="fas fa-plus"></i> Nova Missa Regular
+                    </button>
+                    <button class="btn btn-secondary" onclick="openMassModal('special')">
+                        <i class="fas fa-plus"></i> Missa Especial
+                    </button>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('regular')">
+                    Horários Regulares
+                </button>
+                <button class="tab-btn" onclick="showTab('special')">
+                    Missas Especiais
+                </button>
+                <button class="tab-btn" onclick="showTab('info')">
+                    Informações Gerais
+                </button>
+            </div>
+
+            <!-- Horários Regulares -->
+            <div id="regular-tab" class="tab-content">
+                <div class="mass-section">
+                    <h3><i class="fas fa-sun"></i> Domingo</h3>
+                    <div class="mass-times-list" id="sunday-masses">
+                        <!-- Horários serão carregados aqui -->
+                    </div>
+                    <button class="btn btn-outline" onclick="addMassTime('sunday')" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Adicionar Horário
+                    </button>
+                </div>
+
+                <div class="mass-section">
+                    <h3><i class="fas fa-calendar-day"></i> Segunda a Sexta</h3>
+                    <div class="mass-times-list" id="weekday-masses">
+                        <!-- Horários serão carregados aqui -->
+                    </div>
+                    <button class="btn btn-outline" onclick="addMassTime('weekday')" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Adicionar Horário
+                    </button>
+                </div>
+
+                <div class="mass-section">
+                    <h3><i class="fas fa-star"></i> Sábado</h3>
+                    <div class="mass-times-list" id="saturday-masses">
+                        <!-- Horários serão carregados aqui -->
+                    </div>
+                    <button class="btn btn-outline" onclick="addMassTime('saturday')" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Adicionar Horário
+                    </button>
+                </div>
+            </div>
+
+            <!-- Missas Especiais -->
+            <div id="special-tab" class="tab-content" style="display: none;">
+                <div class="mass-section">
+                    <h3><i class="fas fa-star"></i> Missas Especiais</h3>
+                    <div class="special-masses-list" id="special-masses-list">
+                        <!-- Missas especiais serão carregadas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Gerais -->
+            <div id="info-tab" class="tab-content" style="display: none;">
+                <div class="mass-section">
+                    <h3><i class="fas fa-info-circle"></i> Informações de Apoio</h3>
+                    <div class="form-group">
+                        <label>Texto de Introdução</label>
+                        <textarea class="form-control" rows="4" id="intro-text">Participe das nossas celebrações e fortaleça sua fé com a comunidade.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Instruções para Confissões</label>
+                        <textarea class="form-control" rows="4" id="confession-text">As confissões estão disponíveis 30 minutos antes de cada missa ou mediante agendamento com a secretaria.</textarea>
+                    </div>
+                    <button class="btn" onclick="saveGeneralInfo()">
+                        <i class="fas fa-save"></i> Salvar Informações
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Missa -->
+    <div class="modal" id="massModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nova Missa</h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="massForm">
+                    <input type="hidden" id="massId">
+                    <input type="hidden" id="massDay">
+                    
+                    <div class="form-group">
+                        <label for="massTime">Horário</label>
+                        <input type="time" id="massTime" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="massType">Tipo de Missa</label>
+                        <input type="text" id="massType" class="form-control" placeholder="Ex: Missa Matinal, Missa da Família" required>
+                    </div>
+
+                    <div class="form-group" id="special-fields" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="specialDate">Data</label>
+                                <input type="date" id="specialDate" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="specialLocation">Local</label>
+                                <input type="text" id="specialLocation" class="form-control" placeholder="Ex: Igreja Matriz">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="specialCelebrant">Celebrante</label>
+                            <input type="text" id="specialCelebrant" class="form-control" placeholder="Ex: Pe. João Silva">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="specialDescription">Descrição</label>
+                            <textarea id="specialDescription" class="form-control" rows="3" placeholder="Descrição da missa especial"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn" onclick="saveMass()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de exemplo
+        const massData = {
+            sunday: [
+                { id: 1, time: "07:00", type: "Missa Matinal" },
+                { id: 2, time: "09:00", type: "Missa da Família" },
+                { id: 3, time: "11:00", type: "Missa Solene" },
+                { id: 4, time: "19:00", type: "Missa da Juventude" }
+            ],
+            weekday: [
+                { id: 5, time: "07:00", type: "Missa da Manhã" },
+                { id: 6, time: "12:00", type: "Missa do Meio-Dia" },
+                { id: 7, time: "19:30", type: "Missa da Noite" }
+            ],
+            saturday: [
+                { id: 8, time: "08:00", type: "Missa da Manhã" },
+                { id: 9, time: "17:00", type: "Missa Vespertina" },
+                { id: 10, time: "19:00", type: "Missa Dominical Antecipada" }
+            ],
+            special: [
+                {
+                    id: 1,
+                    date: "2025-05-15",
+                    time: "18:00",
+                    title: "Missa de São Francisco",
+                    description: "Celebração especial em honra ao nosso padroeiro com bênção dos animais.",
+                    location: "Igreja Matriz",
+                    celebrant: "Pe. João Silva"
+                },
+                {
+                    id: 2,
+                    date: "2025-05-20",
+                    time: "15:00",
+                    title: "Missa com Unção dos Enfermos",
+                    description: "Celebração especial com o sacramento da unção para idosos e enfermos.",
+                    location: "Igreja Matriz",
+                    celebrant: "Pe. Carlos Oliveira"
+                }
+            ]
+        };
+
+        let currentModalType = 'regular';
+        let editingMassId = null;
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair do painel administrativo?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        function showTab(tabName) {
+            // Atualizar tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Mostrar conteúdo da tab
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+        }
+
+        function loadMassData() {
+            // Carregar missas de domingo
+            const sundayList = document.getElementById('sunday-masses');
+            sundayList.innerHTML = massData.sunday.map(mass => `
+                <div class="mass-time-item">
+                    <div class="mass-time-info">
+                        <div class="mass-time-slot">${mass.time}</div>
+                        <div class="mass-time-type">${mass.type}</div>
+                    </div>
+                    <div class="mass-time-actions">
+                        <button class="btn btn-outline" onclick="editMass('sunday', ${mass.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteMass('sunday', ${mass.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Carregar missas semanais
+            const weekdayList = document.getElementById('weekday-masses');
+            weekdayList.innerHTML = massData.weekday.map(mass => `
+                <div class="mass-time-item">
+                    <div class="mass-time-info">
+                        <div class="mass-time-slot">${mass.time}</div>
+                        <div class="mass-time-type">${mass.type}</div>
+                    </div>
+                    <div class="mass-time-actions">
+                        <button class="btn btn-outline" onclick="editMass('weekday', ${mass.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteMass('weekday', ${mass.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Carregar missas de sábado
+            const saturdayList = document.getElementById('saturday-masses');
+            saturdayList.innerHTML = massData.saturday.map(mass => `
+                <div class="mass-time-item">
+                    <div class="mass-time-info">
+                        <div class="mass-time-slot">${mass.time}</div>
+                        <div class="mass-time-type">${mass.type}</div>
+                    </div>
+                    <div class="mass-time-actions">
+                        <button class="btn btn-outline" onclick="editMass('saturday', ${mass.id})">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteMass('saturday', ${mass.id})">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Carregar missas especiais
+            const specialList = document.getElementById('special-masses-list');
+            specialList.innerHTML = massData.special.map(mass => {
+                const date = new Date(mass.date);
+                const day = date.getDate();
+                const month = date.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase();
+                
+                return `
+                    <div class="special-mass-item">
+                        <div class="special-mass-date">
+                            <div class="special-mass-day">${day}</div>
+                            <div class="special-mass-month">${month}</div>
+                        </div>
+                        <div class="special-mass-details">
+                            <h4 style="margin: 0 0 5px 0; color: var(--primary);">${mass.title}</h4>
+                            <p style="margin: 0 0 10px 0; color: var(--gray);">${mass.description}</p>
+                            <div class="special-mass-meta">
+                                <span><i class="far fa-clock"></i> ${mass.time}</span>
+                                <span><i class="fas fa-map-marker-alt"></i> ${mass.location}</span>
+                                <span><i class="fas fa-user-alt"></i> ${mass.celebrant}</span>
+                            </div>
+                            <div class="special-mass-actions">
+                                <button class="btn btn-outline" onclick="editSpecialMass(${mass.id})">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteSpecialMass(${mass.id})">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openMassModal(type, day = null) {
+            currentModalType = type;
+            editingMassId = null;
+            
+            const modal = document.getElementById('massModal');
+            const form = document.getElementById('massForm');
+            const specialFields = document.getElementById('special-fields');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            form.reset();
+            
+            if (type === 'regular') {
+                modalTitle.textContent = day ? `Adicionar Missa ${getDayName(day)}` : 'Nova Missa';
+                specialFields.style.display = 'none';
+                document.getElementById('massDay').value = day;
+            } else {
+                modalTitle.textContent = 'Nova Missa Especial';
+                specialFields.style.display = 'block';
+                
+                // Definir data mínima como hoje
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('specialDate').min = today;
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('massModal').classList.remove('active');
+        }
+
+        function getDayName(day) {
+            const days = {
+                'sunday': 'Domingo',
+                'weekday': 'Dias da Semana',
+                'saturday': 'Sábado'
+            };
+            return days[day] || '';
+        }
+
+        function saveMass() {
+            const form = document.getElementById('massForm');
+            const massId = document.getElementById('massId').value;
+            const massDay = document.getElementById('massDay').value;
+            const massTime = document.getElementById('massTime').value;
+            const massType = document.getElementById('massType').value;
+            
+            if (!massTime || !massType) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            if (currentModalType === 'regular') {
+                if (!massDay) {
+                    alert('Erro: dia não especificado.');
+                    return;
+                }
+                
+                if (massId) {
+                    // Editar missa existente
+                    const index = massData[massDay].findIndex(m => m.id == massId);
+                    if (index !== -1) {
+                        massData[massDay][index] = { id: parseInt(massId), time: massTime, type: massType };
+                    }
+                } else {
+                    // Adicionar nova missa
+                    const newId = Math.max(...massData[massDay].map(m => m.id), 0) + 1;
+                    massData[massDay].push({ id: newId, time: massTime, type: massType });
+                }
+            } else {
+                // Missa especial
+                const specialDate = document.getElementById('specialDate').value;
+                const specialLocation = document.getElementById('specialLocation').value;
+                const specialCelebrant = document.getElementById('specialCelebrant').value;
+                const specialDescription = document.getElementById('specialDescription').value;
+                
+                if (!specialDate || !specialLocation || !specialCelebrant || !specialDescription) {
+                    alert('Por favor, preencha todos os campos da missa especial.');
+                    return;
+                }
+                
+                if (massId) {
+                    // Editar missa especial existente
+                    const index = massData.special.findIndex(m => m.id == massId);
+                    if (index !== -1) {
+                        massData.special[index] = {
+                            id: parseInt(massId),
+                            date: specialDate,
+                            time: massTime,
+                            title: massType,
+                            description: specialDescription,
+                            location: specialLocation,
+                            celebrant: specialCelebrant
+                        };
+                    }
+                } else {
+                    // Adicionar nova missa especial
+                    const newId = Math.max(...massData.special.map(m => m.id), 0) + 1;
+                    massData.special.push({
+                        id: newId,
+                        date: specialDate,
+                        time: massTime,
+                        title: massType,
+                        description: specialDescription,
+                        location: specialLocation,
+                        celebrant: specialCelebrant
+                    });
+                }
+            }
+            
+            loadMassData();
+            closeModal();
+            showSuccessMessage('Missa salva com sucesso!');
+        }
+
+        function editMass(day, id) {
+            const mass = massData[day].find(m => m.id === id);
+            if (!mass) return;
+            
+            currentModalType = 'regular';
+            editingMassId = id;
+            
+            document.getElementById('massId').value = id;
+            document.getElementById('massDay').value = day;
+            document.getElementById('massTime').value = mass.time;
+            document.getElementById('massType').value = mass.type;
+            
+            document.getElementById('modalTitle').textContent = `Editar Missa ${getDayName(day)}`;
+            document.getElementById('special-fields').style.display = 'none';
+            
+            document.getElementById('massModal').classList.add('active');
+        }
+
+        function editSpecialMass(id) {
+            const mass = massData.special.find(m => m.id === id);
+            if (!mass) return;
+            
+            currentModalType = 'special';
+            editingMassId = id;
+            
+            document.getElementById('massId').value = id;
+            document.getElementById('massTime').value = mass.time;
+            document.getElementById('massType').value = mass.title;
+            document.getElementById('specialDate').value = mass.date;
+            document.getElementById('specialLocation').value = mass.location;
+            document.getElementById('specialCelebrant').value = mass.celebrant;
+            document.getElementById('specialDescription').value = mass.description;
+            
+            document.getElementById('modalTitle').textContent = 'Editar Missa Especial';
+            document.getElementById('special-fields').style.display = 'block';
+            
+            document.getElementById('massModal').classList.add('active');
+        }
+
+        function deleteMass(day, id) {
+            if (confirm('Tem certeza que deseja excluir este horário de missa?')) {
+                massData[day] = massData[day].filter(m => m.id !== id);
+                loadMassData();
+                showSuccessMessage('Horário de missa excluído com sucesso!');
+            }
+        }
+
+        function deleteSpecialMass(id) {
+            if (confirm('Tem certeza que deseja excluir esta missa especial?')) {
+                massData.special = massData.special.filter(m => m.id !== id);
+                loadMassData();
+                showSuccessMessage('Missa especial excluída com sucesso!');
+            }
+        }
+
+        function addMassTime(day) {
+            openMassModal('regular', day);
+        }
+
+        function saveGeneralInfo() {
+            // Aqui você salvaria as informações no servidor
+            showSuccessMessage('Informações salvas com sucesso!');
+        }
+
+        function showSuccessMessage(message) {
+            alert(message); // Em um sistema real, use um toast ou modal de sucesso
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMassData();
+        });
+    </script>
+</body>
+</html>
