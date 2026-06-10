@@ -738,7 +738,7 @@
             color: white;
         }
     </style>
-</head>
+<script src="theme-manager.js"></script></head>
 
 <body>
 <header>
@@ -1091,7 +1091,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Paróquia São José Operário</h3>
+                    <h3>Comunidade Mesa e Pão</h3>
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1160,24 +1160,38 @@
             }
         });
 
-        // Gerenciamento de Tema
-        function setTheme(theme) {
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.querySelector('.theme-light').classList.remove('active');
-                document.querySelector('.theme-dark').classList.add('active');
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.querySelector('.theme-light').classList.add('active');
-                document.querySelector('.theme-dark').classList.remove('active');
-            }
-            localStorage.setItem('theme', theme);
+         // Função para aplicar o tema salvo
+    function applySavedTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
         }
-
-        function toggleTheme() {
-            const isDark = document.body.classList.contains('dark-mode');
-            setTheme(isDark ? 'light' : 'dark');
+    }
+    
+    // Função para alternar tema
+    function toggleTheme() {
+        const isDark = document.body.classList.contains('dark-mode');
+        const newTheme = isDark ? 'light' : 'dark';
+        
+        if (newTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
         }
+        
+        localStorage.setItem('theme', newTheme);
+        
+        // Atualizar ícone do botão se existir
+        const themeBtn = document.querySelector('.theme-toggle-btn i');
+        if (themeBtn) {
+            themeBtn.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+    }
+    
+    // Aplicar tema salvo ao carregar a página
+    applySavedTheme();
 
         // Carregar tema salvo
         document.addEventListener('DOMContentLoaded', function () {

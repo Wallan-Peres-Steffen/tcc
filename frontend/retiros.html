@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retiros Espirituais - Paróquia São José Operário</title>
+    <title>Retiros Espirituais - Comunidade Mesa e Pão</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -166,7 +166,7 @@
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 15px 0;
-            min-width: 200px;
+            min-width: 220px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -205,177 +205,6 @@
             width: 20px;
             text-align: center;
             color: var(--secondary);
-        }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--light-gray);
-            margin: 8px 0;
-        }
-
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 4px;
-            border-radius: 20px;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .theme-option.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .theme-light {
-            background: #f8f9fa;
-            color: #212529;
-        }
-
-        .theme-dark {
-            background: #212529;
-            color: #f8f9fa;
-        }
-
-        .settings-container {
-            position: relative;
-        }
-
-        .settings-btn {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-        }
-
-        .settings-btn:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-2px);
-        }
-
-        .settings-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-        }
-
-        .settings-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .settings-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--dark);
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        .settings-menu-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--secondary);
-        }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--light-gray);
-            margin: 8px 0;
-        }
-
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 4px;
-            border-radius: 20px;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .theme-option.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .theme-light {
-            background: #f8f9fa;
-            color: #212529;
-        }
-
-        .theme-dark {
-            background: #212529;
-            color: #f8f9fa;
         }
 
         .hero {
@@ -399,19 +228,6 @@
             max-width: 700px;
             margin: 0 auto;
             opacity: 0.9;
-        }
-
-        /* Main Content */
-        .settings-menu {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-        }
-
-        .settings-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
         }
 
         main {
@@ -454,15 +270,6 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
-        }
-
         .btn-outline {
             background: transparent;
             border: 2px solid var(--primary);
@@ -472,75 +279,6 @@
         .btn-outline:hover {
             background: var(--primary);
             color: white;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 i {
-            color: var(--secondary);
-        }
-
-        .card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        .card-image {
-            height: 160px;
-            background: var(--light-gray);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            font-size: 14px;
-            overflow: hidden;
-        }
-
-        .card-image i {
-            font-size: 40px;
-            opacity: 0.5;
         }
 
         .retreats-grid {
@@ -606,6 +344,33 @@
         .retreat-meta i {
             color: var(--secondary);
             margin-right: 5px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 i {
+            color: var(--secondary);
+        }
+
+        .card p {
+            color: var(--gray);
+            margin-bottom: 15px;
         }
 
         /* Footer */
@@ -708,7 +473,39 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Responsive */
+        /* Modo Escuro */
+        body.dark-mode {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e40af;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        body.dark-mode .card,
+        body.dark-mode .retreat-card {
+            background: white;
+            color: var(--dark);
+        }
+
+        body.dark-mode .section-title {
+            color: white;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.dark-mode .section-title i {
+            color: var(--secondary);
+        }
+
+        body.dark-mode .card h3,
+        body.dark-mode .retreat-card h3 {
+            color: var(--primary);
+        }
+
+        body.dark-mode .settings-menu {
+            background: white;
+            color: var(--dark);
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -719,106 +516,9 @@
                 font-size: 26px;
             }
 
-            .hero p {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .special-mass-item {
-                flex-direction: column;
-            }
-
-            .special-mass-date {
-                align-self: flex-start;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
             .retreats-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Modo Escuro - Apenas cores azuis, conteúdo principal branco */
-        body.dark-mode {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e40af;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--dark);
-        }
-
-        body.dark-mode header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        body.dark-mode footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        }
-
-        body.dark-mode .card,
-        body.dark-mode .retreat-card,
-        body.dark-mode .schedule,
-        body.dark-mode .schedule-item {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .card h3,
-        body.dark-mode .retreat-card h3 {
-            color: var(--primary);
-        }
-
-        body.dark-mode .section-title {
-            color: white;
-            /*aq*/
-        }
-
-        body.dark-mode .card p,
-        body.dark-mode .retreat-card p {
-            color: var(--gray);
-        }
-
-        body.dark-mode .card-image,
-        body.dark-mode .retreat-image {
-            background: var(--light-gray);
-            color: var(--primary);
-        }
-
-        body.dark-mode .settings-menu {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item {
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        body.dark-mode .theme-options {
-            background: var(--light-gray);
         }
     </style>
 </head>
@@ -832,8 +532,8 @@
                         <i class="fas fa-church"></i>
                     </div>
                     <div>
-                        <div class="logo-text">Retiros</div>
-                        <div class="logo-subtitle">Faça já seu retiro espiritual!</div>
+                        <div class="logo-text">Comunidade Mesa e Pão</div>
+                        <div class="logo-subtitle">Uma família em fé e amor</div>
                     </div>
                 </div>
                 <div class="nav-buttons">
@@ -841,7 +541,6 @@
                     <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
                     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
 
-                    <!-- Botão de Configurações -->
                     <div class="settings-container">
                         <button class="settings-btn" onclick="toggleSettings()">
                             <i class="fas fa-cog" style="font-size: 22px;"></i>
@@ -866,9 +565,8 @@
                 <h1>Retiros Espirituais</h1>
                 <p>Momentos de reflexão e renovação espiritual para toda a família.</p>
             </div>
+        </div>
     </header>
-
-    <br>
 
     <main class="container">
         <section>
@@ -885,10 +583,11 @@
                             <span><i class="far fa-calendar"></i> 20-22 de Maio</span>
                             <span><i class="fas fa-map-marker-alt"></i> Casa de Retiros Monte Carmelo</span>
                         </div>
-                        <p>Uma breve descrição</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Mais Informações</a>
+                        <p>Um momento de profunda conexão com Deus através do silêncio e da oração contemplativa.</p>
+                        <a href="#" class="btn">Mais Informações</a>
                     </div>
                 </div>
+
                 <div class="retreat-card">
                     <div class="retreat-image">
                         <i class="fas fa-users"></i>
@@ -900,13 +599,14 @@
                             <span><i class="far fa-calendar"></i> 10-12 de Junho</span>
                             <span><i class="fas fa-map-marker-alt"></i> Centro de Espiritualidade São José</span>
                         </div>
-                        <p>Uma breve descrição</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Mais Informações</a>
+                        <p>Fortaleça seu matrimônio com momentos de partilha, oração e renovação do amor.</p>
+                        <a href="#" class="btn">Mais Informações</a>
                     </div>
                 </div>
+
                 <div class="retreat-card">
                     <div class="retreat-image">
-                        <i class="fas fa-youth-group"></i>
+                        <i class="fas fa-child"></i>
                         <div class="retreat-badge">Para Jovens</div>
                     </div>
                     <div class="retreat-content">
@@ -915,10 +615,11 @@
                             <span><i class="far fa-calendar"></i> 15-17 de Julho</span>
                             <span><i class="fas fa-map-marker-alt"></i> Acampamento São Francisco</span>
                         </div>
-                        <p>Uma breve descrição</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Mais Informações</a>
+                        <p>Uma experiência única de fé, amizade e missão para a juventude.</p>
+                        <a href="#" class="btn">Mais Informações</a>
                     </div>
                 </div>
+
                 <div class="retreat-card">
                     <div class="retreat-image">
                         <i class="fas fa-heart"></i>
@@ -930,35 +631,33 @@
                             <span><i class="far fa-calendar"></i> 5-7 de Agosto</span>
                             <span><i class="fas fa-map-marker-alt"></i> Casa de Retiros Divina Misericórdia</span>
                         </div>
-                        <p>Uma breve descrição</p>
-                        <a href="#" class="btn" style="margin-top: 15px;">Mais Informações</a>
+                        <p>Encontre cura e restauração para sua alma através da misericórdia divina.</p>
+                        <a href="#" class="btn">Mais Informações</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section style="margin-top: 40px;">
+        <section>
             <h2 class="section-title"><i class="fas fa-info-circle"></i> Informações Gerais</h2>
             <div class="card">
                 <h3><i class="fas fa-question-circle"></i> Como Participar</h3>
-                <p>...</p>
+                <p>As inscrições para os retiros podem ser feitas na secretaria paroquial ou através do nosso site. As vagas são limitadas, recomendamos garantir sua participação com antecedência.</p>
 
-                <h3 style="margin-top: 20px;"><i class="fas fa-hand-holding-heart"></i> Investimento</h3>
-                <p>...</p>
+                <h3><i class="fas fa-hand-holding-heart"></i> Investimento</h3>
+                <p>Os valores dos retiros incluem hospedagem, alimentação e material de apoio. Consulte valores específicos para cada retiro em nossa secretaria.</p>
 
-                <h3 style="margin-top: 20px;"><i class="fas fa-clock"></i> O que Levar</h3>
-                <p>...</p>
+                <h3><i class="fas fa-clock"></i> O que Levar</h3>
+                <p>Bíblia, caderno para anotações, roupa de cama, artigos de higiene pessoal e roupas confortáveis.</p>
             </div>
         </section>
     </main>
-
-    <br>
 
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Paróquia São José Operário</h3>
+                    <h3>Comunidade Mesa e Pão</h3>
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -970,10 +669,10 @@
                 <div class="footer-section">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
-                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
                         <li><a href="missas.html"><i class="fas fa-chevron-right"></i> Missas</a></li>
                         <li><a href="eventos.html"><i class="fas fa-chevron-right"></i> Eventos</a></li>
-                         <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
+                        <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
                         <li><a href="biblia.html"><i class="fas fa-chevron-right"></i> Bíblia</a></li>
                         <li><a href="leitura.html"><i class="fas fa-chevron-right"></i> Leitura do Dia</a></li>
                         <li><a href="enciclopedias.html"><i class="fas fa-chevron-right"></i> Enciclopédias</a></li>
@@ -982,84 +681,92 @@
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>(11) 9999-9999</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>contato@comunidadesaofrancisco.org</span>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span></li>
+                        <li><i class="fas fa-phone"></i> <span>(11) 9999-9999</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>contato@comunidadesaofrancisco.org</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
-                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
-                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
-                    registradas de seus respectivos proprietários.
-                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
-                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
-                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
-                    resultar de seu uso.</p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Gerenciamento de Configurações
+        // Estado de autenticação
+        let isLoggedIn = true;
+
+        // Alternar menu de configurações
         function toggleSettings() {
             const menu = document.getElementById('settingsMenu');
             menu.classList.toggle('active');
         }
 
         // Fechar menu ao clicar fora
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', function(event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-
-            if (!settingsContainer.contains(event.target)) {
+            
+            if (settingsContainer && settingsMenu && !settingsContainer.contains(event.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
 
-        // Gerenciamento de Tema
-        function setTheme(theme) {
-            if (theme === 'dark') {
+        // Funções de tema
+        function applySavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
-                document.querySelector('.theme-light').classList.remove('active');
-                document.querySelector('.theme-dark').classList.add('active');
             } else {
                 document.body.classList.remove('dark-mode');
-                document.querySelector('.theme-light').classList.add('active');
-                document.querySelector('.theme-dark').classList.remove('active');
             }
-            localStorage.setItem('theme', theme);
         }
 
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
-            setTheme(isDark ? 'light' : 'dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            
+            localStorage.setItem('theme', newTheme);
         }
 
-        // Carregar tema salvo
-        document.addEventListener('DOMContentLoaded', function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-        });
-
-        // Logout
-        function logout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                alert('Você foi desconectado com sucesso.');
-                // Redirecionar para a página inicial
-                window.location.href = 'index.html';
+        // Funções de autenticação
+        function toggleAuth() {
+            if (isLoggedIn) {
+                if (confirm('Tem certeza que deseja sair?')) {
+                    isLoggedIn = false;
+                    updateAuthButton();
+                    alert('Você foi desconectado com sucesso.');
+                }
+            } else {
+                window.location.href = 'login.html';
             }
         }
+
+        function updateAuthButton() {
+            const authIcon = document.getElementById('authIcon');
+            const authText = document.getElementById('authText');
+            
+            if (authIcon && authText) {
+                if (isLoggedIn) {
+                    authIcon.className = 'fas fa-sign-out-alt';
+                    authText.textContent = 'Sair';
+                } else {
+                    authIcon.className = 'fas fa-sign-in-alt';
+                    authText.textContent = 'Login / Cadastrar-se';
+                }
+            }
+        }
+
+        // Inicializar
+        applySavedTheme();
+        updateAuthButton();
     </script>
 </body>
 

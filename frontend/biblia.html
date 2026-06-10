@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bíblia Online - Paróquia São José Operário</title>
+    <title>Bíblia Online - Comunidade Mesa e Pão</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -70,6 +70,8 @@
             align-items: center;
             position: relative;
             z-index: 1;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo {
@@ -106,6 +108,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
@@ -127,11 +130,6 @@
         .nav-btn:hover {
             background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-        }
-
-        .nav-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
         }
 
         /* Configurações */
@@ -206,55 +204,6 @@
             width: 20px;
             text-align: center;
             color: var(--secondary);
-        }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--light-gray);
-            margin: 8px 0;
-        }
-
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 4px;
-            border-radius: 20px;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .theme-option.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .theme-light {
-            background: #f8f9fa;
-            color: #212529;
-        }
-
-        .theme-dark {
-            background: #212529;
-            color: #f8f9fa;
         }
 
         .hero {
@@ -347,7 +296,7 @@
         }
 
         .bible-sidebar li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .bible-sidebar a {
@@ -357,6 +306,7 @@
             display: block;
             padding: 8px 12px;
             border-radius: 6px;
+            cursor: pointer;
         }
 
         .bible-sidebar a:hover {
@@ -383,6 +333,31 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 1px solid var(--light-gray);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .bible-header h2 {
+            color: var(--primary);
+        }
+
+        .chapter-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chapter-selector label {
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .chapter-selector select {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            background: white;
+            cursor: pointer;
         }
 
         .bible-verse {
@@ -391,16 +366,23 @@
             margin-bottom: 30px;
         }
 
+        .verse-item {
+            margin-bottom: 15px;
+        }
+
         .bible-verse-number {
             color: var(--secondary);
             font-weight: bold;
-            margin-right: 5px;
+            margin-right: 10px;
+            font-size: 14px;
         }
 
         .bible-navigation {
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .btn {
@@ -421,15 +403,6 @@
             background: var(--primary-light);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
         }
 
         .btn-outline {
@@ -458,6 +431,26 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(44, 85, 48, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            color: #dc2626;
+            text-align: center;
+            padding: 20px;
         }
 
         /* Footer */
@@ -565,42 +558,22 @@
             --primary: #1e3a8a;
             --primary-light: #3b82f6;
             --primary-dark: #1e40af;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--dark);
-        }
-
-        body.dark-mode header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        body.dark-mode footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
 
         body.dark-mode .bible-sidebar,
         body.dark-mode .bible-content {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .bible-sidebar h3,
-        body.dark-mode .section-title {
-            color: var(--primary);
+            background: #1e293b;
+            color: #e2e8f0;
         }
 
         body.dark-mode .bible-sidebar a {
-            color: var(--gray);
+            color: #cbd5e1;
         }
 
         body.dark-mode .bible-sidebar a:hover {
-            background: var(--light-gray);
-            color: var(--primary);
+            background: #334155;
+            color: var(--secondary);
         }
 
         body.dark-mode .bible-sidebar a.active {
@@ -608,63 +581,61 @@
             color: white;
         }
 
+        body.dark-mode .section-title {
+            color: white;
+        }
+
+        body.dark-mode .bible-header h2 {
+            color: var(--secondary);
+        }
+
+        body.dark-mode select {
+            background: #334155;
+            color: white;
+            border-color: #475569;
+        }
+
         body.dark-mode .settings-menu {
-            background: white;
-            color: var(--dark);
+            background: #1e293b;
+            color: #e2e8f0;
         }
 
         body.dark-mode .settings-menu-item {
-            color: var(--dark);
+            color: #e2e8f0;
         }
 
         body.dark-mode .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        body.dark-mode .theme-options {
-            background: var(--light-gray);
+            background: #334155;
+            color: var(--secondary);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
+            .bible-container {
+                grid-template-columns: 1fr;
             }
 
             .hero h1 {
                 font-size: 26px;
             }
 
-            .hero p {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .bible-container {
-                grid-template-columns: 1fr;
-            }
-
             .bible-header {
                 flex-direction: column;
-                gap: 15px;
                 align-items: flex-start;
             }
         }
 
         @media (max-width: 480px) {
             .nav-buttons {
-                flex-wrap: wrap;
                 justify-content: center;
             }
 
             .bible-navigation {
                 flex-direction: column;
-                gap: 15px;
+            }
+
+            .bible-navigation .btn {
+                width: 100%;
             }
         }
     </style>
@@ -679,7 +650,7 @@
                         <i class="fas fa-bible"></i>
                     </div>
                     <div>
-                        <div class="logo-text">Bíblia</div>
+                        <div class="logo-text">Bíblia Online</div>
                         <div class="logo-subtitle">A palavra de Deus!</div>
                     </div>
                 </div>
@@ -688,7 +659,6 @@
                     <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
                     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
 
-                    <!-- Botão de Configurações -->
                     <div class="settings-container">
                         <button class="settings-btn" onclick="toggleSettings()">
                             <i class="fas fa-cog" style="font-size: 22px;"></i>
@@ -711,91 +681,55 @@
             </div>
             <div class="hero">
                 <h1>Bíblia Online</h1>
-                <p>Leia e pesquise nas sagradas escrituras em diferentes versões católicas.</p>
+                <p>Leia e pesquise nas sagradas escrituras em diferentes versões.</p>
             </div>
         </div>
     </header>
 
-    <br>
-
     <main class="container">
         <div class="bible-container">
+            <!-- Sidebar com livros -->
             <div class="bible-sidebar">
                 <h3 id="booksToggle">
                     <span>Livros da Bíblia</span>
                     <i class="fas fa-chevron-down"></i>
                 </h3>
                 <ul id="booksList">
-                    <li><a href="#" class="active">Gênesis</a></li>
-                    <li><a href="#">Êxodo</a></li>
-                    <li><a href="#">Levítico</a></li>
-                    <li><a href="#">Números</a></li>
-                    <li><a href="#">Deuteronômio</a></li>
-                    <li><a href="#">Josué</a></li>
-                    <li><a href="#">Juízes</a></li>
-                    <li><a href="#">Rute</a></li>
-                    <li><a href="#">1 Samuel</a></li>
-                    <li><a href="#">2 Samuel</a></li>
-                    <li><a href="#">1 Reis</a></li>
-                    <li><a href="#">2 Reis</a></li>
-                    <li><a href="#">1 Crônicas</a></li>
-                    <li><a href="#">2 Crônicas</a></li>
-                    <li><a href="#">Esdras</a></li>
-                    <li><a href="#">Neemias</a></li>
-                    <li><a href="#">Ester</a></li>
-                    <li><a href="#">Jó</a></li>
-                    <li><a href="#">Salmos</a></li>
-                    <li><a href="#">Provérbios</a></li>
-                    <li><a href="#">Eclesiastes</a></li>
-                    <li><a href="#">Cânticos</a></li>
-                    <li><a href="#">Isaías</a></li>
-                    <li><a href="#">Jeremias</a></li>
-                    <li><a href="#">Lamentações</a></li>
-                    <li><a href="#">Ezequiel</a></li>
-                    <li><a href="#">Daniel</a></li>
-                    <li><a href="#">Oséias</a></li>
-                    <li><a href="#">Joel</a></li>
-                    <li><a href="#">Amós</a></li>
-                    <li><a href="#">Obadias</a></li>
-                    <li><a href="#">Jonas</a></li>
-                    <li><a href="#">Miquéias</a></li>
-                    <li><a href="#">Naum</a></li>
-                    <li><a href="#">Habacuque</a></li>
-                    <li><a href="#">Sofonias</a></li>
-                    <li><a href="#">Ageu</a></li>
-                    <li><a href="#">Zacarias</a></li>
-                    <li><a href="#">Malaquias</a></li>
+                    <li class="loading"><i class="fas fa-spinner"></i> Carregando livros...</li>
                 </ul>
             </div>
+
+            <!-- Conteúdo principal -->
             <div class="bible-content">
                 <div class="bible-header">
-                    <h2>Gênesis 1</h2>
-                    <div>
-                        <select id="translationSelect">
-                            <option value="jerusalem">Bíblia de Jerusalém</option>
-                            <option value="avemaria">Bíblia Ave-Maria</option>
-                            <option value="pastoral">Bíblia Pastoral</option>
+                    <h2 id="chapterTitle">Carregando...</h2>
+                    <div class="chapter-selector">
+                        <label for="versionSelect">Versão:</label>
+                        <select id="versionSelect">
+                            <option value="nvi">NVI - Nova Versão Internacional</option>
+                            <option value="acf">ACF - Almeida Corrigida Fiel</option>
+                            <option value="ara">ARA - Almeida Revista e Atualizada</option>
                         </select>
+                        <label for="chapterSelect">Capítulo:</label>
+                        <select id="chapterSelect"></select>
                     </div>
                 </div>
-                <div class="bible-verse" id="bibleText">
-                    <!-- O texto será carregado dinamicamente com base na tradução selecionada -->
+                <div id="bibleText" class="bible-verse">
+                    <div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>
                 </div>
                 <div class="bible-navigation">
-                    <a href="#" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Capítulo Anterior</a>
-                    <a href="#" class="btn btn-outline">Próximo Capítulo <i class="fas fa-arrow-right"></i></a>
+                    <button id="prevChapter" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Capítulo Anterior</button>
+                    <button id="nextChapter" class="btn btn-outline">Próximo Capítulo <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
     </main>
 
-    <br>
-
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Paróquia São José Operário</h3>
+                    <h3>Comunidade Mesa e Pão</h3>
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -810,100 +744,245 @@
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
                         <li><a href="missas.html"><i class="fas fa-chevron-right"></i> Missas</a></li>
                         <li><a href="eventos.html"><i class="fas fa-chevron-right"></i> Eventos</a></li>
-                         <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
+                        <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
                         <li><a href="biblia.html"><i class="fas fa-chevron-right"></i> Bíblia</a></li>
                         <li><a href="leitura.html"><i class="fas fa-chevron-right"></i> Leitura do Dia</a></li>
                         <li><a href="enciclopedias.html"><i class="fas fa-chevron-right"></i> Enciclopédias</a></li>
+                    </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>(11) 9999-9999</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>contato@comunidadesaofrancisco.org</span>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span></li>
+                        <li><i class="fas fa-phone"></i> <span>(11) 9999-9999</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>contato@comunidadesaofrancisco.org</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
-                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
-                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
-                    registradas de seus respectivos proprietários.
-                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
-                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
-                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
-                    resultar de seu uso.</p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados.</p>
+                <p><small>Texto bíblico fornecido por <a href="https://www.abibliadigital.com.br" target="_blank" style="color: var(--secondary);">ABíbliaDigital API</a></small></p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Gerenciamento de Configurações
+        // ============================================
+        // CONFIGURAÇÕES DE TEMA E AUTENTICAÇÃO
+        // ============================================
+        let isLoggedIn = true;
+
         function toggleSettings() {
             const menu = document.getElementById('settingsMenu');
             menu.classList.toggle('active');
         }
 
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', function(event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-
-            if (!settingsContainer.contains(event.target)) {
+            if (settingsContainer && !settingsContainer.contains(event.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
 
-        // Gerenciamento de Tema
-        function setTheme(theme) {
-            if (theme === 'dark') {
+        function applySavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
-                document.querySelector('.theme-light').classList.remove('active');
-                document.querySelector('.theme-dark').classList.add('active');
             } else {
                 document.body.classList.remove('dark-mode');
-                document.querySelector('.theme-light').classList.add('active');
-                document.querySelector('.theme-dark').classList.remove('active');
             }
-            localStorage.setItem('theme', theme);
         }
 
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
-            setTheme(isDark ? 'light' : 'dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+            localStorage.setItem('theme', newTheme);
         }
 
-        // Carregar tema salvo
-        document.addEventListener('DOMContentLoaded', function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-            
-            // Inicializar a lista de livros da Bíblia
-            initBooksList();
-            
-            // Carregar o texto bíblico inicial
-            loadBibleText();
-        });
-
-        // Logout
-        function logout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                alert('Você foi desconectado com sucesso.');
-                window.location.href = 'index.html';
+        function toggleAuth() {
+            if (isLoggedIn) {
+                if (confirm('Tem certeza que deseja sair?')) {
+                    isLoggedIn = false;
+                    document.getElementById('authText').textContent = 'Login';
+                    alert('Você foi desconectado com sucesso.');
+                }
+            } else {
+                window.location.href = 'login.html';
             }
         }
 
-        // Toggle da lista de livros da Bíblia
-        function initBooksList() {
+        applySavedTheme();
+
+        // ============================================
+        // API DA BÍBLIA
+        // ============================================
+        const API_BASE = 'https://www.abibliadigital.com.br/api';
+        
+        // Estado atual
+        let currentBook = null;
+        let currentChapter = 1;
+        let currentVersion = 'nvi';
+        let booksList = [];
+
+        // Mapeamento de nomes de livros para abreviações
+        const bookAbbreviations = {
+            'Gênesis': 'gn', 'Êxodo': 'ex', 'Levítico': 'lv', 'Números': 'nm', 'Deuteronômio': 'dt',
+            'Josué': 'js', 'Juízes': 'jz', 'Rute': 'rt', '1 Samuel': '1sm', '2 Samuel': '2sm',
+            '1 Reis': '1rs', '2 Reis': '2rs', '1 Crônicas': '1cr', '2 Crônicas': '2cr', 'Esdras': 'esd',
+            'Neemias': 'ne', 'Ester': 'et', 'Jó': 'jo', 'Salmos': 'sl', 'Provérbios': 'pv',
+            'Eclesiastes': 'ec', 'Cânticos': 'ct', 'Isaías': 'is', 'Jeremias': 'jr', 'Lamentações': 'lm',
+            'Ezequiel': 'ez', 'Daniel': 'dn', 'Oséias': 'os', 'Joel': 'jl', 'Amós': 'am',
+            'Obadias': 'ob', 'Jonas': 'jn', 'Miquéias': 'mq', 'Naum': 'na', 'Habacuque': 'hc',
+            'Sofonias': 'sf', 'Ageu': 'ag', 'Zacarias': 'zc', 'Malaquias': 'ml', 'Mateus': 'mt',
+            'Marcos': 'mc', 'Lucas': 'lc', 'João': 'jo', 'Atos': 'at', 'Romanos': 'rm',
+            '1 Coríntios': '1co', '2 Coríntios': '2co', 'Gálatas': 'gl', 'Efésios': 'ef', 'Filipenses': 'fp',
+            'Colossenses': 'cl', '1 Tessalonicenses': '1ts', '2 Tessalonicenses': '2ts', '1 Timóteo': '1tm',
+            '2 Timóteo': '2tm', 'Tito': 'tt', 'Filemom': 'fm', 'Hebreus': 'hb', 'Tiago': 'tg',
+            '1 Pedro': '1pe', '2 Pedro': '2pe', '1 João': '1jo', '2 João': '2jo', '3 João': '3jo', 'Judas': 'jd', 'Apocalipse': 'ap'
+        };
+
+        // Carregar lista de livros da API
+        async function loadBooks() {
+            const booksListEl = document.getElementById('booksList');
+            booksListEl.innerHTML = '<li class="loading"><i class="fas fa-spinner"></i> Carregando livros...</li>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/v1/books/${currentVersion}`);
+                if (!response.ok) throw new Error('Erro ao carregar livros');
+                
+                booksList = await response.json();
+                
+                booksListEl.innerHTML = '';
+                booksList.forEach(book => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.textContent = book.name;
+                    a.onclick = () => selectBook(book);
+                    li.appendChild(a);
+                    booksListEl.appendChild(li);
+                });
+                
+                // Selecionar primeiro livro por padrão
+                if (booksList.length > 0 && !currentBook) {
+                    selectBook(booksList[0]);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                booksListEl.innerHTML = '<li class="error">Erro ao carregar livros. <a href="#" onclick="loadBooks()">Tentar novamente</a></li>';
+            }
+        }
+
+        // Selecionar um livro
+        function selectBook(book) {
+            // Remover classe active de todos
+            document.querySelectorAll('#booksList a').forEach(a => a.classList.remove('active'));
+            // Adicionar classe active ao clicado
+            event.target.classList.add('active');
+            
+            currentBook = book;
+            currentChapter = 1;
+            loadChapter();
+        }
+
+        // Carregar capítulo atual
+        async function loadChapter() {
+            if (!currentBook) return;
+            
+            const bibleText = document.getElementById('bibleText');
+            bibleText.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>';
+            
+            // Atualizar título
+            document.getElementById('chapterTitle').textContent = `${currentBook.name} ${currentChapter}`;
+            
+            // Obter abreviação do livro
+            const abbreviation = currentBook.abbrev.pt || bookAbbreviations[currentBook.name] || currentBook.abbrev;
+            
+            try {
+                const response = await fetch(`${API_BASE}/v1/verses/${currentVersion}/${abbreviation}/${currentChapter}`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Capítulo não encontrado');
+                    }
+                    throw new Error('Erro na requisição');
+                }
+                
+                const data = await response.json();
+                
+                // Verificar número total de capítulos
+                const totalChapters = currentBook.chapters;
+                updateChapterSelect(totalChapters);
+                
+                // Renderizar versículos
+                let html = '';
+                data.verses.forEach(verse => {
+                    html += `
+                        <div class="verse-item">
+                            <span class="bible-verse-number">${verse.number}</span>
+                            ${verse.text}
+                        </div>
+                    `;
+                });
+                bibleText.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                bibleText.innerHTML = `<div class="error">⚠️ ${error.message}. O capítulo ${currentChapter} pode não existir neste livro.</div>`;
+            }
+        }
+
+        // Atualizar seletor de capítulos
+        function updateChapterSelect(totalChapters) {
+            const chapterSelect = document.getElementById('chapterSelect');
+            chapterSelect.innerHTML = '';
+            
+            for (let i = 1; i <= totalChapters; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Capítulo ${i}`;
+                if (i === currentChapter) option.selected = true;
+                chapterSelect.appendChild(option);
+            }
+            
+            chapterSelect.onchange = () => {
+                currentChapter = parseInt(chapterSelect.value);
+                loadChapter();
+            };
+        }
+
+        // Mudar versão da Bíblia
+        function changeVersion() {
+            currentVersion = document.getElementById('versionSelect').value;
+            loadBooks(); // Recarregar livros para a nova versão
+        }
+
+        // Navegação entre capítulos
+        function nextChapter() {
+            if (currentBook && currentChapter < currentBook.chapters) {
+                currentChapter++;
+                loadChapter();
+            } else {
+                alert('Você está no último capítulo deste livro!');
+            }
+        }
+
+        function prevChapter() {
+            if (currentBook && currentChapter > 1) {
+                currentChapter--;
+                loadChapter();
+            } else {
+                alert('Você está no primeiro capítulo deste livro!');
+            }
+        }
+
+        // Toggle da lista de livros
+        function initBooksToggle() {
             const booksToggle = document.getElementById('booksToggle');
             const booksList = document.getElementById('booksList');
             
@@ -913,57 +992,18 @@
             });
         }
 
-        // Textos bíblicos para diferentes traduções
-        const bibleTranslations = {
-            jerusalem: [
-                "<p><span class='bible-verse-number'>1</span> No princípio, Deus criou o céu e a terra.</p>",
-                "<p><span class='bible-verse-number'>2</span> A terra estava sem forma e vazia; as trevas cobriam o abismo e o Espírito de Deus pairava sobre as águas.</p>",
-                "<p><span class='bible-verse-number'>3</span> Deus disse: 'Faça-se a luz!' E a luz foi feita.</p>",
-                "<p><span class='bible-verse-number'>4</span> Deus viu que a luz era boa, e separou a luz das trevas.</p>",
-                "<p><span class='bible-verse-number'>5</span> Deus chamou à luz 'dia' e às trevas 'noite'. Sobreveio a tarde e depois a manhã: foi o primeiro dia.</p>",
-                "<p><span class='bible-verse-number'>6</span> Deus disse: 'Faça-se um firmamento entre as águas, e separe ele umas das outras'.</p>",
-                "<p><span class='bible-verse-number'>7</span> Deus fez o firmamento e separou as águas que estavam debaixo do firmamento daquelas que estavam por cima.</p>",
-                "<p><span class='bible-verse-number'>8</span> E Deus chamou ao firmamento 'céu'. Sobreveio a tarde e depois a manhã: foi o segundo dia.</p>",
-                "<p><span class='bible-verse-number'>9</span> Deus disse: 'Que as águas que estão debaixo do céu se ajuntem num mesmo lugar, e apareça o elemento árido'. E assim se fez.</p>",
-                "<p><span class='bible-verse-number'>10</span> Deus chamou ao elemento árido 'terra' e ao ajuntamento das águas 'mar'. E Deus viu que isso era bom.</p>"
-            ],
-            avemaria: [
-                "<p><span class='bible-verse-number'>1</span> No princípio, Deus criou o céu e a terra.</p>",
-                "<p><span class='bible-verse-number'>2</span> A terra era informe e vazia; as trevas cobriam o abismo, e o Espírito de Deus pairava sobre as águas.</p>",
-                "<p><span class='bible-verse-number'>3</span> Deus disse: 'Faça-se a luz!' E a luz foi feita.</p>",
-                "<p><span class='bible-verse-number'>4</span> Deus viu que a luz era boa, e separou a luz das trevas.</p>",
-                "<p><span class='bible-verse-number'>5</span> Deus chamou à luz 'dia' e às trevas 'noite'. Sobreveio a tarde e depois a manhã: foi o primeiro dia.</p>",
-                "<p><span class='bible-verse-number'>6</span> Deus disse: 'Faça-se um firmamento entre as águas, e separe ele umas das outras'.</p>",
-                "<p><span class='bible-verse-number'>7</span> Deus fez o firmamento e separou as águas que estavam debaixo do firmamento daquelas que estavam por cima.</p>",
-                "<p><span class='bible-verse-number'>8</span> E Deus chamou ao firmamento 'céu'. Sobreveio a tarde e depois a manhã: foi o segundo dia.</p>",
-                "<p><span class='bible-verse-number'>9</span> Deus disse: 'Que as águas que estão debaixo do céu se ajuntem num mesmo lugar, e apareça o elemento árido'. E assim se fez.</p>",
-                "<p><span class='bible-verse-number'>10</span> Deus chamou ao elemento árido 'terra' e ao ajuntamento das águas 'mar'. E Deus viu que isso era bom.</p>"
-            ],
-            pastoral: [
-                "<p><span class='bible-verse-number'>1</span> No princípio, Deus criou o céu e a terra.</p>",
-                "<p><span class='bible-verse-number'>2</span> A terra estava deserta e vazia, as trevas cobriam a face do abismo, e o sopro de Deus pairava sobre as águas.</p>",
-                "<p><span class='bible-verse-number'>3</span> Deus disse: 'Haja luz!' E houve luz.</p>",
-                "<p><span class='bible-verse-number'>4</span> Deus viu que a luz era boa, e separou a luz das trevas.</p>",
-                "<p><span class='bible-verse-number'>5</span> Deus chamou à luz 'dia' e às trevas 'noite'. Houve uma tarde e uma manhã: primeiro dia.</p>",
-                "<p><span class='bible-verse-number'>6</span> Deus disse: 'Haja um firmamento no meio das águas, separando umas das outras'.</p>",
-                "<p><span class='bible-verse-number'>7</span> Deus fez o firmamento, separando as águas que estavam debaixo do firmamento das que estavam por cima.</p>",
-                "<p><span class='bible-verse-number'>8</span> E Deus chamou ao firmamento 'céu'. Houve uma tarde e uma manhã: segundo dia.</p>",
-                "<p><span class='bible-verse-number'>9</span> Deus disse: 'As águas que estão debaixo do céu se reúnam num só lugar, e apareça o chão seco'. E assim aconteceu.</p>",
-                "<p><span class='bible-verse-number'>10</span> Deus chamou ao chão seco 'terra', e ao ajuntamento das águas 'mar'. E Deus viu que era bom.</p>"
-            ]
-        };
-
-        // Carregar texto bíblico baseado na tradução selecionada
-        function loadBibleText() {
-            const translationSelect = document.getElementById('translationSelect');
-            const bibleText = document.getElementById('bibleText');
-            const selectedTranslation = translationSelect.value;
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            initBooksToggle();
             
-            bibleText.innerHTML = bibleTranslations[selectedTranslation].join('');
-        }
-
-        // Adicionar evento de mudança para o seletor de tradução
-        document.getElementById('translationSelect').addEventListener('change', loadBibleText);
+            // Configurar eventos
+            document.getElementById('versionSelect').addEventListener('change', changeVersion);
+            document.getElementById('prevChapter').addEventListener('click', prevChapter);
+            document.getElementById('nextChapter').addEventListener('click', nextChapter);
+            
+            // Carregar livros
+            loadBooks();
+        });
     </script>
 </body>
 

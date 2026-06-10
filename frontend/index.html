@@ -774,7 +774,7 @@
             color: white;
         }
     </style>
-</head>
+<script src="theme-manager.js"></script><script src="theme-manager.js"></script></head>
 
 <body>
     <header>
@@ -785,7 +785,7 @@
                         <i class="fas fa-church"></i>
                     </div>
                     <div>
-                        <div class="logo-text">Paróquia São José Operário</div>
+                        <div class="logo-text">Comunidade Mesa e Pão</div>
                         <div class="logo-subtitle">Uma família em fé e amor</div>
                     </div>
                 </div>
@@ -919,7 +919,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Paróquia São José Operário</h3>
+                    <h3>Comunidade Mesa e Pão</h3>
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -974,111 +974,73 @@
         </div>
     </footer>
 
-    <script>
-        // Estado de autenticação do usuário
-        let isLoggedIn = true;
-        const authButton = document.getElementById('authButton');
-        const authIcon = document.getElementById('authIcon');
-        const authText = document.getElementById('authText');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const statusText = document.getElementById('statusText');
+    <!-- No lugar das funções de tema existentes, mantenha apenas: -->
+<script>
+    // Estado de autenticação do usuário
+    let isLoggedIn = true;
+    const authButton = document.getElementById('authButton');
+    const authIcon = document.getElementById('authIcon');
+    const authText = document.getElementById('authText');
+    const statusIndicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
 
-        // Gerenciamento de Configurações
-        function toggleSettings() {
-            const menu = document.getElementById('settingsMenu');
-            menu.classList.toggle('active');
-        }
+    // Gerenciamento de Configurações
+    function toggleSettings() {
+        const menu = document.getElementById('settingsMenu');
+        menu.classList.toggle('active');
+    }
 
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function (event) {
-            const settingsContainer = document.querySelector('.settings-container');
-            const settingsMenu = document.getElementById('settingsMenu');
-
-            if (!settingsContainer.contains(event.target)) {
-                settingsMenu.classList.remove('active');
-            }
-        });
-
-        // Alternar opções de tema
-        function toggleThemeOptions() {
-            const themeOptions = document.querySelector('.theme-options');
-            themeOptions.classList.toggle('active');
-        }
-
-        // Gerenciamento de Tema
-        function setTheme(theme) {
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.querySelector('.theme-light').classList.remove('active');
-                document.querySelector('.theme-dark').classList.add('active');
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.querySelector('.theme-light').classList.add('active');
-                document.querySelector('.theme-dark').classList.remove('active');
-            }
-            localStorage.setItem('theme', theme);
-        }
-
-        function toggleTheme() {
-            const isDark = document.body.classList.contains('dark-mode');
-            setTheme(isDark ? 'light' : 'dark');
-        }
-
-        // Carregar tema salvo
-        document.addEventListener('DOMContentLoaded', function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-            updateAuthButton();
-            updateStatusIndicator();
-        });
-
-        // Alternar entre login/logout
-        function toggleAuth() {
-            if (isLoggedIn) {
-                logout();
-            } else {
-                login();
-            }
-        }
-
-        // Função de logout
-        function logout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                isLoggedIn = false;
-                updateAuthButton();
-                updateStatusIndicator();
-                alert('Você foi desconectado com sucesso.');
-                // Fechar o menu após o logout
-                const settingsMenu = document.getElementById('settingsMenu');
-                settingsMenu.classList.remove('active');
-            }
-        }
-
-        // Função de login
-        function login() {
-            isLoggedIn = true;
-            updateAuthButton();
-            updateStatusIndicator();
-            // Fechar o menu após o login
-            const settingsMenu = document.getElementById('settingsMenu');
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function(event) {
+        const settingsContainer = document.querySelector('.settings-container');
+        const settingsMenu = document.getElementById('settingsMenu');
+        
+        if (settingsContainer && !settingsContainer.contains(event.target)) {
             settingsMenu.classList.remove('active');
-            // Redirecionar para página de login
-            window.location.href = 'login.html';
         }
+    });
 
-        // Atualizar o botão de autenticação
-        function updateAuthButton() {
-            if (isLoggedIn) {
-                authIcon.className = 'fas fa-sign-out-alt';
-                authText.textContent = 'Sair';
-            } else {
-                authIcon.className = 'fas fa-sign-in-alt';
-                authText.textContent = 'Login / Cadastrar-se';
-            }
+    // Alternar entre login/logout
+    function toggleAuth() {
+        if (isLoggedIn) {
+            logout();
+        } else {
+            login();
         }
+    }
 
-        // Atualizar o indicador de status
-        function updateStatusIndicator() {
+    function logout() {
+        if (confirm('Tem certeza que deseja sair?')) {
+            isLoggedIn = false;
+            updateAuthButton();
+            updateStatusIndicator();
+            alert('Você foi desconectado com sucesso.');
+            const settingsMenu = document.getElementById('settingsMenu');
+            if (settingsMenu) settingsMenu.classList.remove('active');
+        }
+    }
+
+    function login() {
+        isLoggedIn = true;
+        updateAuthButton();
+        updateStatusIndicator();
+        const settingsMenu = document.getElementById('settingsMenu');
+        if (settingsMenu) settingsMenu.classList.remove('active');
+        window.location.href = 'login.html';
+    }
+
+    function updateAuthButton() {
+        if (isLoggedIn) {
+            authIcon.className = 'fas fa-sign-out-alt';
+            authText.textContent = 'Sair';
+        } else {
+            authIcon.className = 'fas fa-sign-in-alt';
+            authText.textContent = 'Login / Cadastrar-se';
+        }
+    }
+
+    function updateStatusIndicator() {
+        if (statusIndicator && statusText) {
             if (isLoggedIn) {
                 statusIndicator.classList.remove('logged-out');
                 statusText.textContent = 'Logado';
@@ -1087,17 +1049,23 @@
                 statusText.textContent = 'Deslogado';
             }
         }
+    }
 
-        // Para a página de perfil - confirmação de exclusão de conta
-        function confirmDelete() {
-            if (confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados serão perdidos.')) {
-                if (confirm('Esta é sua última chance. Confirmar exclusão permanente da conta?')) {
-                    alert('Conta excluída com sucesso. Sentiremos sua falta!');
-                    window.location.href = 'index.html';
-                }
+    function confirmDelete() {
+        if (confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados serão perdidos.')) {
+            if (confirm('Esta é sua última chance. Confirmar exclusão permanente da conta?')) {
+                alert('Conta excluída com sucesso. Sentiremos sua falta!');
+                window.location.href = 'index.html';
             }
         }
-    </script>
+    }
+
+    // Inicializar quando o DOM carregar
+    document.addEventListener('DOMContentLoaded', function() {
+        updateAuthButton();
+        updateStatusIndicator();
+    });
+</script>
 </body>
 
 </html>
