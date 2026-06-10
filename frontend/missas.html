@@ -739,148 +739,56 @@
 </head>
 
 <body>
-<header>
-    <div class="container">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-church"></i>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Missas</div>
+                        <div class="logo-subtitle">A oração mais forte que existe!</div>
+                    </div>
                 </div>
-                <div>
-                    <div class="logo-text">Missas</div>
-                    <div class="logo-subtitle">A oração mais forte que existe!</div>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> Sobre</a>
-                <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
-                <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
+                <div class="nav-buttons">
+                    <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> Sobre</a>
+                    <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
+                    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
 
-                <!-- Botão de Configurações -->
-                <div class="settings-container">
-                    <button class="settings-btn" onclick="toggleSettings()">
-                        <i class="fas fa-cog" style="font-size: 22px;"></i>
-                    </button>
-                    <div class="settings-menu" id="settingsMenu">
-                        <button class="settings-menu-item" onclick="toggleTheme()">
-                            <i class="fas fa-palette"></i>
-                            <span>Tema</span>
+                    <!-- Botão de Configurações -->
+                    <div class="settings-container">
+                        <button class="settings-btn" onclick="toggleSettings()">
+                            <i class="fas fa-cog" style="font-size: 22px;"></i>
                         </button>
-                        <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
-                            <i class="fas fa-user"></i> Meu perfil
-                        </button>
-                        <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
-                            <i class="fas fa-sign-out-alt" id="authIcon"></i>
-                            <span id="authText">Sair</span>
-                        </button>
+                        <div class="settings-menu" id="settingsMenu">
+                            <button class="settings-menu-item" onclick="toggleTheme()">
+                                <i class="fas fa-palette"></i>
+                                <span>Tema</span>
+                            </button>
+                            <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
+                                <i class="fas fa-user"></i> Meu perfil
+                            </button>
+                            <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
+                                <i class="fas fa-sign-out-alt" id="authIcon"></i>
+                                <span id="authText">Sair</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="hero">
+                <h1>Horários de Missas</h1>
+                <p>Participe das nossas celebrações e fortaleça sua fé com a comunidade.</p>
+            </div>
         </div>
-        <div class="hero">
-            <h1>Horários de Missas</h1>
-            <p>Participe das nossas celebrações e fortaleça sua fé com a comunidade.</p>
-        </div>
-    </div>
-</header>
+    </header>
 
     <br>
 
     <main class="container">
-        <section class="mass-schedule">
-            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Horários Regulares</h2>
-
-            <div class="mass-day">
-                <h3><i class="fas fa-sun"></i> Domingo</h3>
-                <div class="mass-times">
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">07:00</div>
-                            <div class="mass-type">Missa Matinal</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">09:00</div>
-                            <div class="mass-type">Missa da Família</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">11:00</div>
-                            <div class="mass-type">Missa Solene</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">19:00</div>
-                            <div class="mass-type">Missa da Juventude</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mass-day">
-                <h3><i class="fas fa-calendar-day"></i> Segunda a Sexta</h3>
-                <div class="mass-times">
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">07:00</div>
-                            <div class="mass-type">Missa da Manhã</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">12:00</div>
-                            <div class="mass-type">Missa do Meio-Dia</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">19:30</div>
-                            <div class="mass-type">Missa da Noite</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mass-day">
-                <h3><i class="fas fa-star"></i> Sábado</h3>
-                <div class="mass-times">
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">08:00</div>
-                            <div class="mass-type">Missa da Manhã</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">17:00</div>
-                            <div class="mass-type">Missa Vespertina</div>
-                        </div>
-                    </div>
-                    <div class="mass-time">
-                        <i class="fas fa-clock"></i>
-                        <div class="mass-info">
-                            <div class="mass-time-slot">19:00</div>
-                            <div class="mass-type">Missa Dominical Antecipada</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="special-masses">
-            <h2 class="section-title"><i class="fas fa-star"></i> Missas Especiais</h2>
+            <h2 class="section-title"><i class="fas fa-star"></i> Missas Próximas</h2>
 
             <div class="special-mass-item">
                 <div class="special-mass-date">
@@ -940,18 +848,17 @@
                 <div class="card">
                     <h3><i class="fas fa-bell"></i> Confissões</h3>
                     <p>As confissões estão disponíveis 30 minutos antes de cada missa ou mediante agendamento com a
-                        secretaria.</p>
-                    <a href="#" class="btn">Agendar Confissão</a>
+                        secretaria, número residente no rodapé da página.</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-users"></i> Primeira Eucaristia</h3>
-                    <p>Preparação para a primeira comunhão acontece aos sábados pela manhã. Inscrições abertas.</p>
-                    <a href="#" class="btn">Saiba Mais</a>
+                    <p>Preparação para a primeira comunhão acontece aos sábados pela manhã. Para mais informações, entre
+                        em contato com a secretaria, número residente no rodapé da página.</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-baby"></i> Batizados</h3>
-                    <p>Celebrações de batizado acontecem no primeiro e terceiro domingo de cada mês às 14h.</p>
-                    <a href="#" class="btn">Agendar Batizado</a>
+                    <p>Celebrações de batizado acontecem no primeiro e terceiro domingo de cada mês às 14h. Para
+                        agendamento, entre em contato com a secretaria, número residente no rodapé da página.</p>
                 </div>
             </div>
         </section>
@@ -973,10 +880,10 @@
                 <div class="footer-section">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
-                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
                         <li><a href="missas.html"><i class="fas fa-chevron-right"></i> Missas</a></li>
                         <li><a href="eventos.html"><i class="fas fa-chevron-right"></i> Eventos</a></li>
-                         <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
+                        <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
                         <li><a href="biblia.html"><i class="fas fa-chevron-right"></i> Bíblia</a></li>
                         <li><a href="leitura.html"><i class="fas fa-chevron-right"></i> Leitura do Dia</a></li>
                         <li><a href="enciclopedias.html"><i class="fas fa-chevron-right"></i> Enciclopédias</a></li>

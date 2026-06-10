@@ -693,14 +693,13 @@
             color: var(--dark);
         }
 
-        body.dark-mode .book-title {
+        body.dark-mode .book-title{
             color: var(--primary);
         }
 
-        body.dark-mode .section-title {
+        body.dark-mode .section-title{
             color: white
         }
-
         body.dark-mode .book-description,
         body.dark-mode .book-subtitle {
             color: var(--gray);
@@ -742,56 +741,74 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div>
-                        <div class="logo-text">Biblioteca FéTech</div>
-                        <div class="logo-subtitle">Sabedoria para a jornada espiritual</div>
-                    </div>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-book"></i>
                 </div>
-                <div class="nav-buttons">
-                    <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> Sobre</a>
-                    <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
-                    <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
-
-                    <!-- Botão de Configurações -->
-                    <div class="settings-container">
-                        <button class="settings-btn" onclick="toggleSettings()">
-                            <i class="fas fa-cog" style="font-size: 22px;"></i>
-                        </button>
-                        <div class="settings-menu" id="settingsMenu">
-                            <button class="settings-menu-item" onclick="toggleTheme()">
-                                <i class="fas fa-palette"></i>
-                                <span>Tema</span>
-                            </button>
-                            <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
-                                <i class="fas fa-user"></i> Meu perfil
-                            </button>
-                            <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
-                                <i class="fas fa-sign-out-alt" id="authIcon"></i>
-                                <span id="authText">Sair</span>
-                            </button>
-                        </div>
-                    </div>
+                <div>
+                    <div class="logo-text">Biblioteca FéTech</div>
+                    <div class="logo-subtitle">Sabedoria para a jornada espiritual</div>
                 </div>
             </div>
-            <div class="hero">
-                <h1>Enciclopédias e Livros Sagrados</h1>
-                <p>Explore nossa coleção de obras espirituais, doutrinárias e históricas para aprofundar seu
-                    conhecimento da fé</p>
+            <div class="nav-buttons">
+                <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> Sobre</a>
+                <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
+                <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
+
+                <!-- Botão de Configurações -->
+                <div class="settings-container">
+                    <button class="settings-btn" onclick="toggleSettings()">
+                        <i class="fas fa-cog" style="font-size: 22px;"></i>
+                    </button>
+                    <div class="settings-menu" id="settingsMenu">
+                        <button class="settings-menu-item" onclick="toggleTheme()">
+                            <i class="fas fa-palette"></i>
+                            <span>Tema</span>
+                        </button>
+                        <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
+                            <i class="fas fa-user"></i> Meu perfil
+                        </button>
+                        <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
+                            <i class="fas fa-sign-out-alt" id="authIcon"></i>
+                            <span id="authText">Sair</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
+        <div class="hero">
+            <h1>Enciclopédias e Livros Sagrados</h1>
+            <p>Explore nossa coleção de obras espirituais, doutrinárias e históricas para aprofundar seu
+                conhecimento da fé</p>
+        </div>
+    </div>
+</header>
     <br>
 
     <main class="container">
         <section>
-            <h2 class="section-title"><i class="fas fa-book"></i> Nossa Biblioteca</h2>
+            <h2 class="section-title"><i class="fas fa-search"></i> Buscar na Biblioteca</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Buscar por título, autor ou assunto...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div class="categories">
+                <button class="category-btn active">Todos</button>
+                <button class="category-btn">Bíblia e Sagradas Escrituras</button>
+                <button class="category-btn">Doutrina e Teologia</button>
+                <button class="category-btn">História da Igreja</button>
+                <button class="category-btn">Vidas dos Santos</button>
+                <button class="category-btn">Espiritualidade</button>
+                <button class="category-btn">Liturgia e Sacramentos</button>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title"><i class="fas fa-star"></i> Destaques</h2>
             <div class="books-grid">
                 <a href="biblia.html" class="book-card featured">
                     <div class="book-header">
@@ -822,7 +839,7 @@
                             <span>1.2M leituras</span>
                         </div>
                     </div>
-                    <div class="btn btn-outline">Acessar</div>
+                    <div class="btn">Ler Agora</div>
                 </a>
 
                 <div class="book-card">
@@ -892,7 +909,7 @@
         </section>
 
         <section>
-
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Obras Doutrinárias</h2>
             <div class="books-grid">
                 <div class="book-card">
                     <div class="book-header">
@@ -981,7 +998,7 @@
         </section>
 
         <section>
-
+            <h2 class="section-title"><i class="fas fa-user-alt"></i> Vidas dos Santos</h2>
             <div class="books-grid">
                 <div class="book-card">
                     <div class="book-header">
@@ -1089,7 +1106,7 @@
                         <li><a href="index.html"><i class="fas fa-chevron-right"></i> Início</a></li>
                         <li><a href="missas.html"><i class="fas fa-chevron-right"></i> Missas</a></li>
                         <li><a href="eventos.html"><i class="fas fa-chevron-right"></i> Eventos</a></li>
-                        <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
+                         <li><a href="retiros.html"><i class="fas fa-chevron-right"></i> Retiros</a></li>
                         <li><a href="biblia.html"><i class="fas fa-chevron-right"></i> Bíblia</a></li>
                         <li><a href="leitura.html"><i class="fas fa-chevron-right"></i> Leitura do Dia</a></li>
                         <li><a href="enciclopedias.html"><i class="fas fa-chevron-right"></i> Enciclopédias</a></li>

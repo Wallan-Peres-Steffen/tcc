@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -276,10 +277,21 @@
             color: white;
         }
 
-        .stat-icon.missas { background: var(--primary); }
-        .stat-icon.eventos { background: var(--secondary); }
-        .stat-icon.escalas { background: var(--accent); }
-        .stat-icon.retiros { background: #6f42c1; }
+        .stat-icon.missas {
+            background: var(--primary);
+        }
+
+        .stat-icon.eventos {
+            background: var(--secondary);
+        }
+
+        .stat-icon.escalas {
+            background: var(--accent);
+        }
+
+        .stat-icon.retiros {
+            background: #6f42c1;
+        }
 
         .stat-info h3 {
             font-size: 14px;
@@ -351,35 +363,35 @@
             .admin-layout {
                 flex-direction: column;
             }
-            
+
             .admin-sidebar {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid var(--light-gray);
             }
-            
+
             .sidebar-nav {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px;
                 padding: 0 20px;
             }
-            
+
             .sidebar-item {
                 margin-bottom: 0;
             }
-            
+
             .sidebar-link {
                 border-left: none;
                 border-bottom: 3px solid transparent;
             }
-            
+
             .sidebar-link:hover,
             .sidebar-link.active {
                 border-left-color: transparent;
                 border-bottom-color: var(--primary);
             }
-            
+
             .page-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -391,25 +403,26 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             .admin-nav {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- VERIFICAÇÃO DE AUTENTICAÇÃO SIMPLIFICADA -->
     <script>
         // Verificar se está logado
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const isLoggedIn = localStorage.getItem('adminLoggedIn');
-            
+
             if (isLoggedIn !== 'true') {
                 // Se não estiver logado, redirecionar para login
                 window.location.href = 'admin-login.html';
@@ -484,12 +497,7 @@
                         </a>
                     </li>
                     <div class="sidebar-divider"></div>
-                    <li class="sidebar-item">
-                        <a href="admin-usuarios.html" class="sidebar-link">
-                            <i class="fas fa-user-cog"></i>
-                            Usuários
-                        </a>
-                    </li>
+                    
                     <li class="sidebar-item">
                         <a href="admin-config.html" class="sidebar-link">
                             <i class="fas fa-cog"></i>
@@ -603,7 +611,8 @@
                 </ul>
             </div>
 
-            <div style="margin-top: 30px; padding: 20px; background: white; border-radius: var(--radius); box-shadow: var(--shadow);">
+            <div
+                style="margin-top: 30px; padding: 20px; background: white; border-radius: var(--radius); box-shadow: var(--shadow);">
                 <h3 style="margin-bottom: 15px; color: var(--primary);">
                     <i class="fas fa-lightbulb"></i> Ações Rápidas
                 </h3>
@@ -634,10 +643,10 @@
         }
 
         // Atualizar sidebar ativa
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const currentPage = window.location.pathname.split('/').pop();
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
-            
+
             sidebarLinks.forEach(link => {
                 if (link.getAttribute('href') === currentPage) {
                     link.classList.add('active');
@@ -648,4 +657,5 @@
         });
     </script>
 </body>
+
 </html>

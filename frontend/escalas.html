@@ -769,60 +769,7 @@
             <h2 class="section-title" style="border-bottom: none; margin: 0; padding: 0;">
                 <i class="fas fa-calendar-alt"></i> Todas as Escalas
             </h2>
-            <div class="page-actions">
-                <button class="btn btn-secondary" onclick="printScales()">
-                    <i class="fas fa-print"></i> Imprimir
-                </button>
-                <a href="index.html" class="btn btn-outline">
-                    <i class="fas fa-arrow-left"></i> Voltar ao Início
-                </a>
-            </div>
         </div>
-
-        <section class="filter-section">
-            <h3 style="margin-bottom: 20px; color: var(--primary);">
-                <i class="fas fa-filter"></i> Filtrar Escalas
-            </h3>
-            <div class="filter-grid">
-                <div class="filter-group">
-                    <label for="ministryFilter">Ministério</label>
-                    <select id="ministryFilter" class="filter-select" onchange="filterScales()">
-                        <option value="all">Todos os Ministérios</option>
-                        <option value="acolito">Acólitos</option>
-                        <option value="musico">Músicos</option>
-                        <option value="leitor">Leitores</option>
-                        <option value="coral">Coral</option>
-                        <option value="dizimo">Dízimo</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="monthFilter">Mês</label>
-                    <select id="monthFilter" class="filter-select" onchange="filterScales()">
-                        <option value="all">Todos os Meses</option>
-                        <option value="0">Janeiro</option>
-                        <option value="1">Fevereiro</option>
-                        <option value="2">Março</option>
-                        <option value="3">Abril</option>
-                        <option value="4">Maio</option>
-                        <option value="5">Junho</option>
-                        <option value="6">Julho</option>
-                        <option value="7">Agosto</option>
-                        <option value="8">Setembro</option>
-                        <option value="9">Outubro</option>
-                        <option value="10">Novembro</option>
-                        <option value="11">Dezembro</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="statusFilter">Status</label>
-                    <select id="statusFilter" class="filter-select" onchange="filterScales()">
-                        <option value="all">Todas as Escalas</option>
-                        <option value="active">Próximas</option>
-                        <option value="completed">Realizadas</option>
-                    </select>
-                </div>
-            </div>
-        </section>
 
         <section>
             <div class="scales-grid" id="scalesContainer">
