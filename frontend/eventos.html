@@ -850,7 +850,8 @@
             }
         }
     </style>
-    <script src="theme-manager.js"></script></head>
+    <script src="theme-manager.js"></script>
+</head>
 
 <body>
     <header>
@@ -905,7 +906,7 @@
                 <h2 class="section-title" style="border-bottom: none; margin: 0; padding: 0;"><i
                         class="fas fa-calendar-alt"></i> Próximos Eventos</h2>
                 <br>
-                
+
             </div>
             <div class="events-list">
                 <div class="event-item">
@@ -1006,7 +1007,9 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a
+                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                                class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -1021,21 +1024,22 @@
                         <li><a href="biblia.html"><i class="fas fa-chevron-right"></i> Bíblia</a></li>
                         <li><a href="leitura.html"><i class="fas fa-chevron-right"></i> Leitura do Dia</a></li>
                         <li><a href="enciclopedias.html"><i class="fas fa-chevron-right"></i> Enciclopédias</a></li>
+                    </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span>
+                            <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
-                            <span>(11) 9999-9999</span>
+                            <span>(51) 3606-2592</span>
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>contato@comunidadesaofrancisco.org</span>
+                            <span>saojoseoperario@diocesedeosorio.org</span>
                         </li>
                     </ul>
                 </div>
@@ -1048,105 +1052,106 @@
                     Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
                     são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
                     desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
-                    resultar de seu uso.</p>
+                    resultar de seu uso.
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
-    // Estado de autenticação do usuário
-    let isLoggedIn = true;
-    const authButton = document.getElementById('authButton');
-    const authIcon = document.getElementById('authIcon');
-    const authText = document.getElementById('authText');
+        // Estado de autenticação do usuário
+        let isLoggedIn = true;
+        const authButton = document.getElementById('authButton');
+        const authIcon = document.getElementById('authIcon');
+        const authText = document.getElementById('authText');
 
-    // Gerenciamento de Configurações
-    function toggleSettings() {
-        const menu = document.getElementById('settingsMenu');
-        menu.classList.toggle('active');
-    }
-
-    // Fechar menu ao clicar fora
-    document.addEventListener('click', function (event) {
-        const settingsContainer = document.querySelector('.settings-container');
-        const settingsMenu = document.getElementById('settingsMenu');
-
-        if (settingsContainer && !settingsContainer.contains(event.target)) {
-            settingsMenu.classList.remove('active');
+        // Gerenciamento de Configurações
+        function toggleSettings() {
+            const menu = document.getElementById('settingsMenu');
+            menu.classList.toggle('active');
         }
-    });
 
-    // Função para aplicar o tema salvo
-    function applySavedTheme() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-    }
-    
-    // Função para alternar tema
-    function toggleTheme() {
-        const isDark = document.body.classList.contains('dark-mode');
-        const newTheme = isDark ? 'light' : 'dark';
-        
-        if (newTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-        
-        localStorage.setItem('theme', newTheme);
-    }
-    
-    // Aplicar tema salvo ao carregar a página
-    applySavedTheme();
-
-    // Alternar entre login/logout
-    function toggleAuth() {
-        if (isLoggedIn) {
-            logout();
-        } else {
-            login();
-        }
-    }
-
-    function logout() {
-        if (confirm('Tem certeza que deseja sair?')) {
-            isLoggedIn = false;
-            updateAuthButton();
-            alert('Você foi desconectado com sucesso.');
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function (event) {
+            const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-            if (settingsMenu) settingsMenu.classList.remove('active');
-        }
-    }
 
-    function login() {
-        isLoggedIn = true;
-        updateAuthButton();
-        const settingsMenu = document.getElementById('settingsMenu');
-        if (settingsMenu) settingsMenu.classList.remove('active');
-        window.location.href = 'login.html';
-    }
+            if (settingsContainer && !settingsContainer.contains(event.target)) {
+                settingsMenu.classList.remove('active');
+            }
+        });
 
-    function updateAuthButton() {
-        if (authIcon && authText) {
-            if (isLoggedIn) {
-                authIcon.className = 'fas fa-sign-out-alt';
-                authText.textContent = 'Sair';
+        // Função para aplicar o tema salvo
+        function applySavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
             } else {
-                authIcon.className = 'fas fa-sign-in-alt';
-                authText.textContent = 'Login / Cadastrar-se';
+                document.body.classList.remove('dark-mode');
             }
         }
-    }
 
-    // Inicializar
-    document.addEventListener('DOMContentLoaded', function () {
-        updateAuthButton();
-    });
-</script>
+        // Função para alternar tema
+        function toggleTheme() {
+            const isDark = document.body.classList.contains('dark-mode');
+            const newTheme = isDark ? 'light' : 'dark';
+
+            if (newTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Aplicar tema salvo ao carregar a página
+        applySavedTheme();
+
+        // Alternar entre login/logout
+        function toggleAuth() {
+            if (isLoggedIn) {
+                logout();
+            } else {
+                login();
+            }
+        }
+
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                isLoggedIn = false;
+                updateAuthButton();
+                alert('Você foi desconectado com sucesso.');
+                const settingsMenu = document.getElementById('settingsMenu');
+                if (settingsMenu) settingsMenu.classList.remove('active');
+            }
+        }
+
+        function login() {
+            isLoggedIn = true;
+            updateAuthButton();
+            const settingsMenu = document.getElementById('settingsMenu');
+            if (settingsMenu) settingsMenu.classList.remove('active');
+            window.location.href = 'login.html';
+        }
+
+        function updateAuthButton() {
+            if (authIcon && authText) {
+                if (isLoggedIn) {
+                    authIcon.className = 'fas fa-sign-out-alt';
+                    authText.textContent = 'Sair';
+                } else {
+                    authIcon.className = 'fas fa-sign-in-alt';
+                    authText.textContent = 'Login / Cadastrar-se';
+                }
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function () {
+            updateAuthButton();
+        });
+    </script>
 </body>
 
 </html>

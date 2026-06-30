@@ -285,10 +285,6 @@
             background: var(--secondary);
         }
 
-        .stat-icon.escalas {
-            background: var(--accent);
-        }
-
         .stat-icon.retiros {
             background: #6f42c1;
         }
@@ -414,7 +410,8 @@
             }
         }
     </style>
-<script src="theme-manager.js"></script><script src="theme-manager.js"></script><script src="theme-manager.js"></script></head>
+    <script src="theme-manager.js"></script>
+</head>
 
 <body>
     <!-- VERIFICAÇÃO DE AUTENTICAÇÃO SIMPLIFICADA -->
@@ -436,7 +433,7 @@
             <div class="header-content">
                 <div class="admin-logo">
                     <div class="admin-logo-icon">
-                        <i class="fas fa-church"></i>
+                        <i class="fas fa-tachometer-alt"></i>
                     </div>
                     <div>
                         <div class="admin-logo-text">Painel Administrativo</div>
@@ -478,12 +475,7 @@
                             Eventos
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="admin-escalas.html" class="sidebar-link">
-                            <i class="fas fa-users"></i>
-                            Escalas
-                        </a>
-                    </li>
+
                     <li class="sidebar-item">
                         <a href="admin-retiros.html" class="sidebar-link">
                             <i class="fas fa-praying-hands"></i>
@@ -497,13 +489,6 @@
                         </a>
                     </li>
                     <div class="sidebar-divider"></div>
-                    
-                    <li class="sidebar-item">
-                        <a href="admin-config.html" class="sidebar-link">
-                            <i class="fas fa-cog"></i>
-                            Configurações
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </aside>
@@ -541,16 +526,7 @@
                         <small>Próximos eventos</small>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon escalas">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>Escalas</h3>
-                        <div class="stat-number">6</div>
-                        <small>Serviços ativos</small>
-                    </div>
-                </div>
+
                 <div class="stat-card">
                     <div class="stat-icon retiros">
                         <i class="fas fa-praying-hands"></i>
@@ -622,9 +598,6 @@
                     </a>
                     <a href="admin-eventos.html" class="btn btn-secondary">
                         <i class="fas fa-plus"></i> Novo Evento
-                    </a>
-                    <a href="admin-escalas.html" class="btn btn-outline">
-                        <i class="fas fa-plus"></i> Nova Escala
                     </a>
                     <a href="admin-retiros.html" class="btn btn-outline">
                         <i class="fas fa-plus"></i> Novo Retiro

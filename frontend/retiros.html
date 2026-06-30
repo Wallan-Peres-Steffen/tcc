@@ -550,8 +550,8 @@
                                 <i class="fas fa-palette"></i>
                                 <span>Tema</span>
                             </button>
-                            <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
-                                <i class="fas fa-user"></i> Meu perfil
+                            <button class="settings-menu-item" onclick="window.location.href='admin-dashboard.html'">
+                                <i class="fas fa-user"></i> Administração
                             </button>
                             <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
                                 <i class="fas fa-sign-out-alt" id="authIcon"></i>
@@ -567,6 +567,8 @@
             </div>
         </div>
     </header>
+
+    <br>
 
     <main class="container">
         <section>
@@ -642,16 +644,20 @@
             <h2 class="section-title"><i class="fas fa-info-circle"></i> Informações Gerais</h2>
             <div class="card">
                 <h3><i class="fas fa-question-circle"></i> Como Participar</h3>
-                <p>As inscrições para os retiros podem ser feitas na secretaria paroquial ou através do nosso site. As vagas são limitadas, recomendamos garantir sua participação com antecedência.</p>
+                <p>As inscrições para os retiros podem ser feitas na secretaria paroquial ou através do sistema e-inscrião disponibilizado pela paróquia. As
+                    vagas são limitadas, recomendamos garantir sua participação com antecedência.</p>
 
                 <h3><i class="fas fa-hand-holding-heart"></i> Investimento</h3>
-                <p>Os valores dos retiros incluem hospedagem, alimentação e material de apoio. Consulte valores específicos para cada retiro em nossa secretaria.</p>
+                <p>Os valores dos retiros incluem hospedagem, alimentação e material de apoio. Consulte valores
+                    específicos para cada retiro em nossa secretaria.</p>
 
                 <h3><i class="fas fa-clock"></i> O que Levar</h3>
                 <p>Bíblia, caderno para anotações, roupa de cama, artigos de higiene pessoal e roupas confortáveis.</p>
             </div>
         </section>
     </main>
+
+    <br>
 
     <footer>
         <div class="container">
@@ -661,7 +667,9 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a
+                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                                class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -681,14 +689,31 @@
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span></li>
-                        <li><i class="fas fa-phone"></i> <span>(11) 9999-9999</span></li>
-                        <li><i class="fas fa-envelope"></i> <span>contato@comunidadesaofrancisco.org</span></li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>(51) 3606-2592</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>saojoseoperario@diocesedeosorio.org</span>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados.</p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
+                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
+                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
+                    registradas de seus respectivos proprietários.
+                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
+                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
+                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
+                    resultar de seu uso.
+                </p>
             </div>
         </div>
     </footer>
@@ -704,10 +729,10 @@
         }
 
         // Fechar menu ao clicar fora
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-            
+
             if (settingsContainer && settingsMenu && !settingsContainer.contains(event.target)) {
                 settingsMenu.classList.remove('active');
             }
@@ -726,13 +751,13 @@
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
             const newTheme = isDark ? 'light' : 'dark';
-            
+
             if (newTheme === 'dark') {
                 document.body.classList.add('dark-mode');
             } else {
                 document.body.classList.remove('dark-mode');
             }
-            
+
             localStorage.setItem('theme', newTheme);
         }
 
@@ -752,7 +777,7 @@
         function updateAuthButton() {
             const authIcon = document.getElementById('authIcon');
             const authText = document.getElementById('authText');
-            
+
             if (authIcon && authText) {
                 if (isLoggedIn) {
                     authIcon.className = 'fas fa-sign-out-alt';

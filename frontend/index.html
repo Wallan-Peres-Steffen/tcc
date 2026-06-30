@@ -295,6 +295,18 @@
             color: var(--secondary);
         }
 
+        .settings-btn i {
+            font-size: 22px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-top: 10px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -386,15 +398,6 @@
             background: var(--primary-light);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
         }
 
         .btn-outline {
@@ -522,7 +525,94 @@
             font-size: 12px;
         }
 
-        /* Footer */
+        .month-theme {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-theme::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(212, 175, 55, 0.1) 100%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .month-theme>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .month-theme-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .month-theme-title i {
+            color: var(--secondary);
+            font-size: 32px;
+        }
+
+        .month-theme-intro {
+            font-size: 15px;
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-style: italic;
+            line-height: 1.6;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .month-theme-content {
+            margin-top: 25px;
+        }
+
+        .month-theme-main {
+            background: linear-gradient(135deg, var(--light) 0%, var(--light-gray) 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .month-theme-label {
+            font-size: 13px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .month-theme-topic {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .month-theme-description {
+            color: var(--dark);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
         footer {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
@@ -623,6 +713,7 @@
         }
 
         /* Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -675,7 +766,6 @@
             --light-gray: #e9ecef;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
-            /* Alterado para branco para melhor contraste */
         }
 
         body.dark-mode header {
@@ -688,13 +778,11 @@
 
         body.dark-mode .card,
         body.dark-mode .resource-card,
-        body.dark-mode .schedule,
-        body.dark-mode .schedule-item {
+        body.dark-mode .month-theme {
             background: white;
             color: var(--dark);
         }
 
-        /* CORREÇÃO DOS TÍTULOS NO MODO ESCURO - AGORA EM BRANCO */
         body.dark-mode .section-title {
             color: white;
             /* Títulos das seções em branco */
@@ -708,7 +796,6 @@
             border-bottom: 2px solid #1e3a8a;
             /* Borda mais suave */
         }
-
 
         body.dark-mode .section-title i {
             color: var(--secondary);
@@ -745,6 +832,18 @@
             /* Mantém azul nos títulos da agenda */
         }
 
+        body.dark-mode .month-theme {
+            background: white;
+        }
+
+        body.dark-mode .month-theme-intro {
+            background: var(--light);
+        }
+
+        body.dark-mode .month-theme-main {
+            background: var(--light);
+        }
+
         body.dark-mode .settings-menu {
             background: white;
             color: var(--dark);
@@ -774,7 +873,8 @@
             color: white;
         }
     </style>
-<script src="theme-manager.js"></script><script src="theme-manager.js"></script></head>
+    <script src="theme-manager.js"></script>
+</head>
 
 <body>
     <header>
@@ -877,39 +977,24 @@
             </div>
         </section>
 
-        <section class="schedule">
-            <div class="schedule-header">
-                <h2 class="section-title" style="border-bottom: none; margin: 0; padding: 0;" id="popy"><i
-                        class="fas fa-calendar-day"></i> Próximas Escalas</h2>
-                <a href="escalas.html" class="btn btn-secondary">Ver Todas as Escalas</a>
-            </div>
-            <div class="schedule-grid">
-                <div class="schedule-item">
-                    <h4><i class="far fa-calendar-alt"></i> 15/05 - Acolitos</h4>
-                    <ul>
-                        <li><i class="fas fa-user"></i> João Silva</li>
-                        <li><i class="fas fa-user"></i> Maria Santos</li>
-                        <li><i class="fas fa-user"></i> Pedro Oliveira</li>
-                        <li><i class="fas fa-user"></i> Ana Costa</li>
-                    </ul>
-                </div>
-                <div class="schedule-item">
-                    <h4><i class="far fa-calendar-alt"></i> 16/05 - Músicos</h4>
-                    <ul>
-                        <li><i class="fas fa-user"></i> Carlos Lima</li>
-                        <li><i class="fas fa-user"></i> Fernanda Rocha</li>
-                        <li><i class="fas fa-user"></i> Ricardo Alves</li>
-                        <li><i class="fas fa-user"></i> Patrícia Nunes</li>
-                    </ul>
-                </div>
-                <div class="schedule-item">
-                    <h4><i class="far fa-calendar-alt"></i> 17/05 - Leitores</h4>
-                    <ul>
-                        <li><i class="fas fa-user"></i> Roberto Ferreira</li>
-                        <li><i class="fas fa-user"></i> Juliana Mendes</li>
-                        <li><i class="fas fa-user"></i> Marcos Dias</li>
-                        <li><i class="fas fa-user"></i> Luciana Moreira</li>
-                    </ul>
+        <section class="month-theme">
+            <h2 class="month-theme-title">
+                <i class="fas fa-calendar-day"></i> Tema do Mês
+            </h2>
+            <p class="month-theme-intro">
+                Aqui apresentamos uma curiosidade e uma breve formação, preparadas com carinho para contribuir com o seu
+                crescimento na fé.
+            </p>
+
+            <div class="month-theme-content">
+                <div class="month-theme-main">
+                    <div class="month-theme-label">Tema</div>
+                    <h3 class="month-theme-topic">Amor e Caridade</h3>
+                    <p class="month-theme-description">
+                        Blá blá blá sobre o tema do mês, explicando sua importância e como aplicá-lo na vida diária. A
+                        comunidade se reúne para discutir e refletir sobre este tema, promovendo ações de caridade e
+                        amor ao próximo.
+                    </p>
                 </div>
             </div>
         </section>
@@ -947,15 +1032,15 @@
                     <ul class="contact-info">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span>
+                            <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
-                            <span>(11) 9999-9999</span>
+                            <span>(51) 3606-2592</span>
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>contato@comunidadesaofrancisco.org</span>
+                            <span>saojoseoperario@diocesedeosorio.org</span>
                         </li>
                     </ul>
                 </div>
@@ -974,98 +1059,90 @@
         </div>
     </footer>
 
-    <!-- No lugar das funções de tema existentes, mantenha apenas: -->
-<script>
-    // Estado de autenticação do usuário
-    let isLoggedIn = true;
-    const authButton = document.getElementById('authButton');
-    const authIcon = document.getElementById('authIcon');
-    const authText = document.getElementById('authText');
-    const statusIndicator = document.getElementById('statusIndicator');
-    const statusText = document.getElementById('statusText');
+    <script>
+        // Estado de autenticação do usuário
+        let isLoggedIn = true;
+        const authButton = document.getElementById('authButton');
+        const authIcon = document.getElementById('authIcon');
+        const authText = document.getElementById('authText');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
 
-    // Gerenciamento de Configurações
-    function toggleSettings() {
-        const menu = document.getElementById('settingsMenu');
-        menu.classList.toggle('active');
-    }
-
-    // Fechar menu ao clicar fora
-    document.addEventListener('click', function(event) {
-        const settingsContainer = document.querySelector('.settings-container');
-        const settingsMenu = document.getElementById('settingsMenu');
-        
-        if (settingsContainer && !settingsContainer.contains(event.target)) {
-            settingsMenu.classList.remove('active');
+        // Gerenciamento de Configurações
+        function toggleSettings() {
+            document.getElementById('settingsMenu').classList.toggle('active');
         }
-    });
 
-    // Alternar entre login/logout
-    function toggleAuth() {
-        if (isLoggedIn) {
-            logout();
-        } else {
-            login();
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', (event) => {
+            const settingsContainer = document.querySelector('.settings-container');
+            const settingsMenu = document.getElementById('settingsMenu');
+            if (settingsContainer && !settingsContainer.contains(event.target)) {
+                settingsMenu.classList.remove('active');
+            }
+        });
+
+        // Alternar entre login/logout
+        function toggleAuth() {
+            if (isLoggedIn) {
+                logout();
+            } else {
+                login();
+            }
         }
-    }
 
-    function logout() {
-        if (confirm('Tem certeza que deseja sair?')) {
-            isLoggedIn = false;
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                isLoggedIn = false;
+                updateAuthButton();
+                updateStatusIndicator();
+                alert('Você foi desconectado com sucesso.');
+                const settingsMenu = document.getElementById('settingsMenu');
+                if (settingsMenu) settingsMenu.classList.remove('active');
+            }
+        }
+
+        function login() {
+            isLoggedIn = true;
             updateAuthButton();
             updateStatusIndicator();
-            alert('Você foi desconectado com sucesso.');
             const settingsMenu = document.getElementById('settingsMenu');
             if (settingsMenu) settingsMenu.classList.remove('active');
+            window.location.href = 'login.html';
         }
-    }
 
-    function login() {
-        isLoggedIn = true;
-        updateAuthButton();
-        updateStatusIndicator();
-        const settingsMenu = document.getElementById('settingsMenu');
-        if (settingsMenu) settingsMenu.classList.remove('active');
-        window.location.href = 'login.html';
-    }
-
-    function updateAuthButton() {
-        if (isLoggedIn) {
-            authIcon.className = 'fas fa-sign-out-alt';
-            authText.textContent = 'Sair';
-        } else {
-            authIcon.className = 'fas fa-sign-in-alt';
-            authText.textContent = 'Login / Cadastrar-se';
+        function updateAuthButton() {
+            authIcon.className = isLoggedIn ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt';
+            authText.textContent = isLoggedIn ? 'Sair' : 'Login / Cadastrar-se';
         }
-    }
 
-    function updateStatusIndicator() {
-        if (statusIndicator && statusText) {
-            if (isLoggedIn) {
-                statusIndicator.classList.remove('logged-out');
-                statusText.textContent = 'Logado';
-            } else {
-                statusIndicator.classList.add('logged-out');
-                statusText.textContent = 'Deslogado';
+        function updateStatusIndicator() {
+            if (statusIndicator && statusText) {
+                if (isLoggedIn) {
+                    statusIndicator.classList.remove('logged-out');
+                    statusText.textContent = 'Logado';
+                } else {
+                    statusIndicator.classList.add('logged-out');
+                    statusText.textContent = 'Deslogado';
+                }
             }
         }
-    }
 
-    function confirmDelete() {
-        if (confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados serão perdidos.')) {
-            if (confirm('Esta é sua última chance. Confirmar exclusão permanente da conta?')) {
-                alert('Conta excluída com sucesso. Sentiremos sua falta!');
-                window.location.href = 'index.html';
+        function confirmDelete() {
+            if (confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível e todos os seus dados serão perdidos.')) {
+                if (confirm('Esta é sua última chance. Confirmar exclusão permanente da conta?')) {
+                    alert('Conta excluída com sucesso. Sentiremos sua falta!');
+                    window.location.href = 'index.html';
+                }
             }
         }
-    }
 
-    // Inicializar quando o DOM carregar
-    document.addEventListener('DOMContentLoaded', function() {
-        updateAuthButton();
-        updateStatusIndicator();
-    });
-</script>
+        // Inicializar quando o DOM carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthButton();
+            updateStatusIndicator();
+        });
+    </script>
 </body>
 
 </html>

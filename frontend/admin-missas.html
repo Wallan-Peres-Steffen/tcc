@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -510,48 +511,48 @@
             .admin-layout {
                 flex-direction: column;
             }
-            
+
             .admin-sidebar {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid var(--light-gray);
             }
-            
+
             .sidebar-nav {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 10px;
                 padding: 0 20px;
             }
-            
+
             .sidebar-item {
                 margin-bottom: 0;
             }
-            
+
             .sidebar-link {
                 border-left: none;
                 border-bottom: 3px solid transparent;
             }
-            
+
             .sidebar-link:hover,
             .sidebar-link.active {
                 border-left-color: transparent;
                 border-bottom-color: var(--primary);
             }
-            
+
             .page-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .special-mass-item {
                 flex-direction: column;
             }
-            
+
             .special-mass-date {
                 align-self: flex-start;
             }
@@ -562,24 +563,26 @@
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             .admin-nav {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .mass-time-actions,
             .special-mass-actions {
                 flex-direction: column;
             }
-            
+
             .mass-time-item {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
     </style>
-<script src="theme-manager.js"></script></head>
+    <script src="theme-manager.js"></script>
+</head>
+
 <body>
     <!-- Verificar autenticação -->
     <script>
@@ -597,7 +600,7 @@
                     </div>
                     <div>
                         <div class="admin-logo-text">Painel Administrativo</div>
-                        <div class="admin-logo-subtitle">Comunidade Mesa e Pão>
+                        <div class="admin-logo-subtitle">Comunidade Mesa e Pão</div>
                     </div>
                 </div>
                 <div class="admin-nav">
@@ -619,7 +622,7 @@
                     <li class="sidebar-item">
                         <a href="admin-dashboard.html" class="sidebar-link">
                             <i class="fas fa-tachometer-alt"></i>
-                            Dashboard
+                            Painel de Controle
                         </a>
                     </li>
                     <div class="sidebar-divider"></div>
@@ -635,12 +638,7 @@
                             Eventos
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="admin-escalas.html" class="sidebar-link">
-                            <i class="fas fa-users"></i>
-                            Escalas
-                        </a>
-                    </li>
+
                     <li class="sidebar-item">
                         <a href="admin-retiros.html" class="sidebar-link">
                             <i class="fas fa-praying-hands"></i>
@@ -654,18 +652,6 @@
                         </a>
                     </li>
                     <div class="sidebar-divider"></div>
-                    <li class="sidebar-item">
-                        <a href="admin-usuarios.html" class="sidebar-link">
-                            <i class="fas fa-user-cog"></i>
-                            Usuários
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="admin-config.html" class="sidebar-link">
-                            <i class="fas fa-cog"></i>
-                            Configurações
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </aside>
@@ -746,11 +732,13 @@
                     <h3><i class="fas fa-info-circle"></i> Informações de Apoio</h3>
                     <div class="form-group">
                         <label>Texto de Introdução</label>
-                        <textarea class="form-control" rows="4" id="intro-text">Participe das nossas celebrações e fortaleça sua fé com a comunidade.</textarea>
+                        <textarea class="form-control" rows="4"
+                            id="intro-text">Participe das nossas celebrações e fortaleça sua fé com a comunidade.</textarea>
                     </div>
                     <div class="form-group">
                         <label>Instruções para Confissões</label>
-                        <textarea class="form-control" rows="4" id="confession-text">As confissões estão disponíveis 30 minutos antes de cada missa ou mediante agendamento com a secretaria.</textarea>
+                        <textarea class="form-control" rows="4"
+                            id="confession-text">As confissões estão disponíveis 30 minutos antes de cada missa ou mediante agendamento com a secretaria.</textarea>
                     </div>
                     <button class="btn" onclick="saveGeneralInfo()">
                         <i class="fas fa-save"></i> Salvar Informações
@@ -773,7 +761,7 @@
                 <form id="massForm">
                     <input type="hidden" id="massId">
                     <input type="hidden" id="massDay">
-                    
+
                     <div class="form-group">
                         <label for="massTime">Horário</label>
                         <input type="time" id="massTime" class="form-control" required>
@@ -781,7 +769,8 @@
 
                     <div class="form-group">
                         <label for="massType">Tipo de Missa</label>
-                        <input type="text" id="massType" class="form-control" placeholder="Ex: Missa Matinal, Missa da Família" required>
+                        <input type="text" id="massType" class="form-control"
+                            placeholder="Ex: Missa Matinal, Missa da Família" required>
                     </div>
 
                     <div class="form-group" id="special-fields" style="display: none;">
@@ -792,18 +781,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="specialLocation">Local</label>
-                                <input type="text" id="specialLocation" class="form-control" placeholder="Ex: Igreja Matriz">
+                                <input type="text" id="specialLocation" class="form-control"
+                                    placeholder="Ex: Igreja Matriz">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="specialCelebrant">Celebrante</label>
-                            <input type="text" id="specialCelebrant" class="form-control" placeholder="Ex: Pe. João Silva">
+                            <input type="text" id="specialCelebrant" class="form-control"
+                                placeholder="Ex: Pe. João Silva">
                         </div>
 
                         <div class="form-group">
                             <label for="specialDescription">Descrição</label>
-                            <textarea id="specialDescription" class="form-control" rows="3" placeholder="Descrição da missa especial"></textarea>
+                            <textarea id="specialDescription" class="form-control" rows="3"
+                                placeholder="Descrição da missa especial"></textarea>
                         </div>
                     </div>
                 </form>
@@ -944,7 +936,7 @@
                 const date = new Date(mass.date);
                 const day = date.getDate();
                 const month = date.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase();
-                
+
                 return `
                     <div class="special-mass-item">
                         <div class="special-mass-date">
@@ -976,14 +968,14 @@
         function openMassModal(type, day = null) {
             currentModalType = type;
             editingMassId = null;
-            
+
             const modal = document.getElementById('massModal');
             const form = document.getElementById('massForm');
             const specialFields = document.getElementById('special-fields');
             const modalTitle = document.getElementById('modalTitle');
-            
+
             form.reset();
-            
+
             if (type === 'regular') {
                 modalTitle.textContent = day ? `Adicionar Missa ${getDayName(day)}` : 'Nova Missa';
                 specialFields.style.display = 'none';
@@ -991,12 +983,12 @@
             } else {
                 modalTitle.textContent = 'Nova Missa Especial';
                 specialFields.style.display = 'block';
-                
+
                 // Definir data mínima como hoje
                 const today = new Date().toISOString().split('T')[0];
                 document.getElementById('specialDate').min = today;
             }
-            
+
             modal.classList.add('active');
         }
 
@@ -1019,18 +1011,18 @@
             const massDay = document.getElementById('massDay').value;
             const massTime = document.getElementById('massTime').value;
             const massType = document.getElementById('massType').value;
-            
+
             if (!massTime || !massType) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
-            
+
             if (currentModalType === 'regular') {
                 if (!massDay) {
                     alert('Erro: dia não especificado.');
                     return;
                 }
-                
+
                 if (massId) {
                     // Editar missa existente
                     const index = massData[massDay].findIndex(m => m.id == massId);
@@ -1048,12 +1040,12 @@
                 const specialLocation = document.getElementById('specialLocation').value;
                 const specialCelebrant = document.getElementById('specialCelebrant').value;
                 const specialDescription = document.getElementById('specialDescription').value;
-                
+
                 if (!specialDate || !specialLocation || !specialCelebrant || !specialDescription) {
                     alert('Por favor, preencha todos os campos da missa especial.');
                     return;
                 }
-                
+
                 if (massId) {
                     // Editar missa especial existente
                     const index = massData.special.findIndex(m => m.id == massId);
@@ -1082,7 +1074,7 @@
                     });
                 }
             }
-            
+
             loadMassData();
             closeModal();
             showSuccessMessage('Missa salva com sucesso!');
@@ -1091,28 +1083,28 @@
         function editMass(day, id) {
             const mass = massData[day].find(m => m.id === id);
             if (!mass) return;
-            
+
             currentModalType = 'regular';
             editingMassId = id;
-            
+
             document.getElementById('massId').value = id;
             document.getElementById('massDay').value = day;
             document.getElementById('massTime').value = mass.time;
             document.getElementById('massType').value = mass.type;
-            
+
             document.getElementById('modalTitle').textContent = `Editar Missa ${getDayName(day)}`;
             document.getElementById('special-fields').style.display = 'none';
-            
+
             document.getElementById('massModal').classList.add('active');
         }
 
         function editSpecialMass(id) {
             const mass = massData.special.find(m => m.id === id);
             if (!mass) return;
-            
+
             currentModalType = 'special';
             editingMassId = id;
-            
+
             document.getElementById('massId').value = id;
             document.getElementById('massTime').value = mass.time;
             document.getElementById('massType').value = mass.title;
@@ -1120,10 +1112,10 @@
             document.getElementById('specialLocation').value = mass.location;
             document.getElementById('specialCelebrant').value = mass.celebrant;
             document.getElementById('specialDescription').value = mass.description;
-            
+
             document.getElementById('modalTitle').textContent = 'Editar Missa Especial';
             document.getElementById('special-fields').style.display = 'block';
-            
+
             document.getElementById('massModal').classList.add('active');
         }
 
@@ -1157,9 +1149,10 @@
         }
 
         // Inicializar
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadMassData();
         });
     </script>
 </body>
+
 </html>

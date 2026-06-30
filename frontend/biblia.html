@@ -443,8 +443,13 @@
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .error {
@@ -668,8 +673,8 @@
                                 <i class="fas fa-palette"></i>
                                 <span>Tema</span>
                             </button>
-                            <button class="settings-menu-item" onclick="window.location.href='perfil.html'">
-                                <i class="fas fa-user"></i> Meu perfil
+                            <button class="settings-menu-item" onclick="window.location.href='admin-dashboard.html'">
+                                <i class="fas fa-user"></i> Administração
                             </button>
                             <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
                                 <i class="fas fa-sign-out-alt" id="authIcon"></i>
@@ -685,6 +690,8 @@
             </div>
         </div>
     </header>
+
+    <br>
 
     <main class="container">
         <div class="bible-container">
@@ -718,12 +725,16 @@
                     <div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>
                 </div>
                 <div class="bible-navigation">
-                    <button id="prevChapter" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Capítulo Anterior</button>
-                    <button id="nextChapter" class="btn btn-outline">Próximo Capítulo <i class="fas fa-arrow-right"></i></button>
+                    <button id="prevChapter" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Capítulo
+                        Anterior</button>
+                    <button id="nextChapter" class="btn btn-outline">Próximo Capítulo <i
+                            class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
         </div>
     </main>
+
+    <br>
 
     <footer>
         <div class="container">
@@ -733,7 +744,9 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a
+                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
+                                class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -753,15 +766,31 @@
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> <span>Rua da Esperança, 123<br>Centro, Cidade - Estado</span></li>
-                        <li><i class="fas fa-phone"></i> <span>(11) 9999-9999</span></li>
-                        <li><i class="fas fa-envelope"></i> <span>contato@comunidadesaofrancisco.org</span></li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>(51) 3606-2592</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>saojoseoperario@diocesedeosorio.org</span>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados.</p>
-                <p><small>Texto bíblico fornecido por <a href="https://www.abibliadigital.com.br" target="_blank" style="color: var(--secondary);">ABíbliaDigital API</a></small></p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
+                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
+                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
+                    registradas de seus respectivos proprietários.
+                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
+                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
+                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
+                    resultar de seu uso.
+                </p>
             </div>
         </div>
     </footer>
@@ -777,7 +806,7 @@
             menu.classList.toggle('active');
         }
 
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
             if (settingsContainer && !settingsContainer.contains(event.target)) {
@@ -823,7 +852,7 @@
         // API DA BÍBLIA
         // ============================================
         const API_BASE = 'https://www.abibliadigital.com.br/api';
-        
+
         // Estado atual
         let currentBook = null;
         let currentChapter = 1;
@@ -851,13 +880,13 @@
         async function loadBooks() {
             const booksListEl = document.getElementById('booksList');
             booksListEl.innerHTML = '<li class="loading"><i class="fas fa-spinner"></i> Carregando livros...</li>';
-            
+
             try {
                 const response = await fetch(`${API_BASE}/v1/books/${currentVersion}`);
                 if (!response.ok) throw new Error('Erro ao carregar livros');
-                
+
                 booksList = await response.json();
-                
+
                 booksListEl.innerHTML = '';
                 booksList.forEach(book => {
                     const li = document.createElement('li');
@@ -867,7 +896,7 @@
                     li.appendChild(a);
                     booksListEl.appendChild(li);
                 });
-                
+
                 // Selecionar primeiro livro por padrão
                 if (booksList.length > 0 && !currentBook) {
                     selectBook(booksList[0]);
@@ -884,7 +913,7 @@
             document.querySelectorAll('#booksList a').forEach(a => a.classList.remove('active'));
             // Adicionar classe active ao clicado
             event.target.classList.add('active');
-            
+
             currentBook = book;
             currentChapter = 1;
             loadChapter();
@@ -893,32 +922,32 @@
         // Carregar capítulo atual
         async function loadChapter() {
             if (!currentBook) return;
-            
+
             const bibleText = document.getElementById('bibleText');
             bibleText.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>';
-            
+
             // Atualizar título
             document.getElementById('chapterTitle').textContent = `${currentBook.name} ${currentChapter}`;
-            
+
             // Obter abreviação do livro
             const abbreviation = currentBook.abbrev.pt || bookAbbreviations[currentBook.name] || currentBook.abbrev;
-            
+
             try {
                 const response = await fetch(`${API_BASE}/v1/verses/${currentVersion}/${abbreviation}/${currentChapter}`);
-                
+
                 if (!response.ok) {
                     if (response.status === 404) {
                         throw new Error('Capítulo não encontrado');
                     }
                     throw new Error('Erro na requisição');
                 }
-                
+
                 const data = await response.json();
-                
+
                 // Verificar número total de capítulos
                 const totalChapters = currentBook.chapters;
                 updateChapterSelect(totalChapters);
-                
+
                 // Renderizar versículos
                 let html = '';
                 data.verses.forEach(verse => {
@@ -930,7 +959,7 @@
                     `;
                 });
                 bibleText.innerHTML = html;
-                
+
             } catch (error) {
                 console.error('Erro:', error);
                 bibleText.innerHTML = `<div class="error">⚠️ ${error.message}. O capítulo ${currentChapter} pode não existir neste livro.</div>`;
@@ -941,7 +970,7 @@
         function updateChapterSelect(totalChapters) {
             const chapterSelect = document.getElementById('chapterSelect');
             chapterSelect.innerHTML = '';
-            
+
             for (let i = 1; i <= totalChapters; i++) {
                 const option = document.createElement('option');
                 option.value = i;
@@ -949,7 +978,7 @@
                 if (i === currentChapter) option.selected = true;
                 chapterSelect.appendChild(option);
             }
-            
+
             chapterSelect.onchange = () => {
                 currentChapter = parseInt(chapterSelect.value);
                 loadChapter();
@@ -985,22 +1014,22 @@
         function initBooksToggle() {
             const booksToggle = document.getElementById('booksToggle');
             const booksList = document.getElementById('booksList');
-            
-            booksToggle.addEventListener('click', function() {
+
+            booksToggle.addEventListener('click', function () {
                 booksToggle.classList.toggle('active');
                 booksList.classList.toggle('hidden');
             });
         }
 
         // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initBooksToggle();
-            
+
             // Configurar eventos
             document.getElementById('versionSelect').addEventListener('change', changeVersion);
             document.getElementById('prevChapter').addEventListener('click', prevChapter);
             document.getElementById('nextChapter').addEventListener('click', nextChapter);
-            
+
             // Carregar livros
             loadBooks();
         });

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração - Comunidade Mesa e Pãole>
+    <title>Administração - Comunidade Mesa e Pão</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -200,25 +201,27 @@
             .login-card {
                 padding: 30px 20px;
             }
-            
+
             .login-logo-icon {
                 width: 60px;
                 height: 60px;
                 font-size: 28px;
             }
-            
+
             .login-logo-text {
                 font-size: 20px;
             }
         }
     </style>
-<script src="theme-manager.js"></script></head>
+    <script src="theme-manager.js"></script>
+</head>
+
 <body>
     <div class="login-container">
         <a href="index.html" class="back-link">
             <i class="fas fa-arrow-left"></i> Voltar para o Site
         </a>
-        
+
         <div class="login-card">
             <div class="login-logo">
                 <div class="login-logo-icon">
@@ -260,24 +263,24 @@
 
     <script>
         // Se já estiver logado, redirecionar para dashboard
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const isLoggedIn = localStorage.getItem('adminLoggedIn');
-            
+
             if (isLoggedIn === 'true') {
                 window.location.href = 'admin-dashboard.html';
             }
         });
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+
             // Credenciais padrão (em um sistema real, isso seria verificado no servidor)
             const validUsername = 'admin';
             const validPassword = 'paroquia2025';
-            
+
             if (username === validUsername && password === validPassword) {
                 localStorage.setItem('adminLoggedIn', 'true');
                 window.location.href = 'admin-dashboard.html';
@@ -290,4 +293,5 @@
         });
     </script>
 </body>
+
 </html>
