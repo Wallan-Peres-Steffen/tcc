@@ -6,736 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Missas - Comunidade São Francisco</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2c5530;
-            --primary-light: #4a7c59;
-            --primary-dark: #1a3c23;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --accent: #8b4513;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: cover;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .logo-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Configurações */
-        .settings-container {
-            position: relative;
-        }
-
-        .settings-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-        }
-
-        .settings-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .settings-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            min-width: 200px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-        }
-
-        .settings-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .settings-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--dark);
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        .settings-menu-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--secondary);
-        }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--light-gray);
-            margin: 8px 0;
-        }
-
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 4px;
-            border-radius: 20px;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .theme-option.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .theme-light {
-            background: #f8f9fa;
-            color: #212529;
-        }
-
-        .theme-dark {
-            background: #212529;
-            color: #f8f9fa;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius);
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hero h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Main Content */
-        main {
-            padding: 40px 0;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-secondary:hover {
-            background: var(--secondary-light);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 i {
-            color: var(--secondary);
-        }
-
-        .card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        .mass-schedule {
-            background: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .mass-day {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .mass-day:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .mass-day h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mass-times {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .mass-time {
-            background: var(--light);
-            padding: 15px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: var(--transition);
-        }
-
-        .mass-time:hover {
-            background: #f0f5ff;
-            transform: translateX(5px);
-        }
-
-        .mass-time i {
-            color: var(--secondary);
-            font-size: 20px;
-        }
-
-        .mass-info {
-            flex: 1;
-        }
-
-        .mass-time-slot {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .mass-type {
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .special-masses {
-            background: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .special-mass-item {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            border-bottom: 1px solid var(--light-gray);
-            transition: var(--transition);
-        }
-
-        .special-mass-item:hover {
-            background: var(--light);
-        }
-
-        .special-mass-item:last-child {
-            border-bottom: none;
-        }
-
-        .special-mass-date {
-            background: var(--primary);
-            color: white;
-            width: 70px;
-            height: 70px;
-            border-radius: var(--radius);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .special-mass-day {
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1;
-        }
-
-        .special-mass-month {
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        .special-mass-details {
-            flex: 1;
-        }
-
-        .special-mass-meta {
-            display: flex;
-            gap: 15px;
-            margin: 10px 0;
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .special-mass-meta i {
-            color: var(--secondary);
-            margin-right: 5px;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .contact-info i {
-            color: var(--secondary);
-            margin-top: 4px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Modo Escuro */
-        body.dark-mode {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e40af;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--dark);
-        }
-
-        body.dark-mode header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        body.dark-mode footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        }
-
-        body.dark-mode .card,
-        body.dark-mode .mass-schedule,
-        body.dark-mode .special-masses,
-        body.dark-mode .mass-time {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .card h3,
-        body.dark-mode .section-title,
-        body.dark-mode .mass-day h3,
-        body.dark-mode .special-mass-details h3 {
-            color: var(--primary);
-        }
-
-        body.dark-mode #popy {
-            color: white;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        body.dark-mode .card p,
-        body.dark-mode .special-mass-details p,
-        body.dark-mode .mass-type {
-            color: var(--gray);
-        }
-
-        body.dark-mode .settings-menu {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item {
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        body.dark-mode .theme-options {
-            background: var(--light-gray);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .hero h1 {
-                font-size: 26px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .special-mass-item {
-                flex-direction: column;
-            }
-
-            .special-mass-date {
-                align-self: flex-start;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .mass-times {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script src="theme-manager.js"></script>
 </head>
 
@@ -757,7 +28,6 @@
                     <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
                     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
 
-                    <!-- Botão de Configurações -->
                     <div class="settings-container">
                         <button class="settings-btn" onclick="toggleSettings()">
                             <i class="fas fa-cog" style="font-size: 22px;"></i>
@@ -788,61 +58,30 @@
     <br>
 
     <main class="container">
-        <section class="special-masses">
-            <h2 class="section-title"><i class="fas fa-star"></i> Missas Próximas</h2>
 
-            <div class="special-mass-item">
-                <div class="special-mass-date">
-                    <div class="special-mass-day">15</div>
-                    <div class="special-mass-month">MAI</div>
-                </div>
-                <div class="special-mass-details">
-                    <h3>Missa de São Francisco</h3>
-                    <p>Celebração especial em honra ao nosso padroeiro com bênção dos animais.</p>
-                    <div class="special-mass-meta">
-                        <span><i class="far fa-clock"></i> 18:00</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Igreja Matriz</span>
-                        <span><i class="fas fa-user-alt"></i> Pe. João Silva</span>
-                    </div>
-                    <a href="#" class="btn btn-outline">Mais Informações</a>
-                </div>
-            </div>
-
-            <div class="special-mass-item">
-                <div class="special-mass-date">
-                    <div class="special-mass-day">20</div>
-                    <div class="special-mass-month">MAI</div>
-                </div>
-                <div class="special-mass-details">
-                    <h3>Missa com Unção dos Enfermos</h3>
-                    <p>Celebração especial com o sacramento da unção para idosos e enfermos.</p>
-                    <div class="special-mass-meta">
-                        <span><i class="far fa-clock"></i> 15:00</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Igreja Matriz</span>
-                        <span><i class="fas fa-user-alt"></i> Pe. Carlos Oliveira</span>
-                    </div>
-                    <a href="#" class="btn btn-outline">Mais Informações</a>
-                </div>
-            </div>
-
-            <div class="special-mass-item">
-                <div class="special-mass-date">
-                    <div class="special-mass-day">25</div>
-                    <div class="special-mass-month">MAI</div>
-                </div>
-                <div class="special-mass-details">
-                    <h3>Missa das Mães</h3>
-                    <p>Celebração especial para todas as mães da comunidade com bênção especial.</p>
-                    <div class="special-mass-meta">
-                        <span><i class="far fa-clock"></i> 10:00</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Capela Nossa Senhora</span>
-                        <span><i class="fas fa-user-alt"></i> Pe. Maria Santos</span>
-                    </div>
-                    <a href="#" class="btn btn-outline">Mais Informações</a>
-                </div>
+        <!-- ========================================== -->
+        <!-- HORÁRIOS REGULARES (dinâmico por dia)      -->
+        <!-- ========================================== -->
+        <section>
+            <h2 class="section-title"><i class="fas fa-calendar-week"></i> Horários Regulares</h2>
+            <div class="mass-schedule" id="regular-masses-container">
+                <div class="loading"><i class="fas fa-spinner"></i> Carregando horários...</div>
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- MISSAS ESPECIAIS                          -->
+        <!-- ========================================== -->
+        <section class="events-list" id="specialMassesContainer">
+            <h2 class="section-title"><i class="fas fa-star"></i> Missas Especiais</h2>
+            <div id="specialMassesList">
+                <div class="loading"><i class="fas fa-spinner"></i> Carregando missas especiais...</div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- INFORMAÇÕES IMPORTANTES                   -->
+        <!-- ========================================== -->
         <section>
             <h2 id="popy" class="section-title"><i class="fas fa-info-circle"></i> Informações Importantes</h2>
             <div class="cards-grid">
@@ -863,6 +102,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer>
@@ -873,9 +113,7 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a
-                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
-                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -925,77 +163,179 @@
     </footer>
 
     <script>
-        // Gerenciamento de Configurações
+        // ============================================
+        // CONFIGURAÇÕES (Tema, Auth)
+        // ============================================
         function toggleSettings() {
-            const menu = document.getElementById('settingsMenu');
-            menu.classList.toggle('active');
+            document.getElementById('settingsMenu').classList.toggle('active');
         }
 
-        // Fechar menu ao clicar fora
         document.addEventListener('click', function (event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-
-            if (!settingsContainer.contains(event.target)) {
+            if (settingsContainer && !settingsContainer.contains(event.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
 
-        // Função para aplicar o tema salvo
         function applySavedTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            document.body.classList.toggle('dark-mode', savedTheme === 'dark');
         }
 
-        // Função para alternar tema
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
             const newTheme = isDark ? 'light' : 'dark';
-
-            if (newTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
             localStorage.setItem('theme', newTheme);
+        }
 
-            // Atualizar ícone do botão se existir
-            const themeBtn = document.querySelector('.theme-toggle-btn i');
-            if (themeBtn) {
-                themeBtn.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        let isLoggedIn = true;
+        function toggleAuth() {
+            if (isLoggedIn) {
+                if (confirm('Tem certeza que deseja sair?')) {
+                    isLoggedIn = false;
+                    document.getElementById('authText').textContent = 'Login';
+                    alert('Você foi desconectado com sucesso.');
+                }
+            } else {
+                window.location.href = 'login.html';
             }
         }
 
-        // Aplicar tema salvo ao carregar a página
         applySavedTheme();
 
-        // Carregar tema salvo
-        document.addEventListener('DOMContentLoaded', function () {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
+        // ============================================
+        // API
+        // ============================================
+        const API_URL = 'http://localhost:5000/api/masses';
 
-            // Adicionar data atual
-            const today = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = today.toLocaleDateString('pt-BR', options);
+        // Mapeamento de dias
+        const dayNames = {
+            'sunday': 'Domingo',
+            'monday': 'Segunda-feira',
+            'tuesday': 'Terça-feira',
+            'wednesday': 'Quarta-feira',
+            'thursday': 'Quinta-feira',
+            'friday': 'Sexta-feira',
+            'saturday': 'Sábado'
+        };
 
-            // Adicionar a data ao hero
-            const hero = document.querySelector('.hero p');
-            hero.innerHTML += `<br><small><i class="far fa-calendar"></i> Hoje é ${dateString}</small>`;
-        });
+        const dayIcons = {
+            'sunday': 'fa-sun',
+            'monday': 'fa-calendar-day',
+            'tuesday': 'fa-calendar-day',
+            'wednesday': 'fa-calendar-day',
+            'thursday': 'fa-calendar-day',
+            'friday': 'fa-calendar-day',
+            'saturday': 'fa-star'
+        };
 
-        // Logout
-        function logout() {
-            if (confirm('Tem certeza que deseja sair?')) {
-                alert('Você foi desconectado com sucesso.');
-                window.location.href = 'index.html';
+        const dayOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+        // ============================================
+        // CARREGAR TODAS AS MISSAS
+        // ============================================
+        async function loadAllMasses() {
+            const regularContainer = document.getElementById('regular-masses-container');
+            const specialContainer = document.getElementById('specialMassesList');
+
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Erro ao carregar missas');
+                const masses = await response.json();
+
+                // Separar regulares e especiais
+                const regulars = masses.filter(m => m.day !== 'special');
+                const specials = masses.filter(m => m.day === 'special');
+
+                // ==========================================
+                // RENDERIZAR HORÁRIOS REGULARES (apenas dias com missas)
+                // ==========================================
+                // Agrupar por dia
+                const grouped = {};
+                regulars.forEach(m => {
+                    if (!grouped[m.day]) grouped[m.day] = [];
+                    grouped[m.day].push(m);
+                });
+
+                // Ordenar os dias conforme a ordem da semana
+                const daysWithMasses = dayOrder.filter(day => grouped[day] && grouped[day].length > 0);
+
+                if (daysWithMasses.length === 0) {
+                    regularContainer.innerHTML = `
+                        <div class="mass-day">
+                            <p style="text-align:center; color: var(--gray); padding: 20px;">
+                                Nenhum horário de missa cadastrado.
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    let html = '';
+                    daysWithMasses.forEach(day => {
+                        const massesOfDay = grouped[day].sort((a, b) => a.time.localeCompare(b.time));
+                        html += `
+                            <div class="mass-day">
+                                <h3><i class="fas ${dayIcons[day]}"></i> ${dayNames[day]}</h3>
+                                <div class="mass-times">
+                                    ${massesOfDay.map(m => `
+                                        <div class="mass-time">
+                                            <i class="fas fa-clock"></i>
+                                            <div class="mass-info">
+                                                <div class="mass-time-slot">${m.time}</div>
+                                                <div class="mass-type">${m.type}</div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    regularContainer.innerHTML = html;
+                }
+
+                // ==========================================
+                // RENDERIZAR MISSAS ESPECIAIS
+                // ==========================================
+                if (specials.length === 0) {
+                    specialContainer.innerHTML = '<p style="text-align:center; color: var(--gray);">Nenhuma missa especial programada.</p>';
+                } else {
+                    specials.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    specialContainer.innerHTML = specials.map(mass => {
+                        const date = new Date(mass.date);
+                        const day = date.getDate();
+                        const month = date.toLocaleDateString('pt-BR', { month: 'short' }).toUpperCase();
+                        return `
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <div class="event-day">${day}</div>
+                                    <div class="event-month">${month}</div>
+                                </div>
+                                <div class="event-details">
+                                    <h3>${mass.type}</h3>
+                                    <p>${mass.description || 'Celebração especial'}</p>
+                                    <div class="event-meta">
+                                        <span><i class="far fa-clock"></i> ${mass.time}</span>
+                                        <span><i class="fas fa-map-marker-alt"></i> ${mass.location || 'Igreja Matriz'}</span>
+                                        <span><i class="fas fa-user-alt"></i> ${mass.celebrant || 'Pe. '}</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline">Mais Informações</a>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+            } catch (error) {
+                regularContainer.innerHTML = `<div class="error">Erro ao carregar missas: ${error.message}</div>`;
+                specialContainer.innerHTML = `<div class="error">Erro ao carregar missas especiais: ${error.message}</div>`;
             }
         }
+
+        // ============================================
+        // INICIAR
+        // ============================================
+        document.addEventListener('DOMContentLoaded', loadAllMasses);
     </script>
 </body>
 

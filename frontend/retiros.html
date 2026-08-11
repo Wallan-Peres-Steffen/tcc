@@ -6,521 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retiros Espirituais - Comunidade Mesa e Pão</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2c5530;
-            --primary-light: #4a7c59;
-            --primary-dark: #1a3c23;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --accent: #8b4513;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: cover;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .logo-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-        }
-
-        .settings-container {
-            position: relative;
-        }
-
-        .settings-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-        }
-
-        .settings-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .settings-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            min-width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-        }
-
-        .settings-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .settings-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--dark);
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        .settings-menu-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--secondary);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius);
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hero h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        main {
-            padding: 40px 0;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .retreats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .retreat-card {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .retreat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .retreat-image {
-            height: 200px;
-            background: var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            font-size: 14px;
-            position: relative;
-        }
-
-        .retreat-image i {
-            font-size: 50px;
-            opacity: 0.5;
-        }
-
-        .retreat-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .retreat-content {
-            padding: 25px;
-        }
-
-        .retreat-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .retreat-meta i {
-            color: var(--secondary);
-            margin-right: 5px;
-        }
-
-        .card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 i {
-            color: var(--secondary);
-        }
-
-        .card p {
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .contact-info i {
-            color: var(--secondary);
-            margin-top: 4px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Modo Escuro */
-        body.dark-mode {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e40af;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-
-        body.dark-mode .card,
-        body.dark-mode .retreat-card {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .section-title {
-            color: white;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        body.dark-mode .section-title i {
-            color: var(--secondary);
-        }
-
-        body.dark-mode .card h3,
-        body.dark-mode .retreat-card h3 {
-            color: var(--primary);
-        }
-
-        body.dark-mode .settings-menu {
-            background: white;
-            color: var(--dark);
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .hero h1 {
-                font-size: 26px;
-            }
-
-            .retreats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="theme-manager.js"></script>
 </head>
 
 <body>
@@ -571,93 +59,29 @@
     <br>
 
     <main class="container">
+        <!-- Próximos Retiros -->
         <section>
             <h2 class="section-title"><i class="fas fa-praying-hands"></i> Próximos Retiros</h2>
-            <div class="retreats-grid">
-                <div class="retreat-card">
-                    <div class="retreat-image">
-                        <i class="fas fa-mountain"></i>
-                        <div class="retreat-badge">Inscrições Abertas</div>
-                    </div>
-                    <div class="retreat-content">
-                        <h3>Retiro de Silêncio e Oração</h3>
-                        <div class="retreat-meta">
-                            <span><i class="far fa-calendar"></i> 20-22 de Maio</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Casa de Retiros Monte Carmelo</span>
-                        </div>
-                        <p>Um momento de profunda conexão com Deus através do silêncio e da oração contemplativa.</p>
-                        <a href="#" class="btn">Mais Informações</a>
-                    </div>
-                </div>
-
-                <div class="retreat-card">
-                    <div class="retreat-image">
-                        <i class="fas fa-users"></i>
-                        <div class="retreat-badge">Vagas Limitadas</div>
-                    </div>
-                    <div class="retreat-content">
-                        <h3>Encontro de Casais</h3>
-                        <div class="retreat-meta">
-                            <span><i class="far fa-calendar"></i> 10-12 de Junho</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Centro de Espiritualidade São José</span>
-                        </div>
-                        <p>Fortaleça seu matrimônio com momentos de partilha, oração e renovação do amor.</p>
-                        <a href="#" class="btn">Mais Informações</a>
-                    </div>
-                </div>
-
-                <div class="retreat-card">
-                    <div class="retreat-image">
-                        <i class="fas fa-child"></i>
-                        <div class="retreat-badge">Para Jovens</div>
-                    </div>
-                    <div class="retreat-content">
-                        <h3>Retiro Jovem em Ação</h3>
-                        <div class="retreat-meta">
-                            <span><i class="far fa-calendar"></i> 15-17 de Julho</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Acampamento São Francisco</span>
-                        </div>
-                        <p>Uma experiência única de fé, amizade e missão para a juventude.</p>
-                        <a href="#" class="btn">Mais Informações</a>
-                    </div>
-                </div>
-
-                <div class="retreat-card">
-                    <div class="retreat-image">
-                        <i class="fas fa-heart"></i>
-                        <div class="retreat-badge">Em Breve</div>
-                    </div>
-                    <div class="retreat-content">
-                        <h3>Retiro de Cura Interior</h3>
-                        <div class="retreat-meta">
-                            <span><i class="far fa-calendar"></i> 5-7 de Agosto</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Casa de Retiros Divina Misericórdia</span>
-                        </div>
-                        <p>Encontre cura e restauração para sua alma através da misericórdia divina.</p>
-                        <a href="#" class="btn">Mais Informações</a>
-                    </div>
-                </div>
+            <div class="retreats-grid" id="retreatsGrid">
+                <div class="loading"><i class="fas fa-spinner"></i> Carregando retiros...</div>
             </div>
         </section>
 
+        <!-- Informações Gerais -->
         <section>
             <h2 class="section-title"><i class="fas fa-info-circle"></i> Informações Gerais</h2>
             <div class="card">
                 <h3><i class="fas fa-question-circle"></i> Como Participar</h3>
-                <p>As inscrições para os retiros podem ser feitas na secretaria paroquial ou através do sistema e-inscrião disponibilizado pela paróquia. As
-                    vagas são limitadas, recomendamos garantir sua participação com antecedência.</p>
+                <p>As inscrições para os retiros podem ser feitas na secretaria paroquial ou através do sistema e-inscrição disponibilizado pela paróquia. As vagas são limitadas, recomendamos garantir sua participação com antecedência.</p>
 
                 <h3><i class="fas fa-hand-holding-heart"></i> Investimento</h3>
-                <p>Os valores dos retiros incluem hospedagem, alimentação e material de apoio. Consulte valores
-                    específicos para cada retiro em nossa secretaria.</p>
+                <p>Os valores dos retiros incluem hospedagem, alimentação e material de apoio. Consulte valores específicos para cada retiro em nossa secretaria.</p>
 
                 <h3><i class="fas fa-clock"></i> O que Levar</h3>
                 <p>Bíblia, caderno para anotações, roupa de cama, artigos de higiene pessoal e roupas confortáveis.</p>
             </div>
         </section>
     </main>
-
-    <br>
 
     <footer>
         <div class="container">
@@ -667,9 +91,7 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a
-                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
-                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -705,68 +127,45 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
-                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
-                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
-                    registradas de seus respectivos proprietários.
-                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
-                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
-                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
-                    resultar de seu uso.
-                </p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Estado de autenticação
-        let isLoggedIn = true;
-
-        // Alternar menu de configurações
+        // ============================================
+        // CONFIGURAÇÕES
+        // ============================================
         function toggleSettings() {
-            const menu = document.getElementById('settingsMenu');
-            menu.classList.toggle('active');
+            document.getElementById('settingsMenu').classList.toggle('active');
         }
 
-        // Fechar menu ao clicar fora
         document.addEventListener('click', function (event) {
             const settingsContainer = document.querySelector('.settings-container');
             const settingsMenu = document.getElementById('settingsMenu');
-
-            if (settingsContainer && settingsMenu && !settingsContainer.contains(event.target)) {
+            if (settingsContainer && !settingsContainer.contains(event.target)) {
                 settingsMenu.classList.remove('active');
             }
         });
 
-        // Funções de tema
         function applySavedTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            document.body.classList.toggle('dark-mode', savedTheme === 'dark');
         }
 
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
             const newTheme = isDark ? 'light' : 'dark';
-
-            if (newTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
             localStorage.setItem('theme', newTheme);
         }
 
-        // Funções de autenticação
+        let isLoggedIn = true;
         function toggleAuth() {
             if (isLoggedIn) {
                 if (confirm('Tem certeza que deseja sair?')) {
                     isLoggedIn = false;
-                    updateAuthButton();
+                    document.getElementById('authText').textContent = 'Login';
                     alert('Você foi desconectado com sucesso.');
                 }
             } else {
@@ -774,24 +173,96 @@
             }
         }
 
-        function updateAuthButton() {
-            const authIcon = document.getElementById('authIcon');
-            const authText = document.getElementById('authText');
+        applySavedTheme();
 
-            if (authIcon && authText) {
-                if (isLoggedIn) {
-                    authIcon.className = 'fas fa-sign-out-alt';
-                    authText.textContent = 'Sair';
-                } else {
-                    authIcon.className = 'fas fa-sign-in-alt';
-                    authText.textContent = 'Login / Cadastrar-se';
+        // ============================================
+        // CARREGAR RETIROS (COM CORREÇÃO DO FILTRO)
+        // ============================================
+        const API_URL = 'http://localhost:5000/api/retreats';
+
+        async function loadActiveRetreats() {
+            const container = document.getElementById('retreatsGrid');
+            console.log('🔄 [PUBLIC] Carregando retiros...');
+
+            try {
+                const response = await fetch(API_URL);
+                console.log('📡 [PUBLIC] Status:', response.status);
+
+                if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+                const retreats = await response.json();
+                console.log('✅ [PUBLIC] Dados recebidos:', retreats);
+
+                // ========== CORREÇÃO DO FILTRO ==========
+                // Agora mostra TODOS os retiros com status 'active', independente da data
+                const active = retreats.filter(r => r.status === 'active');
+                console.log(`🔍 [PUBLIC] ${active.length} retiros ativos encontrados.`);
+
+                if (active.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color: var(--gray); grid-column: 1 / -1;">Nenhum retiro ativo no momento.</p>';
+                    return;
                 }
+
+                // Ordenar por data de início (mais próximo primeiro)
+                active.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
+                container.innerHTML = active.map(retreat => {
+                    const start = new Date(retreat.startDate);
+                    const end = new Date(retreat.endDate);
+                    const startStr = start.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).toUpperCase().replace('.', '');
+                    const endStr = end.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' }).toUpperCase().replace('.', '');
+
+                    const typeNames = {
+                        'silence': 'Silêncio',
+                        'couples': 'Casais',
+                        'youth': 'Juventude',
+                        'healing': 'Cura Interior',
+                        'other': 'Outro'
+                    };
+
+                    const iconMap = {
+                        'youth': 'users',
+                        'couples': 'heart',
+                        'silence': 'mountain',
+                        'healing': 'hands-healing',
+                        'other': 'leaf'
+                    };
+
+                    // Verifica se a imagem existe (se for null/undefined, usa ícone)
+                    const imageHtml = retreat.image && retreat.image !== ''
+                        ? `<img src="${retreat.image}" alt="${retreat.title}" style="width:100%; height:100%; object-fit:cover;">`
+                        : `<i class="fas fa-${iconMap[retreat.type] || 'pray'}" style="font-size:50px; opacity:0.5;"></i>`;
+
+                    return `
+                        <div class="retreat-card">
+                            <div class="retreat-image" style="position:relative; overflow:hidden; height:200px; display:flex; align-items:center; justify-content:center;">
+                                ${imageHtml}
+                                <div class="retreat-badge">${typeNames[retreat.type]}</div>
+                            </div>
+                            <div class="retreat-content">
+                                <h3>${retreat.title}</h3>
+                                <div class="retreat-meta">
+                                    <span><i class="far fa-calendar"></i> ${startStr} - ${endStr}</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${retreat.location}</span>
+                                </div>
+                                <p>${retreat.description}</p>
+                                <a href="#" class="btn">Mais Informações</a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                console.log('✅ [PUBLIC] Renderização concluída.');
+
+            } catch (error) {
+                console.error('❌ [PUBLIC] Erro:', error);
+                container.innerHTML = `<div class="error">Erro ao carregar retiros: ${error.message}</div>`;
             }
         }
 
-        // Inicializar
-        applySavedTheme();
-        updateAuthButton();
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 [PUBLIC] Página carregada.');
+            loadActiveRetreats();
+        });
     </script>
 </body>
 

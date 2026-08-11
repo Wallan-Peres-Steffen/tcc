@@ -6,874 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comunidade São Francisco - Portal da Fé</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2c5530;
-            --primary-light: #4a7c59;
-            --primary-dark: #1a3c23;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --accent: #8b4513;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
-            background-size: cover;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .logo-subtitle {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-top: 2px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-        }
-
-        .settings-container {
-            position: relative;
-        }
-
-        .settings-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            padding: 11px 18px;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-        }
-
-        .settings-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .settings-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 15px 0;
-            min-width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-        }
-
-        .settings-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .settings-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--dark);
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        .settings-menu-item i {
-            width: 20px;
-            text-align: center;
-            color: var(--secondary);
-        }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--light-gray);
-            margin: 8px 0;
-        }
-
-        .theme-options {
-            display: flex;
-            gap: 5px;
-            background: var(--light-gray);
-            padding: 4px;
-            border-radius: 20px;
-            margin-left: auto;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .theme-option.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .theme-light {
-            background: #f8f9fa;
-            color: #212529;
-        }
-
-        .theme-dark {
-            background: #212529;
-            color: #f8f9fa;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius);
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hero h1 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Main Content */
-        main {
-            padding: 40px 0;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light-gray);
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .settings-btn i {
-            font-size: 22px;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            color: var(--gray);
-            margin-top: 10px;
-            line-height: 1.6;
-            opacity: 0.95;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 4px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            color: inherit;
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card h3 i {
-            color: var(--secondary);
-        }
-
-        .card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        .card-image {
-            height: 160px;
-            background: var(--light-gray);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            font-size: 14px;
-            overflow: hidden;
-        }
-
-        .card-image i {
-            font-size: 40px;
-            opacity: 0.5;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .resources {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .resource-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-            border-top: 4px solid var(--primary);
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            color: inherit;
-        }
-
-        .resource-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .resource-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--light-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 24px;
-            color: var(--primary);
-        }
-
-        .resource-card h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        .resource-card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .schedule {
-            background: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-        }
-
-        .schedule-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .schedule-item {
-            background: var(--light);
-            border-radius: var(--radius);
-            padding: 20px;
-            border-left: 4px solid var(--primary);
-            transition: var(--transition);
-        }
-
-        .schedule-item:hover {
-            background: #f0f5ff;
-            transform: translateX(5px);
-        }
-
-        .schedule-item h4 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .schedule-item ul {
-            list-style: none;
-        }
-
-        .schedule-item li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .schedule-item li:last-child {
-            border-bottom: none;
-        }
-
-        .schedule-item li i {
-            color: var(--secondary);
-            font-size: 12px;
-        }
-
-        .month-theme {
-            background: white;
-            border-radius: var(--radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-            margin-bottom: 40px;
-            border-left: 5px solid var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .month-theme::before {
-            content: "";
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, var(--secondary) 0%, rgba(212, 175, 55, 0.1) 100%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .month-theme>* {
-            position: relative;
-            z-index: 1;
-        }
-
-        .month-theme-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .month-theme-title i {
-            color: var(--secondary);
-            font-size: 32px;
-        }
-
-        .month-theme-intro {
-            font-size: 15px;
-            color: var(--gray);
-            margin-bottom: 25px;
-            font-style: italic;
-            line-height: 1.6;
-            padding: 15px;
-            background: var(--light);
-            border-radius: 8px;
-            border-left: 3px solid var(--secondary);
-        }
-
-        .month-theme-content {
-            margin-top: 25px;
-        }
-
-        .month-theme-main {
-            background: linear-gradient(135deg, var(--light) 0%, var(--light-gray) 100%);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .month-theme-label {
-            font-size: 13px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .month-theme-topic {
-            font-size: 22px;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .month-theme-description {
-            color: var(--dark);
-            line-height: 1.8;
-            font-size: 15px;
-        }
-
-        footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: white;
-            padding: 40px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .contact-info i {
-            color: var(--secondary);
-            margin-top: 4px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Responsive */
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .hero h1 {
-                font-size: 26px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 20px;
-            }
-
-            .schedule-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .resources {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-buttons {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-
-        /* Modo Escuro - Apenas cores azuis, conteúdo principal branco */
-        body.dark-mode {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e40af;
-            --secondary: #d4af37;
-            --secondary-light: #e8c766;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-        }
-
-        body.dark-mode header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        body.dark-mode footer {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-        }
-
-        body.dark-mode .card,
-        body.dark-mode .resource-card,
-        body.dark-mode .month-theme {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .section-title {
-            color: white;
-            /* Títulos das seções em branco */
-            border-bottom: 2px solid white;
-            /* Borda mais suave */
-        }
-
-        body.dark-mode #popy {
-            color: #1e3a8a;
-            /* Títulos das seções em branco */
-            border-bottom: 2px solid #1e3a8a;
-            /* Borda mais suave */
-        }
-
-        body.dark-mode .section-title i {
-            color: var(--secondary);
-            /* Mantém o dourado nos ícones */
-        }
-
-        body.dark-mode .card h3,
-        body.dark-mode .resource-card h3 {
-            color: var(--primary);
-            /* Mantém azul nos títulos dos cards */
-        }
-
-        body.dark-mode .card p,
-        body.dark-mode .resource-card p {
-            color: var(--gray);
-        }
-
-        body.dark-mode .card-image,
-        body.dark-mode .resource-icon {
-            background: var(--light-gray);
-            color: var(--primary);
-        }
-
-        body.dark-mode .schedule-item {
-            background: var(--light);
-        }
-
-        body.dark-mode .schedule-item:hover {
-            background: #f0f5ff;
-        }
-
-        body.dark-mode .schedule-item h4 {
-            color: var(--primary);
-            /* Mantém azul nos títulos da agenda */
-        }
-
-        body.dark-mode .month-theme {
-            background: white;
-        }
-
-        body.dark-mode .month-theme-intro {
-            background: var(--light);
-        }
-
-        body.dark-mode .month-theme-main {
-            background: var(--light);
-        }
-
-        body.dark-mode .settings-menu {
-            background: white;
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item {
-            color: var(--dark);
-        }
-
-        body.dark-mode .settings-menu-item:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
-        body.dark-mode .theme-options {
-            background: var(--light-gray);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #F9C74F;
-            color: #F9C74F;
-        }
-
-        .btn-secondary:hover {
-            background-color: #F9C74F;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="theme-manager.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </head>
 
 <body>
@@ -930,7 +66,29 @@
             <div class="cards-grid">
                 <a href="missas.html" class="card">
                     <div class="card-image">
-                        <i class="fas fa-cross"></i>
+                        <!-- Carrossel de Missas -->
+                        <div class="swiper missas-swiper-card" style="width:100%; height:160px; border-radius:8px;">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="images/missas/missa1.jpg" alt="Missa"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/missas/missa2.jpg" alt="Missa"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/missas/missa3.jpg" alt="Missa"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <!-- Adicione mais slides aqui -->
+                            </div>
+                            <!-- Setas (opcional, mas recomendo) -->
+                            <div class="swiper-button-next" style="color:white; font-size:12px;"></div>
+                            <div class="swiper-button-prev" style="color:white; font-size:12px;"></div>
+                            <!-- Bolinhas -->
+                            <div class="swiper-pagination" style="bottom:5px;"></div>
+                        </div>
                     </div>
                     <h3><i class="fas fa-church"></i> Missas</h3>
                     <p>Participe das nossas celebrações e fortaleça sua fé com a comunidade.</p>
@@ -938,7 +96,26 @@
                 </a>
                 <a href="eventos.html" class="card">
                     <div class="card-image">
-                        <i class="fas fa-calendar-alt"></i>
+                        <!-- Carrossel de Eventos -->
+                        <div class="swiper eventos-swiper-card" style="width:100%; height:160px; border-radius:8px;">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="images/eventos/evento1.jpeg" alt="Evento"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/eventos/evento2.jpg" alt="Evento"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/eventos/evento3.jpeg" alt="Evento"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="swiper-button-next" style="color:white; font-size:12px;"></div>
+                            <div class="swiper-button-prev" style="color:white; font-size:12px;"></div>
+                            <div class="swiper-pagination" style="bottom:5px;"></div>
+                        </div>
                     </div>
                     <h3><i class="fas fa-calendar-check"></i> Eventos</h3>
                     <p>Confira nossa agenda de retiros, encontros e atividades especiais.</p>
@@ -946,7 +123,26 @@
                 </a>
                 <a href="retiros.html" class="card">
                     <div class="card-image">
-                        <i class="fas fa-praying-hands"></i>
+                        <!-- Carrossel de Retiros -->
+                        <div class="swiper retiros-swiper-card" style="width:100%; height:160px; border-radius:8px;">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="images/retiros/retiro1.png" alt="Retiro"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/retiros/retiro2.jpg" alt="Retiro"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="images/retiros/retiro3.jpg" alt="Retiro"
+                                        style="width:100%; height:100%; object-fit:cover;">
+                                </div>
+                            </div>
+                            <div class="swiper-button-next" style="color:white; font-size:12px;"></div>
+                            <div class="swiper-button-prev" style="color:white; font-size:12px;"></div>
+                            <div class="swiper-pagination" style="bottom:5px;"></div>
+                        </div>
                     </div>
                     <h3><i class="fas fa-hands-helping"></i> Retiros</h3>
                     <p>Momentos de reflexão e renovação espiritual para toda a família.</p>
@@ -1141,6 +337,60 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateAuthButton();
             updateStatusIndicator();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Carrossel do card Missas
+            if (document.querySelector('.missas-swiper-card')) {
+                new Swiper('.missas-swiper-card', {
+                    slidesPerView: 1,
+                    loop: true,
+                    autoplay: { delay: 3000, disableOnInteraction: false },
+                    navigation: {
+                        nextEl: '.missas-swiper-card .swiper-button-next',
+                        prevEl: '.missas-swiper-card .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.missas-swiper-card .swiper-pagination',
+                        clickable: true,
+                    }
+                });
+            }
+
+            // Carrossel do card Eventos
+            if (document.querySelector('.eventos-swiper-card')) {
+                new Swiper('.eventos-swiper-card', {
+                    slidesPerView: 1,
+                    loop: true,
+                    autoplay: { delay: 3500, disableOnInteraction: false },
+                    navigation: {
+                        nextEl: '.eventos-swiper-card .swiper-button-next',
+                        prevEl: '.eventos-swiper-card .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.eventos-swiper-card .swiper-pagination',
+                        clickable: true,
+                    }
+                });
+            }
+
+            // Carrossel do card Retiros
+            if (document.querySelector('.retiros-swiper-card')) {
+                new Swiper('.retiros-swiper-card', {
+                    slidesPerView: 1,
+                    loop: true,
+                    autoplay: { delay: 4000, disableOnInteraction: false },
+                    navigation: {
+                        nextEl: '.retiros-swiper-card .swiper-button-next',
+                        prevEl: '.retiros-swiper-card .swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.retiros-swiper-card .swiper-pagination',
+                        clickable: true,
+                    }
+                });
+            }
         });
     </script>
 </body>
