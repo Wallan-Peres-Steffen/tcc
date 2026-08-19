@@ -1,103 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bíblia Online - Comunidade Mesa e Pão</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="theme-manager.js"></script>
 </head>
-
 <body>
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-bible"></i>
-                    </div>
+                    <div class="logo-icon"><i class="fas fa-bible"></i></div>
                     <div>
                         <div class="logo-text">Bíblia Online</div>
-                        <div class="logo-subtitle">A palavra de Deus!</div>
+                        <div class="logo-subtitle">A palavra de Deus</div>
                     </div>
                 </div>
                 <div class="nav-buttons">
                     <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> Sobre</a>
                     <a href="ajuda.html" class="nav-btn"><i class="fas fa-question-circle"></i> Ajuda</a>
                     <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Início</a>
-
                     <div class="settings-container">
-                        <button class="settings-btn" onclick="toggleSettings()">
-                            <i class="fas fa-cog" style="font-size: 22px;"></i>
-                        </button>
+                        <button class="settings-btn" onclick="toggleSettings()"><i class="fas fa-cog"></i></button>
                         <div class="settings-menu" id="settingsMenu">
-                            <button class="settings-menu-item" onclick="toggleTheme()">
-                                <i class="fas fa-palette"></i>
-                                <span>Tema</span>
-                            </button>
-                            <button class="settings-menu-item" onclick="window.location.href='admin-dashboard.html'">
-                                <i class="fas fa-user"></i> Administração
-                            </button>
-                            <button class="settings-menu-item" id="authButton" onclick="toggleAuth()">
-                                <i class="fas fa-sign-out-alt" id="authIcon"></i>
-                                <span id="authText">Sair</span>
-                            </button>
+                            <button class="settings-menu-item" onclick="toggleTheme()"><i class="fas fa-palette"></i> Tema</button>
+                            <button class="settings-menu-item" onclick="window.location.href='admin-dashboard.html'"><i class="fas fa-user"></i> Administração</button>
+                            <button class="settings-menu-item" id="authButton" onclick="toggleAuth()"><i class="fas fa-sign-out-alt" id="authIcon"></i> <span id="authText">Sair</span></button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="hero">
                 <h1>Bíblia Online</h1>
-                <p>Leia e pesquise nas sagradas escrituras em diferentes versões.</p>
+                <p>Leia e medite nas Sagradas Escrituras</p>
             </div>
         </div>
     </header>
 
-    <br>
+    <br />
 
     <main class="container">
-        <div class="bible-container">
-            <!-- Sidebar com livros -->
-            <div class="bible-sidebar">
-                <h3 id="booksToggle">
-                    <span>Livros da Bíblia</span>
-                    <i class="fas fa-chevron-down"></i>
-                </h3>
-                <ul id="booksList">
-                    <li class="loading"><i class="fas fa-spinner"></i> Carregando livros...</li>
-                </ul>
-            </div>
+        <div class="bible-wrapper">
+            <!-- Sidebar -->
+            <aside class="bible-sidebar">
+                <div class="bible-sidebar-header">
+                    <h3><i class="fas fa-book-open"></i> Livros</h3>
+                    <button class="bible-sidebar-toggle" id="sidebarToggle" aria-label="Alternar lista de livros">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+                <div class="bible-sidebar-search">
+                    <input type="text" id="bookSearch" placeholder="Buscar livro..." />
+                    <i class="fas fa-search"></i>
+                </div>
+                <ul id="booksList" class="bible-book-list"></ul>
+            </aside>
 
-            <!-- Conteúdo principal -->
-            <div class="bible-content">
-                <div class="bible-header">
-                    <h2 id="chapterTitle">Carregando...</h2>
-                    <div class="chapter-selector">
-                        <label for="versionSelect">Versão:</label>
-                        <select id="versionSelect">
-                            <option value="nvi">NVI - Nova Versão Internacional</option>
-                            <option value="acf">ACF - Almeida Corrigida Fiel</option>
-                            <option value="ara">ARA - Almeida Revista e Atualizada</option>
-                        </select>
-                        <label for="chapterSelect">Capítulo:</label>
+            <!-- Conteúdo -->
+            <section class="bible-content">
+                <div class="bible-content-header">
+                    <div>
+                        <h2 id="chapterTitle">Carregando...</h2>
+                        <span class="bible-version-badge">Almeida</span>
+                    </div>
+                    <div class="bible-chapter-selector">
+                        <label for="chapterSelect"><i class="fas fa-list-ol"></i> Capítulo</label>
                         <select id="chapterSelect"></select>
                     </div>
                 </div>
-                <div id="bibleText" class="bible-verse">
-                    <div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>
+
+                <div id="bibleText" class="bible-text">
+                    <div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando...</div>
                 </div>
+
                 <div class="bible-navigation">
-                    <button id="prevChapter" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Capítulo
-                        Anterior</button>
-                    <button id="nextChapter" class="btn btn-outline">Próximo Capítulo <i
-                            class="fas fa-arrow-right"></i></button>
+                    <button id="prevChapter" class="btn btn-outline"><i class="fas fa-chevron-left"></i> Anterior</button>
+                    <span class="bible-chapter-info" id="chapterInfo">Capítulo 1 de 50</span>
+                    <button id="nextChapter" class="btn btn-outline">Próximo <i class="fas fa-chevron-right"></i></button>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
-    <br>
+    <br />
 
     <footer>
         <div class="container">
@@ -107,9 +95,7 @@
                     <p>Uma família em fé, esperança e amor. Junte-se a nós em nossa jornada espiritual.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a
-                            href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i
-                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/par.saojoseoperario?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -129,31 +115,14 @@
                 <div class="footer-section">
                     <h3>Contato</h3>
                     <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>(51) 3606-2592</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>saojoseoperario@diocesedeosorio.org</span>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span>Praça Getúlio Vargas, 65 - Vila São João - Torres, RS</span></li>
+                        <li><i class="fas fa-phone"></i> <span>(51) 3606-2592</span></li>
+                        <li><i class="fas fa-envelope"></i> <span>saojoseoperario@diocesedeosorio.org</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de
-                    Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto
-                    Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas
-                    registradas de seus respectivos proprietários.
-                    Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links
-                    são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo
-                    desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa
-                    resultar de seu uso.
-                </p>
+                <p>&copy; 2025, FéTech. Todos os direitos reservados. FéTech, o logotipo da FéTech, e o Sistema de Organização Pastoral são marcas de uso exclusivo do projeto acadêmico desenvolvido no Instituto Federal Catarinense. Outros nomes de marcas e produtos mencionados neste site podem ser marcas registradas de seus respectivos proprietários. Nosso site pode conter links para páginas e recursos externos, fornecidos por terceiros. Esses links são disponibilizados apenas para sua conveniência. A FéTech não possui controle sobre o conteúdo desses sites ou recursos e não se responsabiliza por eles, nem por qualquer perda ou dano que possa resultar de seu uso.</p>
             </div>
         </div>
     </footer>
@@ -165,35 +134,24 @@
         let isLoggedIn = true;
 
         function toggleSettings() {
-            const menu = document.getElementById('settingsMenu');
-            menu.classList.toggle('active');
+            document.getElementById('settingsMenu').classList.toggle('active');
         }
 
         document.addEventListener('click', function (event) {
-            const settingsContainer = document.querySelector('.settings-container');
-            const settingsMenu = document.getElementById('settingsMenu');
-            if (settingsContainer && !settingsContainer.contains(event.target)) {
-                settingsMenu.classList.remove('active');
-            }
+            const container = document.querySelector('.settings-container');
+            const menu = document.getElementById('settingsMenu');
+            if (container && !container.contains(event.target)) menu.classList.remove('active');
         });
 
         function applySavedTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            document.body.classList.toggle('dark-mode', savedTheme === 'dark');
         }
 
         function toggleTheme() {
             const isDark = document.body.classList.contains('dark-mode');
             const newTheme = isDark ? 'light' : 'dark';
-            if (newTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            document.body.classList.toggle('dark-mode', newTheme === 'dark');
             localStorage.setItem('theme', newTheme);
         }
 
@@ -212,191 +170,245 @@
         applySavedTheme();
 
         // ============================================
-        // API DA BÍBLIA
+        // BÍBLIA - bible-api.com
         // ============================================
-        const API_BASE = 'https://www.abibliadigital.com.br/api';
 
-        // Estado atual
+        const booksData = [
+            { name: 'Gênesis', chapters: 50 },
+            { name: 'Êxodo', chapters: 40 },
+            { name: 'Levítico', chapters: 27 },
+            { name: 'Números', chapters: 36 },
+            { name: 'Deuteronômio', chapters: 34 },
+            { name: 'Josué', chapters: 24 },
+            { name: 'Juízes', chapters: 21 },
+            { name: 'Rute', chapters: 4 },
+            { name: '1 Samuel', chapters: 31 },
+            { name: '2 Samuel', chapters: 24 },
+            { name: '1 Reis', chapters: 22 },
+            { name: '2 Reis', chapters: 25 },
+            { name: '1 Crônicas', chapters: 29 },
+            { name: '2 Crônicas', chapters: 36 },
+            { name: 'Esdras', chapters: 10 },
+            { name: 'Neemias', chapters: 13 },
+            { name: 'Ester', chapters: 10 },
+            { name: 'Jó', chapters: 42 },
+            { name: 'Salmos', chapters: 150 },
+            { name: 'Provérbios', chapters: 31 },
+            { name: 'Eclesiastes', chapters: 12 },
+            { name: 'Cânticos', chapters: 8 },
+            { name: 'Isaías', chapters: 66 },
+            { name: 'Jeremias', chapters: 52 },
+            { name: 'Lamentações', chapters: 5 },
+            { name: 'Ezequiel', chapters: 48 },
+            { name: 'Daniel', chapters: 12 },
+            { name: 'Oséias', chapters: 14 },
+            { name: 'Joel', chapters: 3 },
+            { name: 'Amós', chapters: 9 },
+            { name: 'Obadias', chapters: 1 },
+            { name: 'Jonas', chapters: 4 },
+            { name: 'Miquéias', chapters: 7 },
+            { name: 'Naum', chapters: 3 },
+            { name: 'Habacuque', chapters: 3 },
+            { name: 'Sofonias', chapters: 3 },
+            { name: 'Ageu', chapters: 2 },
+            { name: 'Zacarias', chapters: 14 },
+            { name: 'Malaquias', chapters: 4 },
+            { name: 'Mateus', chapters: 28 },
+            { name: 'Marcos', chapters: 16 },
+            { name: 'Lucas', chapters: 24 },
+            { name: 'João', chapters: 21 },
+            { name: 'Atos', chapters: 28 },
+            { name: 'Romanos', chapters: 16 },
+            { name: '1 Coríntios', chapters: 16 },
+            { name: '2 Coríntios', chapters: 13 },
+            { name: 'Gálatas', chapters: 6 },
+            { name: 'Efésios', chapters: 6 },
+            { name: 'Filipenses', chapters: 4 },
+            { name: 'Colossenses', chapters: 4 },
+            { name: '1 Tessalonicenses', chapters: 5 },
+            { name: '2 Tessalonicenses', chapters: 3 },
+            { name: '1 Timóteo', chapters: 6 },
+            { name: '2 Timóteo', chapters: 4 },
+            { name: 'Tito', chapters: 3 },
+            { name: 'Filemom', chapters: 1 },
+            { name: 'Hebreus', chapters: 13 },
+            { name: 'Tiago', chapters: 5 },
+            { name: '1 Pedro', chapters: 5 },
+            { name: '2 Pedro', chapters: 3 },
+            { name: '1 João', chapters: 5 },
+            { name: '2 João', chapters: 1 },
+            { name: '3 João', chapters: 1 },
+            { name: 'Judas', chapters: 1 },
+            { name: 'Apocalipse', chapters: 22 }
+        ];
+
         let currentBook = null;
         let currentChapter = 1;
-        let currentVersion = 'nvi';
-        let booksList = [];
+        let isSidebarOpen = true;
 
-        // Mapeamento de nomes de livros para abreviações
-        const bookAbbreviations = {
-            'Gênesis': 'gn', 'Êxodo': 'ex', 'Levítico': 'lv', 'Números': 'nm', 'Deuteronômio': 'dt',
-            'Josué': 'js', 'Juízes': 'jz', 'Rute': 'rt', '1 Samuel': '1sm', '2 Samuel': '2sm',
-            '1 Reis': '1rs', '2 Reis': '2rs', '1 Crônicas': '1cr', '2 Crônicas': '2cr', 'Esdras': 'esd',
-            'Neemias': 'ne', 'Ester': 'et', 'Jó': 'jo', 'Salmos': 'sl', 'Provérbios': 'pv',
-            'Eclesiastes': 'ec', 'Cânticos': 'ct', 'Isaías': 'is', 'Jeremias': 'jr', 'Lamentações': 'lm',
-            'Ezequiel': 'ez', 'Daniel': 'dn', 'Oséias': 'os', 'Joel': 'jl', 'Amós': 'am',
-            'Obadias': 'ob', 'Jonas': 'jn', 'Miquéias': 'mq', 'Naum': 'na', 'Habacuque': 'hc',
-            'Sofonias': 'sf', 'Ageu': 'ag', 'Zacarias': 'zc', 'Malaquias': 'ml', 'Mateus': 'mt',
-            'Marcos': 'mc', 'Lucas': 'lc', 'João': 'jo', 'Atos': 'at', 'Romanos': 'rm',
-            '1 Coríntios': '1co', '2 Coríntios': '2co', 'Gálatas': 'gl', 'Efésios': 'ef', 'Filipenses': 'fp',
-            'Colossenses': 'cl', '1 Tessalonicenses': '1ts', '2 Tessalonicenses': '2ts', '1 Timóteo': '1tm',
-            '2 Timóteo': '2tm', 'Tito': 'tt', 'Filemom': 'fm', 'Hebreus': 'hb', 'Tiago': 'tg',
-            '1 Pedro': '1pe', '2 Pedro': '2pe', '1 João': '1jo', '2 João': '2jo', '3 João': '3jo', 'Judas': 'jd', 'Apocalipse': 'ap'
-        };
+        // Elementos
+        const booksListEl = document.getElementById('booksList');
+        const chapterTitle = document.getElementById('chapterTitle');
+        const bibleText = document.getElementById('bibleText');
+        const chapterSelect = document.getElementById('chapterSelect');
+        const chapterInfo = document.getElementById('chapterInfo');
+        const prevBtn = document.getElementById('prevChapter');
+        const nextBtn = document.getElementById('nextChapter');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const bookSearch = document.getElementById('bookSearch');
 
-        // Carregar lista de livros da API
-        async function loadBooks() {
-            const booksListEl = document.getElementById('booksList');
-            booksListEl.innerHTML = '<li class="loading"><i class="fas fa-spinner"></i> Carregando livros...</li>';
+        // Carregar lista de livros com busca
+        function loadBooks(filter = '') {
+            const filtered = filter
+                ? booksData.filter(b => b.name.toLowerCase().includes(filter.toLowerCase()))
+                : booksData;
 
-            try {
-                const response = await fetch(`${API_BASE}/v1/books/${currentVersion}`);
-                if (!response.ok) throw new Error('Erro ao carregar livros');
+            booksListEl.innerHTML = '';
+            filtered.forEach(book => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.textContent = book.name;
+                a.dataset.book = book.name;
+                a.onclick = () => selectBook(book);
+                li.appendChild(a);
+                booksListEl.appendChild(li);
+            });
 
-                booksList = await response.json();
-
-                booksListEl.innerHTML = '';
-                booksList.forEach(book => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.textContent = book.name;
-                    a.onclick = () => selectBook(book);
-                    li.appendChild(a);
-                    booksListEl.appendChild(li);
+            // Destacar o livro atual
+            if (currentBook) {
+                document.querySelectorAll('#booksList a').forEach(a => {
+                    a.classList.toggle('active', a.dataset.book === currentBook.name);
                 });
+            }
 
-                // Selecionar primeiro livro por padrão
-                if (booksList.length > 0 && !currentBook) {
-                    selectBook(booksList[0]);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                booksListEl.innerHTML = '<li class="error">Erro ao carregar livros. <a href="#" onclick="loadBooks()">Tentar novamente</a></li>';
+            // Se não houver resultados
+            if (filtered.length === 0) {
+                booksListEl.innerHTML = '<li class="no-results">Nenhum livro encontrado</li>';
             }
         }
 
-        // Selecionar um livro
+        // Selecionar livro
         function selectBook(book) {
-            // Remover classe active de todos
-            document.querySelectorAll('#booksList a').forEach(a => a.classList.remove('active'));
-            // Adicionar classe active ao clicado
-            event.target.classList.add('active');
-
             currentBook = book;
             currentChapter = 1;
+            document.querySelectorAll('#booksList a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('#booksList a').forEach(a => {
+                if (a.dataset.book === book.name) a.classList.add('active');
+            });
+            // Fechar sidebar em mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar(false);
+            }
             loadChapter();
         }
 
-        // Carregar capítulo atual
+        // Carregar capítulo
         async function loadChapter() {
             if (!currentBook) return;
 
-            const bibleText = document.getElementById('bibleText');
-            bibleText.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Carregando texto...</div>';
+            bibleText.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-pulse"></i> Carregando...</div>`;
+            chapterTitle.textContent = `${currentBook.name} ${currentChapter}`;
+            updateChapterSelect(currentBook.chapters);
+            updateChapterInfo(currentBook.chapters);
 
-            // Atualizar título
-            document.getElementById('chapterTitle').textContent = `${currentBook.name} ${currentChapter}`;
-
-            // Obter abreviação do livro
-            const abbreviation = currentBook.abbrev.pt || bookAbbreviations[currentBook.name] || currentBook.abbrev;
+            const url = `https://bible-api.com/${encodeURIComponent(currentBook.name)}+${currentChapter}?translation=almeida`;
 
             try {
-                const response = await fetch(`${API_BASE}/v1/verses/${currentVersion}/${abbreviation}/${currentChapter}`);
-
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        throw new Error('Capítulo não encontrado');
-                    }
-                    throw new Error('Erro na requisição');
-                }
-
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Capítulo não encontrado');
                 const data = await response.json();
 
-                // Verificar número total de capítulos
-                const totalChapters = currentBook.chapters;
-                updateChapterSelect(totalChapters);
-
-                // Renderizar versículos
                 let html = '';
-                data.verses.forEach(verse => {
-                    html += `
-                        <div class="verse-item">
-                            <span class="bible-verse-number">${verse.number}</span>
-                            ${verse.text}
-                        </div>
-                    `;
-                });
+                if (data.verses && data.verses.length) {
+                    data.verses.forEach(verse => {
+                        html += `
+                            <div class="verse-item">
+                                <span class="verse-number">${verse.verse}</span>
+                                <span class="verse-text">${verse.text}</span>
+                            </div>
+                        `;
+                    });
+                } else {
+                    html = `<div class="verse-item">${data.text || 'Texto não disponível'}</div>`;
+                }
                 bibleText.innerHTML = html;
-
             } catch (error) {
-                console.error('Erro:', error);
-                bibleText.innerHTML = `<div class="error">⚠️ ${error.message}. O capítulo ${currentChapter} pode não existir neste livro.</div>`;
+                bibleText.innerHTML = `<div class="error">⚠️ ${error.message}</div>`;
             }
         }
 
         // Atualizar seletor de capítulos
-        function updateChapterSelect(totalChapters) {
-            const chapterSelect = document.getElementById('chapterSelect');
+        function updateChapterSelect(total) {
             chapterSelect.innerHTML = '';
-
-            for (let i = 1; i <= totalChapters; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Capítulo ${i}`;
-                if (i === currentChapter) option.selected = true;
-                chapterSelect.appendChild(option);
+            for (let i = 1; i <= total; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i;
+                if (i === currentChapter) opt.selected = true;
+                chapterSelect.appendChild(opt);
             }
-
             chapterSelect.onchange = () => {
                 currentChapter = parseInt(chapterSelect.value);
                 loadChapter();
             };
         }
 
-        // Mudar versão da Bíblia
-        function changeVersion() {
-            currentVersion = document.getElementById('versionSelect').value;
-            loadBooks(); // Recarregar livros para a nova versão
+        function updateChapterInfo(total) {
+            chapterInfo.textContent = `Capítulo ${currentChapter} de ${total}`;
         }
 
-        // Navegação entre capítulos
-        function nextChapter() {
-            if (currentBook && currentChapter < currentBook.chapters) {
-                currentChapter++;
-                loadChapter();
-            } else {
-                alert('Você está no último capítulo deste livro!');
-            }
-        }
-
+        // Navegação
         function prevChapter() {
             if (currentBook && currentChapter > 1) {
                 currentChapter--;
                 loadChapter();
             } else {
-                alert('Você está no primeiro capítulo deste livro!');
+                alert('Você está no primeiro capítulo.');
             }
         }
 
-        // Toggle da lista de livros
-        function initBooksToggle() {
-            const booksToggle = document.getElementById('booksToggle');
-            const booksList = document.getElementById('booksList');
-
-            booksToggle.addEventListener('click', function () {
-                booksToggle.classList.toggle('active');
-                booksList.classList.toggle('hidden');
-            });
+        function nextChapter() {
+            if (currentBook && currentChapter < currentBook.chapters) {
+                currentChapter++;
+                loadChapter();
+            } else {
+                alert('Você está no último capítulo.');
+            }
         }
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function () {
-            initBooksToggle();
+        // Sidebar toggle
+        function toggleSidebar(open) {
+            const sidebar = document.querySelector('.bible-sidebar');
+            const content = document.querySelector('.bible-content');
+            isSidebarOpen = open !== undefined ? open : !isSidebarOpen;
+            sidebar.classList.toggle('collapsed', !isSidebarOpen);
+            content.classList.toggle('expanded', !isSidebarOpen);
+            sidebarToggle.innerHTML = isSidebarOpen
+                ? '<i class="fas fa-chevron-left"></i>'
+                : '<i class="fas fa-chevron-right"></i>';
+        }
 
-            // Configurar eventos
-            document.getElementById('versionSelect').addEventListener('change', changeVersion);
-            document.getElementById('prevChapter').addEventListener('click', prevChapter);
-            document.getElementById('nextChapter').addEventListener('click', nextChapter);
+        // Busca de livros
+        bookSearch.addEventListener('input', (e) => {
+            loadBooks(e.target.value);
+        });
 
-            // Carregar livros
+        // Event listeners
+        prevBtn.addEventListener('click', prevChapter);
+        nextBtn.addEventListener('click', nextChapter);
+        sidebarToggle.addEventListener('click', () => toggleSidebar());
+
+        // Responsividade: fechar sidebar em mobile
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768 && isSidebarOpen) toggleSidebar(false);
+            if (window.innerWidth > 768 && !isSidebarOpen) toggleSidebar(true);
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
             loadBooks();
+            if (booksData.length) selectBook(booksData[0]);
         });
     </script>
 </body>
-
 </html>
