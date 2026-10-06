@@ -1,0 +1,4 @@
+[build]
+  # O site estático fica na pasta "frontend" (onde está o index.html)
+  publish = "frontend"
+  command = ""
