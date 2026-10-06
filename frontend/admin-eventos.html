@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="theme-manager.js"></script>
+    <script src="config.js"></script>
 </head>
 <body>
     <!-- Verificar autenticação -->
@@ -118,9 +119,7 @@
                 </button>
             </div>
 
-            <div class="events-list" id="eventsList">
-                <!-- Eventos serão carregados aqui -->
-            </div>
+            <div class="events-list" id="eventsList"></div>
 
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-calendar-times"></i>
@@ -213,17 +212,15 @@
 
     <script>
         // ============================================
-        // API CONFIG
+        // API CONFIG — usa variável central (config.js)
         // ============================================
-        const API_URL = 'http://localhost:5000/api/events';
+        const API_URL = `${window.APP_CONFIG.API_URL}/events`;
 
         let editingEventId = null;
 
         // ============================================
         // CRUD OPERATIONS
         // ============================================
-
-        // Carregar eventos da API
         async function loadEvents() {
             try {
                 const response = await fetch(API_URL);
@@ -233,7 +230,6 @@
                 const eventsList = document.getElementById('eventsList');
                 const emptyState = document.getElementById('emptyState');
 
-                // Aplicar filtros (frontend)
                 const categoryFilter = document.getElementById('filterCategory').value;
                 const statusFilter = document.getElementById('filterStatus').value;
                 const sortFilter = document.getElementById('filterSort').value;
@@ -243,16 +239,13 @@
                 if (categoryFilter !== 'all') {
                     filtered = filtered.filter(e => e.category === categoryFilter);
                 }
-
                 if (statusFilter !== 'all') {
                     filtered = filtered.filter(e => e.status === statusFilter);
                 }
 
-                // Ordenar
                 filtered.sort((a, b) => {
                     const dateA = new Date(a.date + 'T' + a.time);
                     const dateB = new Date(b.date + 'T' + b.time);
-
                     switch (sortFilter) {
                         case 'date_asc': return dateA - dateB;
                         case 'date_desc': return dateB - dateA;
@@ -272,19 +265,11 @@
                 emptyState.style.display = 'none';
 
                 const categoryNames = {
-                    'missa': 'Missa',
-                    'formacao': 'Formação',
-                    'festa': 'Festa',
-                    'servico': 'Serviço',
-                    'outro': 'Outro'
+                    'missa': 'Missa', 'formacao': 'Formação', 'festa': 'Festa',
+                    'servico': 'Serviço', 'outro': 'Outro'
                 };
+                const statusNames = { 'published': 'Publicado', 'draft': 'Rascunho' };
 
-                const statusNames = {
-                    'published': 'Publicado',
-                    'draft': 'Rascunho'
-                };
-
-                // ========== CORREÇÃO: usar _id em vez de id ==========
                 eventsList.innerHTML = filtered.map(event => {
                     const date = new Date(event.date);
                     const day = date.getDate();
@@ -333,9 +318,7 @@
             }
         }
 
-        // Salvar evento (criar ou atualizar)
         async function saveEvent() {
-            const form = document.getElementById('eventForm');
             const eventId = document.getElementById('eventId').value;
             const title = document.getElementById('eventTitle').value;
             const description = document.getElementById('eventDescription').value;
@@ -347,7 +330,6 @@
             const status = document.getElementById('eventStatus').value;
             const notes = document.getElementById('eventNotes').value;
 
-            // Validação
             if (!title || !description || !date || !time || !location || !category) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
@@ -358,14 +340,12 @@
             try {
                 let response;
                 if (eventId) {
-                    // Atualizar
                     response = await fetch(`${API_URL}/${eventId}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(eventData)
                     });
                 } else {
-                    // Criar
                     response = await fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -374,21 +354,17 @@
                 }
 
                 if (!response.ok) throw new Error('Erro ao salvar evento');
-
                 const savedEvent = await response.json();
                 console.log('Evento salvo:', savedEvent);
-
                 closeModal();
                 loadEvents();
                 alert('Evento salvo com sucesso!');
-
             } catch (error) {
                 console.error('Erro:', error);
                 alert('Erro ao salvar evento. Verifique o servidor.');
             }
         }
 
-        // Editar evento
         async function editEvent(id) {
             try {
                 const response = await fetch(`${API_URL}/${id}`);
@@ -409,21 +385,18 @@
                 document.getElementById('eventNotes').value = event.notes || '';
 
                 document.getElementById('eventModal').classList.add('active');
-
             } catch (error) {
                 console.error('Erro:', error);
                 alert('Erro ao carregar evento para edição.');
             }
         }
 
-        // Duplicar evento
         async function duplicateEvent(id) {
             try {
                 const response = await fetch(`${API_URL}/${id}`);
                 if (!response.ok) throw new Error('Erro ao buscar evento');
                 const original = await response.json();
 
-                // Remover campos que não devem ser copiados
                 delete original._id;
                 delete original.id;
                 delete original.createdAt;
@@ -437,34 +410,26 @@
                 });
 
                 if (!createResponse.ok) throw new Error('Erro ao duplicar evento');
-
                 loadEvents();
                 alert('Evento duplicado com sucesso!');
-
             } catch (error) {
                 console.error('Erro:', error);
                 alert('Erro ao duplicar evento.');
             }
         }
 
-        // ========== EXCLUSÃO CORRIGIDA ==========
         async function deleteEvent(id) {
-            // Verifica se o ID foi passado
             if (!id) {
                 alert('ID do evento não fornecido. Recarregue a página e tente novamente.');
                 return;
             }
-
             if (!confirm('Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.')) return;
 
             try {
                 console.log(`Tentando excluir evento com ID: ${id}`);
-
                 const response = await fetch(`${API_URL}/${id}`, {
                     method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    headers: { 'Content-Type': 'application/json' }
                 });
 
                 if (!response.ok) {
@@ -478,21 +443,17 @@
 
                 const result = await response.json();
                 console.log('Resposta da exclusão:', result);
-
                 alert('Evento excluído com sucesso!');
-                loadEvents(); // Recarregar a lista
-
+                loadEvents();
             } catch (error) {
                 console.error('Erro ao excluir evento:', error);
                 alert(`Erro ao excluir evento: ${error.message}`);
             }
         }
-        // ============================================
 
         // ============================================
         // UI CONTROLS
         // ============================================
-
         function openEventModal() {
             editingEventId = null;
             document.getElementById('eventId').value = '';
@@ -525,13 +486,8 @@
             }
         }
 
-        // ============================================
-        // INIT
-        // ============================================
-
         document.addEventListener('DOMContentLoaded', function () {
             loadEvents();
-            // Fechar modal ao clicar fora
             document.getElementById('eventModal').addEventListener('click', function (e) {
                 if (e.target === this) closeModal();
             });

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="theme-manager.js"></script>
+    <script src="config.js"></script> <!-- ← ADICIONE ESTA LINHA -->
 </head>
 
 <body>
@@ -153,12 +154,14 @@
 
                     <div class="form-group">
                         <label for="retreatTitle">Título do Retiro *</label>
-                        <input type="text" id="retreatTitle" class="form-control" placeholder="Ex: Retiro de Silêncio e Oração" required>
+                        <input type="text" id="retreatTitle" class="form-control"
+                            placeholder="Ex: Retiro de Silêncio e Oração" required>
                     </div>
 
                     <div class="form-group">
                         <label for="retreatDescription">Descrição *</label>
-                        <textarea id="retreatDescription" class="form-control" rows="4" placeholder="Descreva o retiro..." required></textarea>
+                        <textarea id="retreatDescription" class="form-control" rows="4"
+                            placeholder="Descreva o retiro..." required></textarea>
                     </div>
 
                     <div class="form-row">
@@ -175,7 +178,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="retreatLocation">Local *</label>
-                            <input type="text" id="retreatLocation" class="form-control" placeholder="Ex: Casa de Retiros Monte Carmelo" required>
+                            <input type="text" id="retreatLocation" class="form-control"
+                                placeholder="Ex: Casa de Retiros Monte Carmelo" required>
                         </div>
                         <div class="form-group">
                             <label for="retreatType">Tipo de Retiro *</label>
@@ -193,17 +197,20 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="retreatPrice">Valor (R$)</label>
-                            <input type="number" id="retreatPrice" class="form-control" placeholder="0.00" step="0.01" min="0">
+                            <input type="number" id="retreatPrice" class="form-control" placeholder="0.00" step="0.01"
+                                min="0">
                         </div>
                         <div class="form-group">
                             <label for="retreatCapacity">Vagas</label>
-                            <input type="number" id="retreatCapacity" class="form-control" placeholder="Número de vagas">
+                            <input type="number" id="retreatCapacity" class="form-control"
+                                placeholder="Número de vagas">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="retreatResponsible">Responsável</label>
-                        <input type="text" id="retreatResponsible" class="form-control" placeholder="Ex: Pe. João Silva">
+                        <input type="text" id="retreatResponsible" class="form-control"
+                            placeholder="Ex: Pe. João Silva">
                     </div>
 
                     <div class="form-group">
@@ -217,7 +224,8 @@
 
                     <div class="form-group">
                         <label for="retreatRequirements">Requisitos/Observações</label>
-                        <textarea id="retreatRequirements" class="form-control" rows="3" placeholder="O que os participantes devem levar..."></textarea>
+                        <textarea id="retreatRequirements" class="form-control" rows="3"
+                            placeholder="O que os participantes devem levar..."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -229,9 +237,11 @@
                     <div class="form-group">
                         <label for="retreatImage">Imagem do Retiro</label>
                         <input type="file" id="retreatImage" class="form-control" accept="image/*">
-                        <small style="color: var(--gray);">Envie uma imagem (JPG, PNG, WEBP) - tamanho recomendado: 800x400px</small>
+                        <small style="color: var(--gray);">Envie uma imagem (JPG, PNG, WEBP) - tamanho recomendado:
+                            800x400px</small>
                         <div id="imagePreview" style="margin-top: 10px; display: none;">
-                            <img id="previewImg" src="#" alt="Pré-visualização" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--light-gray);">
+                            <img id="previewImg" src="#" alt="Pré-visualização"
+                                style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--light-gray);">
                         </div>
                     </div>
                 </form>
@@ -247,7 +257,7 @@
         // ============================================
         // API URL
         // ============================================
-        const API_URL = 'http://localhost:5000/api/retreats';
+        const API_URL = `${window.APP_CONFIG.API_URL}/retreats`;
         let editingRetreatId = null;
         let allRetreats = [];
 
@@ -329,8 +339,8 @@
                     };
 
                     // Exibir imagem ou ícone
-                    const imageHtml = retreat.image 
-                        ? `<img src="${retreat.image}" alt="${retreat.title}" style="width:100%; height:100%; object-fit:cover;">` 
+                    const imageHtml = retreat.image
+                        ? `<img src="${retreat.image}" alt="${retreat.title}" style="width:100%; height:100%; object-fit:cover;">`
                         : `<i class="fas fa-${iconMap[retreat.type] || 'pray'}" style="font-size:50px; opacity:0.5;"></i>`;
 
                     return `
@@ -440,7 +450,7 @@
             const imagePreview = document.getElementById('imagePreview');
             const previewImg = document.getElementById('previewImg');
             const imageInput = document.getElementById('retreatImage');
-            
+
             form.reset();
             imagePreview.style.display = 'none';
             previewImg.src = '#';
@@ -469,7 +479,7 @@
                         document.getElementById('retreatStatus').value = retreat.status;
                         document.getElementById('retreatRequirements').value = retreat.requirements || '';
                         document.getElementById('retreatContact').value = retreat.contact || '';
-                        
+
                         // Exibir imagem existente
                         if (retreat.image) {
                             document.getElementById('retreatImageHidden').value = retreat.image;
@@ -502,17 +512,17 @@
         // ============================================
         // PRÉ-VISUALIZAÇÃO DA IMAGEM
         // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const imageInput = document.getElementById('retreatImage');
             const imagePreview = document.getElementById('imagePreview');
             const previewImg = document.getElementById('previewImg');
 
             if (imageInput) {
-                imageInput.addEventListener('change', function(e) {
+                imageInput.addEventListener('change', function (e) {
                     const file = e.target.files[0];
                     if (file) {
                         const reader = new FileReader();
-                        reader.onload = function(event) {
+                        reader.onload = function (event) {
                             previewImg.src = event.target.result;
                             imagePreview.style.display = 'block';
                         };
@@ -561,7 +571,7 @@
             if (imageInput.files && imageInput.files[0]) {
                 const file = imageInput.files[0];
                 const reader = new FileReader();
-                reader.onloadend = async function() {
+                reader.onloadend = async function () {
                     imageBase64 = reader.result;
                     await sendRetreatData(retreatId, {
                         title, description, startDate, endDate, location, type,
