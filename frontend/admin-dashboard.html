@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - Comunidade Mesa e Pão</title>
+    <title>Painel Administrativo - Fé Tech</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="theme-manager.js"></script>
+    <script src="js/config.js"></script> <!-- Certifique-se de que o config.js está sendo carregado -->
 </head>
 
 <body>
@@ -30,7 +31,7 @@
                     </div>
                     <div>
                         <div class="admin-logo-text">Painel Administrativo</div>
-                        <div class="admin-logo-subtitle">Comunidade Mesa e Pão</div>
+                        <div class="admin-logo-subtitle">Fé Tech</div>
                     </div>
                 </div>
                 <div class="admin-nav">
@@ -100,7 +101,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Missas</h3>
-                        <div class="stat-number">12</div>
+                        <div class="stat-number" id="count-missas">0</div>
                         <small>Horários cadastrados</small>
                     </div>
                 </div>
@@ -110,7 +111,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Eventos</h3>
-                        <div class="stat-number">8</div>
+                        <div class="stat-number" id="count-eventos">0</div>
                         <small>Próximos eventos</small>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                     </div>
                     <div class="stat-info">
                         <h3>Retiros</h3>
-                        <div class="stat-number">4</div>
+                        <div class="stat-number" id="count-retiros">0</div>
                         <small>Programados</small>
                     </div>
                 </div>
@@ -129,47 +130,8 @@
             <!-- Atividade Recente -->
             <div class="recent-activity">
                 <h2><i class="fas fa-history"></i> Atividade Recente</h2>
-                <ul class="activity-list">
-                    <li class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h4>Novo Evento Adicionado</h4>
-                            <p>Festa de São Francisco foi adicionada aos eventos</p>
-                        </div>
-                        <div class="activity-time">Hoje, 10:30</div>
-                    </li>
-                    <li class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-edit"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h4>Horário de Missa Atualizado</h4>
-                            <p>Missa das 19:30 foi alterada para 19:00</p>
-                        </div>
-                        <div class="activity-time">Ontem, 15:45</div>
-                    </li>
-                    <li class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-user-plus"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h4>Novo Membro na Escala</h4>
-                            <p>João Silva foi adicionado aos acólitos</p>
-                        </div>
-                        <div class="activity-time">Ontem, 11:20</div>
-                    </li>
-                    <li class="activity-item">
-                        <div class="activity-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div class="activity-content">
-                            <h4>Livro Adicionado</h4>
-                            <p>"Suma Teológica" foi incluída na biblioteca</p>
-                        </div>
-                        <div class="activity-time">2 dias atrás</div>
-                    </li>
+                <ul class="activity-list" id="activity-list">
+                    <!-- O JavaScript vai preencher isso automaticamente -->
                 </ul>
             </div>
 
@@ -205,6 +167,88 @@
             document.querySelectorAll('.sidebar-link').forEach(link => {
                 link.classList.toggle('active', link.getAttribute('href') === currentPage);
             });
+        });
+
+        // ==========================================
+        // SCRIPT PARA BUSCAR DADOS REAIS DO BACKEND
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Pega a URL base do config.js ou usa o fallback
+            const API_URL = window.APP_CONFIG ? window.APP_CONFIG.API_URL : 'https://tcc-backend-26lv.onrender.com/api';
+
+            try {
+                // 1. Busca os dados de todas as rotas ao mesmo tempo
+                const [resMasses, resEvents, resRetreats] = await Promise.all([
+                    fetch(`${API_URL}/masses`),
+                    fetch(`${API_URL}/events`),
+                    fetch(`${API_URL}/retreats`)
+                ]);
+
+                const masses = await resMasses.json();
+                const events = await resEvents.json();
+                const retreats = await resRetreats.json();
+
+                // 2. Atualiza os contadores na tela
+                document.getElementById('count-missas').textContent = masses.length || 0;
+                document.getElementById('count-eventos').textContent = events.length || 0;
+                document.getElementById('count-retiros').textContent = retreats.length || 0;
+
+                // 3. Junta todos os itens em uma única lista para criar o histórico
+                const allItems = [
+                    ...masses.map(m => ({ ...m, type: 'Missa', icon: 'fa-church' })),
+                    ...events.map(e => ({ ...e, type: 'Evento', icon: 'fa-calendar-alt' })),
+                    ...retreats.map(r => ({ ...r, type: 'Retiro', icon: 'fa-praying-hands' }))
+                ];
+
+                // 4. Ordena do mais recente para o mais antigo (usando updatedAt ou createdAt)
+                allItems.sort((a, b) => {
+                    const dateA = new Date(a.updatedAt || a.createdAt || 0);
+                    const dateB = new Date(b.updatedAt || b.createdAt || 0);
+                    return dateB - dateA;
+                });
+
+                // Pega apenas os 5 mais recentes
+                const recentItems = allItems.slice(0, 5);
+
+                // 5. Renderiza no HTML
+                const activityContainer = document.getElementById('activity-list');
+                
+                if (activityContainer) {
+                    activityContainer.innerHTML = ''; // Limpa o que estava lá
+
+                    if (recentItems.length === 0) {
+                        activityContainer.innerHTML = '<li style="text-align:center; color:#888; padding: 20px;">Nenhuma atividade recente.</li>';
+                    } else {
+                        recentItems.forEach(item => {
+                            // Formata a data para o padrão brasileiro
+                            const dateObj = new Date(item.updatedAt || item.createdAt);
+                            const dateStr = dateObj.toLocaleDateString('pt-BR') + ' às ' + dateObj.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+                            
+                            const li = document.createElement('li');
+                            li.className = 'activity-item'; 
+                            
+                            li.innerHTML = `
+                                <div class="activity-icon">
+                                    <i class="fas ${item.icon}"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <h4>${item.type} cadastrado</h4>
+                                    <p>${item.title || item.type} foi adicionado ao sistema</p>
+                                </div>
+                                <div class="activity-time">${dateStr}</div>
+                            `;
+                            activityContainer.appendChild(li);
+                        });
+                    }
+                }
+
+            } catch (error) {
+                console.error("Erro ao carregar o dashboard:", error);
+                const activityContainer = document.getElementById('activity-list');
+                if (activityContainer) {
+                    activityContainer.innerHTML = '<li style="color:red; text-align:center; padding: 20px;">Erro ao conectar com o servidor. Verifique se o backend está rodando.</li>';
+                }
+            }
         });
     </script>
 </body>
